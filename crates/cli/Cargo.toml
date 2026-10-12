@@ -1,0 +1,18 @@
+[package]
+name = "inputsmith-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "inputsmith"
+path = "src/main.rs"
+
+[dependencies]
+inputsmith-hid.workspace = true
+inputsmith-hidpp.workspace = true
+inputsmith-ipc.workspace = true
+serde_json = "1"
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.61", features = ["Win32_Foundation", "Win32_UI_WindowsAndMessaging", "Win32_System_LibraryLoader"] }

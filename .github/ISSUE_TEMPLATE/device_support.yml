@@ -1,0 +1,57 @@
+name: Device support request
+description: Ask for support for a device, or for a feature of your device that Inputsmith does not handle yet.
+labels: ["device support"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Check the feature matrix (docs/FEATURES.md in the repository) and existing issues for your device first.
+        The more information you can provide, the more likely someone can add support without owning the device.
+  - type: input
+    id: device
+    attributes:
+      label: Device
+      placeholder: e.g. MX Keys S, MX Master 3S
+    validations:
+      required: true
+  - type: dropdown
+    id: connection
+    attributes:
+      label: Connection
+      options:
+        - Unifying receiver
+        - Bolt receiver
+        - Lightspeed / other receiver
+        - Bluetooth
+        - USB cable
+    validations:
+      required: true
+  - type: textarea
+    id: missing
+    attributes:
+      label: What is missing?
+      description: Which settings or buttons (as named in Logi Options+) do you need?
+    validations:
+      required: true
+  - type: textarea
+    id: info
+    attributes:
+      label: Output of `inputsmith info`
+      description: Run it with the device connected; it only reads from the device. Remove serial numbers if you prefer.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: sniff
+    attributes:
+      label: What Options+ does (optional, very helpful)
+      description: |
+        If you have Logi Options+, run `inputsmith sniff`, change one setting in Options+, and paste the output
+        together with what you changed.
+      render: text
+  - type: checkboxes
+    id: test
+    attributes:
+      label: Testing
+      options:
+        - label: I can test development builds with this device.

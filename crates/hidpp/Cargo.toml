@@ -1,0 +1,11 @@
+[package]
+name = "inputsmith-hidpp"
+description = "Logitech HID++ 1.0/2.0 protocol implementation"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+inputsmith-hid.workspace = true
+thiserror.workspace = true
+log.workspace = true

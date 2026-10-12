@@ -1,0 +1,24 @@
+[package]
+name = "inputsmith-hid"
+description = "Minimal pure-Rust HID access (Windows HID API, Linux hidraw) for Logitech devices"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+thiserror.workspace = true
+log.workspace = true
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.61", features = [
+    "Win32_Foundation",
+    "Win32_Devices_HumanInterfaceDevice",
+    "Win32_Devices_DeviceAndDriverInstallation",
+    "Win32_Storage_FileSystem",
+    "Win32_System_IO",
+    "Win32_System_Threading",
+    "Win32_Security",
+] }
+
+[target.'cfg(target_os = "linux")'.dependencies]
+libc = "0.2"

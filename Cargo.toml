@@ -1,0 +1,18 @@
+[workspace]
+resolver = "3"
+members = ["crates/*"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+license = "GPL-3.0-or-later"
+repository = "https://github.com/IngilizAdam/inputsmith"
+rust-version = "1.85"
+
+[workspace.dependencies]
+inputsmith-hid = { path = "crates/hid" }
+inputsmith-hidpp = { path = "crates/hidpp" }
+inputsmith-ipc = { path = "crates/ipc" }
+inputsmith-input = { path = "crates/input" }
+thiserror = "2"
+log = "0.4"

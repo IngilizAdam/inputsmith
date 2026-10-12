@@ -1,0 +1,28 @@
+name: Feature request
+description: Suggest a feature, or an Options+ feature that Inputsmith is missing.
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please check the feature matrix (docs/FEATURES.md) and the roadmap (docs/ROADMAP.md) in the repository first.
+        Firmware updates, accounts, cloud sync and telemetry are deliberately out of scope.
+  - type: textarea
+    id: what
+    attributes:
+      label: What would you like Inputsmith to do?
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why is it useful?
+  - type: textarea
+    id: optionsplus
+    attributes:
+      label: How does Logi Options+ do it? (if applicable)
+      description: Where it is in Options+ and how it behaves.
+  - type: input
+    id: device
+    attributes:
+      label: Device(s) it applies to

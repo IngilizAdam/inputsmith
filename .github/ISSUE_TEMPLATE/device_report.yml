@@ -1,0 +1,41 @@
+name: Device test report
+description: Tell us how Inputsmith works with your device — what works is as useful as what does not.
+labels: ["device report"]
+body:
+  - type: input
+    id: device
+    attributes:
+      label: Device and connection
+      placeholder: e.g. MX Master 3S over Bolt
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Inputsmith version or commit
+    validations:
+      required: true
+  - type: textarea
+    id: works
+    attributes:
+      label: What works
+      placeholder: pointer speed, SmartShift, buttons, gestures, …
+  - type: textarea
+    id: broken
+    attributes:
+      label: What does not work
+  - type: textarea
+    id: info
+    attributes:
+      label: Output of `inputsmith info`
+      description: Remove serial numbers if you prefer.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: persistence
+    attributes:
+      label: Power-cycle test (optional)
+      description: |
+        Which settings survive switching the device off and on without Inputsmith or Options+ running?
+        See the template in docs/devices/README.md.

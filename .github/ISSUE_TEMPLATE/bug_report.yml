@@ -1,0 +1,61 @@
+name: Bug report
+description: Something does not work as expected.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting! Please search existing issues first.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Device and connection
+      placeholder: e.g. MX Anywhere 3 on a Unifying receiver
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Inputsmith version or commit
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - Windows 11
+        - Windows 10
+        - Linux
+        - macOS
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: optionsplus
+    attributes:
+      label: Is Logi Options+ installed?
+      description: It must not be running at the same time as Inputsmith.
+      options:
+        - "Installed, not running"
+        - "Not installed"
+        - "Running at the same time"
+  - type: textarea
+    id: log
+    attributes:
+      label: Agent log
+      description: "Windows: %LOCALAPPDATA%\\inputsmith\\agent.log (the end of it is usually enough)."
+      render: text
+  - type: textarea
+    id: info
+    attributes:
+      label: Output of `inputsmith info` (optional)
+      description: Remove serial numbers if you prefer.
+      render: text
