@@ -23,7 +23,7 @@ Verified on an MX Anywhere 3 (Unifying receiver), behaviour measured against Opt
 - [x] Per-model defaults
 - [x] Settings window and tray icon in the style of Options+
 - [x] Local settings, backups, export/import, import directly from Options+
-- [x] Start at login, single instance, per-user installer
+- [x] Start at login, single instance, per-user installer (MSI), releases built by GitHub Actions
 - [x] No telemetry; device-side click analytics switched off
 
 ## Milestone 2 — Complete the app on Windows
@@ -50,7 +50,7 @@ Verified on an MX Anywhere 3 (Unifying receiver), behaviour measured against Opt
 - [ ] Agent as a systemd user service; tray icon via StatusNotifierItem
 - [ ] Device art and action catalog without an Options+ installation (own art, larger built-in catalog,
       or a one-time import from a Windows installation)
-- [ ] Packages (e.g. AppImage / distribution packages)
+- [ ] Packages (`.deb`, `.rpm`, possibly AppImage) built and released by the CI (`build.yml`)
 
 ## Milestone 4 — More devices
 

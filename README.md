@@ -39,15 +39,14 @@ or missing, is in [`docs/FEATURES.md`](docs/FEATURES.md).
 
 ## Install (Windows)
 
-There are no prebuilt releases yet; build the package from source (needs a Rust toolchain):
+Download `inputsmith-<version>-windows-x64.msi` from the
+[releases page](https://github.com/IngilizAdam/inputsmith/releases) and run it. It installs for the
+current user into `%LOCALAPPDATA%\Programs\inputsmith` (no administrator rights needed) and adds a Start
+Menu entry; uninstall it from *Settings → Apps*. Your settings are kept either way.
 
-```bash
-powershell -ExecutionPolicy Bypass -File tools/package.ps1
-```
-
-Then unpack `dist/inputsmith-<version>-windows-x64.zip` and run `install.ps1` from it. It installs for the
-current user into `%LOCALAPPDATA%\Programs\inputsmith` and adds a Start Menu entry. `uninstall.ps1`
-removes it again (your settings are kept).
+The installers are not code-signed yet, so SmartScreen may warn on first run ("More info" → "Run
+anyway"). Each release also has a `.zip` with the same programs and `install.ps1` / `uninstall.ps1`, and
+`SHA256SUMS.txt`. To build the package yourself, see [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).
 
 ## Switching from Logi Options+
 

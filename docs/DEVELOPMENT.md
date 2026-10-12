@@ -53,10 +53,11 @@ first if you want to run the agent by hand):
 cargo run -p inputsmith-agent -- run
 ```
 
-Release package (Windows; zip with per-user install/uninstall scripts in `dist/`):
+Release package (Windows; zip with per-user install/uninstall scripts in `dist/`, plus the MSI with
+`-Msi`, which needs the WiX Toolset as described at the top of the script):
 
 ```bash
-powershell -ExecutionPolicy Bypass -File tools/package.ps1
+powershell -ExecutionPolicy Bypass -File tools/package.ps1 -Msi
 ```
 
 Useful while developing:
@@ -66,6 +67,27 @@ Useful while developing:
 - `tools/shot.sh <buttons|point|settings|app-settings> out.png [slot]` opens the GUI on a page and saves
   a window screenshot (`INPUTSMITH_START_PAGE`, `INPUTSMITH_START_SLOT`).
 - Logi Options+ must not run at the same time as the agent: quit it (and its background agent) first.
+
+## Continuous integration and releases
+
+`.github/workflows/build.yml` runs the tests and builds the installers (Windows: `.msi` and `.zip`).
+`ci.yml` runs it for every push to `main` and every pull request; the installers are attached to the run
+as artifacts but nothing is published. Releases are made only from version tags:
+
+1. Set the new version in `[workspace.package]` in `Cargo.toml` (semantic versioning; `0.2.0-rc.1` for a
+   pre-release) and run `cargo build` so `Cargo.lock` follows. Commit and push.
+2. Tag that commit and push the tag:
+
+   ```bash
+   git tag v0.2.0
+   git push origin v0.2.0
+   ```
+
+`release.yml` then checks that the tag matches `Cargo.toml`, builds every platform and publishes a GitHub
+release with the installers, `SHA256SUMS.txt` and generated notes (tags with a `-` suffix become
+pre-releases). To rebuild an existing tag, run the *Release* workflow by hand from the Actions tab; it
+replaces the release's files. A new platform (e.g. Linux `.deb`/`.rpm`) only needs a job in `build.yml`
+that uploads its packages as an artifact.
 
 ## Observing Options+
 

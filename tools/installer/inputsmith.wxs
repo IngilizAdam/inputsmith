@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Per-user MSI for Inputsmith (WiX Toolset v5). Built by `tools/package.ps1 -Msi`, which runs:
+    wix build -arch x64 -ext WixToolset.Util.wixext -d Version=<x.y.z> -d BinDir=<dir> -o <msi> inputsmith.wxs
+  Installs to %LOCALAPPDATA%\Programs\inputsmith (same place as install.ps1), no administrator rights
+  needed. Settings in %APPDATA%\inputsmith are never touched.
+-->
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:util="http://wixtoolset.org/schemas/v4/wxs/util">
+  <Package Name="Inputsmith"
+           Manufacturer="Inputsmith contributors"
+           Version="$(Version)"
+           UpgradeCode="D2EF50AA-DDB3-4847-B8F8-5ECE9BD813EB"
+           Scope="perUser"
+           Compressed="yes">
+    <MajorUpgrade DowngradeErrorMessage="A newer version of Inputsmith is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <Property Id="ARPURLINFOABOUT" Value="https://github.com/IngilizAdam/inputsmith" />
+    <Property Id="ARPNOMODIFY" Value="1" />
+
+    <StandardDirectory Id="LocalAppDataFolder">
+      <Directory Id="ProgramsDir" Name="Programs">
+        <Directory Id="INSTALLFOLDER" Name="inputsmith">
+          <!-- Files in the user profile need an HKCU value as key path (ICE38). -->
+          <Component Id="Programs">
+            <RegistryKey Root="HKCU" Key="Software\Inputsmith" ForceDeleteOnUninstall="yes">
+              <RegistryValue Name="InstallDir" Type="string" Value="[INSTALLFOLDER]" KeyPath="yes" />
+            </RegistryKey>
+            <File Id="GuiExe" Source="$(BinDir)\inputsmith-gui.exe" />
+            <File Id="AgentExe" Source="$(BinDir)\inputsmith-agent.exe" />
+            <File Id="CliExe" Source="$(BinDir)\inputsmith.exe" />
+            <File Id="Readme" Source="$(BinDir)\README.md" />
+            <File Id="License" Source="$(BinDir)\LICENSE" />
+            <RemoveFolder Id="RemoveInstallFolder" On="uninstall" />
+            <RemoveFolder Id="RemoveProgramsDir" Directory="ProgramsDir" On="uninstall" />
+          </Component>
+        </Directory>
+      </Directory>
+    </StandardDirectory>
+
+    <StandardDirectory Id="ProgramMenuFolder">
+      <Component Id="StartMenuShortcut">
+        <Shortcut Id="StartMenu" Name="Inputsmith" Description="Settings for Logitech mice and keyboards"
+                  Target="[INSTALLFOLDER]inputsmith-gui.exe" WorkingDirectory="INSTALLFOLDER" />
+        <RegistryValue Root="HKCU" Key="Software\Inputsmith" Name="StartMenuShortcut" Type="integer" Value="1"
+                       KeyPath="yes" />
+      </Component>
+    </StandardDirectory>
+
+    <Feature Id="Main">
+      <ComponentRef Id="Programs" />
+      <ComponentRef Id="StartMenuShortcut" />
+    </Feature>
+
+    <!-- Running copies keep the files locked. The GUI restarts the agent, so it goes first. -->
+    <util:CloseApplication Id="CloseGui" Target="inputsmith-gui.exe" TerminateProcess="1" RebootPrompt="no"
+                           Sequence="1" />
+    <util:CloseApplication Id="CloseAgent" Target="inputsmith-agent.exe" TerminateProcess="1" RebootPrompt="no"
+                           Sequence="2" />
+
+    <!-- "Start at login" is a switch in the app (HKCU Run value "inputsmith"); drop it on uninstall. -->
+    <SetProperty Id="RemoveAutostart" Sequence="execute" Before="RemoveAutostart"
+                 Value="&quot;[System64Folder]reg.exe&quot; delete HKCU\Software\Microsoft\Windows\CurrentVersion\Run /v inputsmith /f" />
+    <CustomAction Id="RemoveAutostart" BinaryRef="Wix4UtilCA_$(sys.BUILDARCHSHORT)" DllEntry="WixQuietExec"
+                  Execute="deferred" Impersonate="yes" Return="ignore" />
+
+    <!-- Start the app after installing or upgrading, like install.ps1 (not for quiet installs). -->
+    <CustomAction Id="LaunchApp" Directory="INSTALLFOLDER" ExeCommand="&quot;[INSTALLFOLDER]inputsmith-gui.exe&quot;"
+                  Return="asyncNoWait" />
+
+    <InstallExecuteSequence>
+      <Custom Action="RemoveAutostart" Before="RemoveFiles"
+              Condition="REMOVE~=&quot;ALL&quot; AND NOT UPGRADINGPRODUCTCODE" />
+      <Custom Action="LaunchApp" After="InstallFinalize" Condition="NOT Installed AND NOT REMOVE AND UILevel &lt;&gt; 2" />
+    </InstallExecuteSequence>
+  </Package>
+</Wix>

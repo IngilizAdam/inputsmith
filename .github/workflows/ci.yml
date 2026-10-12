@@ -1,0 +1,22 @@
+# Tests and packages every push to main and every pull request. Nothing is published; the installers
+# are kept as workflow artifacts (useful for testing a fix before a release).
+name: CI
+
+on:
+  push:
+    branches: [main]
+    paths-ignore: ['**.md', 'docs/**', '.github/ISSUE_TEMPLATE/**']
+  pull_request:
+    paths-ignore: ['**.md', 'docs/**', '.github/ISSUE_TEMPLATE/**']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml

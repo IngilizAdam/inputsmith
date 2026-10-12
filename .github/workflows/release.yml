@@ -1,0 +1,91 @@
+# Publishes a GitHub release with the installers of every platform. Runs when a version tag is pushed
+# (v1.2.3, or v1.2.3-rc.1 for a pre-release), or by hand for an existing tag (re-running replaces the
+# release's files). The tag must match the version in Cargo.toml. See "Releasing" in docs/DEVELOPMENT.md.
+name: Release
+
+on:
+  push:
+    tags: ['v[0-9]+.[0-9]+.[0-9]+*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing version tag to build and publish, e.g. v0.1.0
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ inputs.tag || github.ref_name }}
+
+jobs:
+  check:
+    name: Check version
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.version.outputs.tag }}
+      prerelease: ${{ steps.version.outputs.prerelease }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag || github.ref }}
+
+      - id: version
+        env:
+          TAG: ${{ inputs.tag || github.ref_name }}
+        run: |
+          version=$(sed -n 's/^version *= *"\(.*\)"/\1/p' Cargo.toml | head -n 1)
+          if [ "$TAG" != "v$version" ]; then
+            echo "::error::Tag $TAG does not match the version in Cargo.toml ($version)."
+            exit 1
+          fi
+          case "$version" in *-*) prerelease=true ;; *) prerelease=false ;; esac
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "prerelease=$prerelease" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: check
+    uses: ./.github/workflows/build.yml
+    with:
+      ref: ${{ needs.check.outputs.tag }}
+
+  publish:
+    name: Publish release
+    needs: [check, build]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: Checksums
+        working-directory: dist
+        run: sha256sum * > SHA256SUMS.txt && cat SHA256SUMS.txt
+
+      - name: Create or update the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ needs.check.outputs.tag }}
+          PRERELEASE: ${{ needs.check.outputs.prerelease }}
+        run: |
+          if gh release view "$TAG" > /dev/null 2>&1; then
+            gh release upload "$TAG" dist/* --clobber
+            exit 0
+          fi
+          cat > notes.md <<'EOF'
+          **Windows:** download the `.msi` below and run it (installs for your user, no administrator
+          rights needed). Quit Logi Options+ first: both cannot control the devices at the same time.
+          The `.zip` contains the same programs with `install.ps1` / `uninstall.ps1`.
+
+          The installers are not code-signed yet, so Windows SmartScreen may warn on first run
+          ("More info" → "Run anyway"). `SHA256SUMS.txt` lists the checksums of all files.
+          EOF
+          flags=()
+          if [ "$PRERELEASE" = true ]; then flags+=(--prerelease); fi
+          gh release create "$TAG" dist/* --verify-tag --title "Inputsmith ${TAG#v}" \
+            --notes-file notes.md --generate-notes "${flags[@]}"

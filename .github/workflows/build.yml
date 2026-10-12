@@ -1,0 +1,51 @@
+# Tests and packages Inputsmith for every supported platform. Called by ci.yml (every push) and
+# release.yml (version tags); each job uploads its installers as a workflow artifact.
+# New platforms (e.g. Linux .deb/.rpm) get their own job here; release.yml publishes every artifact.
+name: Build
+
+on:
+  workflow_call:
+    inputs:
+      ref:
+        description: Git ref to build (default: the triggering commit)
+        type: string
+        default: ''
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    name: Windows x64
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Rust toolchain
+        run: rustup update stable --no-self-update; rustup default stable
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Test
+        run: cargo test --workspace --locked
+
+      - name: Install WiX Toolset
+        run: |
+          dotnet tool install --global wix --version 5.0.2
+          "$env:USERPROFILE\.dotnet\tools" | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
+
+      - name: Add WiX extensions
+        run: wix extension add --global WixToolset.Util.wixext/5.0.2
+
+      - name: Package (zip + msi)
+        run: ./tools/package.ps1 -Msi
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-x64
+          path: |
+            dist/*.msi
+            dist/*.zip
+          if-no-files-found: error
