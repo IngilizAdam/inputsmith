@@ -7,7 +7,7 @@ on:
   workflow_call:
     inputs:
       ref:
-        description: Git ref to build (default: the triggering commit)
+        description: "Git ref to build (default: the triggering commit)"
         type: string
         default: ''
 
@@ -39,13 +39,11 @@ jobs:
       - name: Add WiX extensions
         run: wix extension add --global WixToolset.Util.wixext/5.0.2
 
-      - name: Package (zip + msi)
-        run: ./tools/package.ps1 -Msi
+      - name: Package (msi)
+        run: ./tools/package.ps1
 
       - uses: actions/upload-artifact@v4
         with:
           name: windows-x64
-          path: |
-            dist/*.msi
-            dist/*.zip
+          path: dist/*.msi
           if-no-files-found: error

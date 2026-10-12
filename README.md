@@ -44,9 +44,8 @@ Download `inputsmith-<version>-windows-x64.msi` from the
 current user into `%LOCALAPPDATA%\Programs\inputsmith` (no administrator rights needed) and adds a Start
 Menu entry; uninstall it from *Settings → Apps*. Your settings are kept either way.
 
-The installers are not code-signed yet, so SmartScreen may warn on first run ("More info" → "Run
-anyway"). Each release also has a `.zip` with the same programs and `install.ps1` / `uninstall.ps1`, and
-`SHA256SUMS.txt`. To build the package yourself, see [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).
+The installer is not code-signed yet, so SmartScreen may warn on first run ("More info" → "Run
+anyway"). To build it yourself, see [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).
 
 ## Switching from Logi Options+
 

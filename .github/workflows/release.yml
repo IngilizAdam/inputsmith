@@ -62,10 +62,6 @@ jobs:
           path: dist
           merge-multiple: true
 
-      - name: Checksums
-        working-directory: dist
-        run: sha256sum * > SHA256SUMS.txt && cat SHA256SUMS.txt
-
       - name: Create or update the release
         env:
           GH_TOKEN: ${{ github.token }}
@@ -80,10 +76,10 @@ jobs:
           cat > notes.md <<'EOF'
           **Windows:** download the `.msi` below and run it (installs for your user, no administrator
           rights needed). Quit Logi Options+ first: both cannot control the devices at the same time.
-          The `.zip` contains the same programs with `install.ps1` / `uninstall.ps1`.
+          Uninstall it from Settings → Apps; your settings are kept.
 
-          The installers are not code-signed yet, so Windows SmartScreen may warn on first run
-          ("More info" → "Run anyway"). `SHA256SUMS.txt` lists the checksums of all files.
+          The installer is not code-signed yet, so Windows SmartScreen may warn on first run
+          ("More info" → "Run anyway").
           EOF
           flags=()
           if [ "$PRERELEASE" = true ]; then flags+=(--prerelease); fi

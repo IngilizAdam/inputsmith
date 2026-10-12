@@ -53,11 +53,11 @@ first if you want to run the agent by hand):
 cargo run -p inputsmith-agent -- run
 ```
 
-Release package (Windows; zip with per-user install/uninstall scripts in `dist/`, plus the MSI with
-`-Msi`, which needs the WiX Toolset as described at the top of the script):
+Installer (Windows; a per-user MSI in `dist/`, needs the WiX Toolset as described at the top of the
+script):
 
 ```bash
-powershell -ExecutionPolicy Bypass -File tools/package.ps1 -Msi
+powershell -ExecutionPolicy Bypass -File tools/package.ps1
 ```
 
 Useful while developing:
@@ -70,7 +70,7 @@ Useful while developing:
 
 ## Continuous integration and releases
 
-`.github/workflows/build.yml` runs the tests and builds the installers (Windows: `.msi` and `.zip`).
+`.github/workflows/build.yml` runs the tests and builds the installers (Windows: `.msi`).
 `ci.yml` runs it for every push to `main` and every pull request; the installers are attached to the run
 as artifacts but nothing is published. Releases are made only from version tags:
 
@@ -84,7 +84,7 @@ as artifacts but nothing is published. Releases are made only from version tags:
    ```
 
 `release.yml` then checks that the tag matches `Cargo.toml`, builds every platform and publishes a GitHub
-release with the installers, `SHA256SUMS.txt` and generated notes (tags with a `-` suffix become
+release with the installers and generated notes (tags with a `-` suffix become
 pre-releases). To rebuild an existing tag, run the *Release* workflow by hand from the Actions tab; it
 replaces the release's files. A new platform (e.g. Linux `.deb`/`.rpm`) only needs a job in `build.yml`
 that uploads its packages as an artifact.
