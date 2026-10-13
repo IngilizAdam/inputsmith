@@ -2,7 +2,7 @@
 
 use serde::{Deserialize, Serialize};
 
-use crate::model::{Application, Assignment, Profile, ScrollWheelSettings};
+use crate::model::{Application, Assignment, Profile, ScrollWheelSettings, ThumbWheelSettings};
 
 pub mod routes {
     pub const AGENT_INFO: &str = "/agent/info";
@@ -101,6 +101,15 @@ pub struct Capabilities {
     pub smartshift_torque: bool,
     pub hires_wheel: bool,
     pub thumbwheel: bool,
+    /// Pointer speed through 0x2205 pointer motion scaling (mice without adjustable DPI).
+    #[serde(default)]
+    pub pointer_scaling: bool,
+    /// A high-resolution sensor with a separate high-resolution DPI range.
+    #[serde(default)]
+    pub high_resolution_sensor: bool,
+    /// Haptic feedback (0x19B0).
+    #[serde(default)]
+    pub haptics: bool,
     pub fn_inversion: bool,
     pub backlight: bool,
     pub easy_switch_hosts: u8,
@@ -129,6 +138,9 @@ pub struct Device {
     /// profile has no scroll wheel card.
     #[serde(default)]
     pub scroll_defaults: Option<ScrollWheelSettings>,
+    /// The model's default thumb wheel settings, used while the profile has no thumb wheel card.
+    #[serde(default)]
+    pub thumb_wheel_defaults: Option<ThumbWheelSettings>,
 }
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize, PartialEq)]

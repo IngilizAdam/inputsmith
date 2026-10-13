@@ -15,6 +15,10 @@
     },
     "speed": 0
   },
+  "thumbWheelDefaults": {
+    "dir": "STANDARD",
+    "speed": 0
+  },
   "controls": [
     82,
     83,
@@ -84,6 +88,14 @@
       "y": 71.4,
       "dx": 1,
       "dy": 0
+    },
+    {
+      "slot": "mouse_thumb_wheel_settings",
+      "name": "SLOT_NAME_THUMBWHEEL_SETTINGS",
+      "x": 27.5,
+      "y": 52.7,
+      "dx": -1,
+      "dy": -1
     }
   ]
 }

@@ -130,6 +130,7 @@ string_enum! {
         MouseSettings = "MOUSE_SETTINGS",
         MouseThumbWheelSettings = "MOUSE_THUMB_WHEEL_SETTINGS",
         MouseScrollWheelSettings = "MOUSE_SCROLL_WHEEL_SETTINGS",
+        HapticSettings = "HAPTIC_SETTINGS",
         Adapter2Ways = "ADAPTER_2WAYS",
         Adapter4Ways = "ADAPTER_4WAYS",
         KeyboardSettings = "KEYBOARD_SETTINGS",
@@ -158,6 +159,10 @@ pub struct Card {
     pub mouse_settings: Option<MouseSettings>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub mouse_scroll_wheel_settings: Option<ScrollWheelSettings>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub mouse_thumb_wheel_settings: Option<ThumbWheelSettings>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub haptic_settings: Option<HapticSettings>,
     /// For `ONE_OF` cards: the key of the chosen nested card.
     #[serde(skip_serializing_if = "is_default")]
     pub selected_nested_card: String,
@@ -630,6 +635,9 @@ pub struct PointerSpeed {
 pub struct PointerSpeedValue {
     #[serde(skip_serializing_if = "is_default")]
     pub value: f32,
+    /// Use the sensor's high-resolution range (MX Master 3S and other high-resolution sensors).
+    #[serde(rename = "high_resolution_sensor_active", alias = "highResolutionSensorActive", skip_serializing_if = "is_default")]
+    pub high_resolution_sensor_active: bool,
     #[serde(flatten)]
     pub extra: Map<String, Value>,
 }
@@ -653,6 +661,36 @@ string_enum! {
 
 /// Scroll wheel settings (`MOUSE_SCROLL_WHEEL_SETTINGS` cards). Some sources (the per-model defaults in
 /// the Options+ device database) use snake_case keys, hence the aliases.
+/// Thumb wheel (`<prefix>_mouse_thumb_wheel_settings` slot).
+#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase", default)]
+pub struct ThumbWheelSettings {
+    /// −1…1, 0 = the device's own speed.
+    #[serde(skip_serializing_if = "is_default")]
+    pub speed: f64,
+    #[serde(skip_serializing_if = "is_default")]
+    pub dir: WheelDirection,
+    #[serde(alias = "is_smooth", skip_serializing_if = "is_default")]
+    pub is_smooth: bool,
+    #[serde(flatten)]
+    pub extra: Map<String, Value>,
+}
+
+/// Haptic feedback (`<prefix>_haptic_settings` slot). Per-event settings are kept in `extra`.
+#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase", default)]
+pub struct HapticSettings {
+    #[serde(skip_serializing_if = "is_default")]
+    pub is_global_haptics_enabled: bool,
+    /// 0–100.
+    #[serde(skip_serializing_if = "is_default")]
+    pub haptic_feedback_level: u32,
+    #[serde(skip_serializing_if = "is_default")]
+    pub is_power_save_enabled: bool,
+    #[serde(flatten)]
+    pub extra: Map<String, Value>,
+}
+
 #[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase", default)]
 pub struct ScrollWheelSettings {

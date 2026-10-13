@@ -23,6 +23,9 @@ rather than choices. Take these from what Options+ uses for the device, unchange
   would orphan imported settings.
 - `scrollDefaults` — the scroll settings Options+ starts with for the model.
 - `controls` — the control ids Options+ lists as programmable for the model.
+- `thumbWheelDefaults` — the thumb wheel settings Options+ starts with.
+- `highResolutionSensor` — the DPI ranges (normal and high-resolution mode) and whether the mode starts
+  on, for models with a high-resolution sensor.
 - Card ids, action definitions and tags in `actions.json`, and the lists in `controls.json`.
 
 Names and all UI text are written for Inputsmith. Do not copy Logitech text files, images or other files

@@ -12,14 +12,21 @@ use std::time::Duration;
 use inputsmith_hidpp::channel::InterfaceInfo;
 use inputsmith_hidpp::device::{self, Device};
 use inputsmith_hidpp::features::device_info::{DeviceInformation, DeviceName};
-use inputsmith_hidpp::features::dpi::{AdjustableDpi, DpiList};
+use inputsmith_hidpp::features::dpi::{AdjustableDpi, DpiList, ExtendedDpi, PointerSpeed};
+use inputsmith_hidpp::features::haptics::Haptics;
 use inputsmith_hidpp::features::reprog_controls::{self, ControlEvent, ControlInfo, ReportingUpdate, ReprogControls};
-use inputsmith_hidpp::features::wheel::{self, HiResMode, HiResWheel, SmartShift, WheelMode, WheelMovement};
+use inputsmith_hidpp::features::wheel::{
+    self, HiResMode, HiResWheel, SmartShift, Thumbwheel, ThumbwheelInfo, ThumbwheelMovement, ThumbwheelStatus, WheelMode,
+    WheelMovement,
+};
 use inputsmith_hidpp::receiver::{ConnectionEvent, Receiver, receiver_kind};
 use inputsmith_hidpp::report::{DEVICE_INDEX_DIRECT, Report, sub_id};
 use inputsmith_hidpp::{Channel, feature_id};
 use inputsmith_input::MouseButton;
-use inputsmith_ipc::model::{Attribute, Card, MacroType, MouseAction, ScrollMode, ScrollWheelSettings, WheelDirection};
+use inputsmith_data::HighResolutionSensor;
+use inputsmith_ipc::model::{
+    Attribute, Card, MacroType, MouseAction, ScrollMode, ScrollWheelSettings, ThumbWheelSettings, WheelDirection,
+};
 
 use crate::actions::{DeviceOps, Executor, effective_card};
 use crate::devicedb::DeviceDb;
@@ -226,12 +233,26 @@ struct ScrollConfig {
     hscroll: Vec<u16>,
 }
 
+/// Thumb wheel behaviour derived from the thumb wheel settings.
+#[derive(Debug, Clone, Default, PartialEq)]
+struct ThumbConfig {
+    /// Diverted: the agent injects the scrolling (non-default speed, or smooth scrolling off).
+    diverted: bool,
+    natural: bool,
+    smooth: bool,
+    /// Speed factor (1 = the device's own speed).
+    factor: f64,
+    /// Scrolling not injected yet, in 1/120 detents.
+    remainder: f64,
+}
+
 #[derive(Default)]
 struct State {
     pressed: Vec<u16>,
     active: HashMap<u16, Active>,
     diverted: Vec<u16>,
     scroll: ScrollConfig,
+    thumb: ThumbConfig,
     /// Held horizontal-scroll controls and whether the wheel moved meanwhile.
     hscroll_held: HashMap<u16, bool>,
     /// Cookie written after the last complete configuration.
@@ -241,6 +262,8 @@ struct State {
 struct DpiInfo {
     list: DpiList,
     default: u16,
+    /// 0x2202 (separate Y resolution, lift-off distance) instead of 0x2201.
+    extended: Option<(bool, u8)>,
 }
 
 pub struct DeviceRt {
@@ -261,6 +284,11 @@ pub struct DeviceRt {
     wheel_index: Option<u8>,
     wheel_multiplier: u8,
     dpi: Option<DpiInfo>,
+    /// DPI ranges of a high-resolution sensor (from the device description).
+    high_res: Option<HighResolutionSensor>,
+    /// Thumb wheel feature index and capabilities.
+    thumbwheel: Option<(u8, ThumbwheelInfo)>,
+    thumb_defaults: Option<ThumbWheelSettings>,
     scroll_defaults: Option<ScrollWheelSettings>,
     /// Cards used by controls the user has not assigned, when their own function is not the default
     /// (the gesture button does nothing by itself).
@@ -294,10 +322,22 @@ impl DeviceRt {
             Vec::new()
         };
         let rc_index = dev.feature(feature_id::SPECIAL_KEYS_1B04).map(|f| f.index);
-        let dpi = dev.has_feature(feature_id::ADJUSTABLE_DPI).then(|| {
+        let dpi = if dev.has_feature(feature_id::ADJUSTABLE_DPI) {
             let d = AdjustableDpi(&dev);
-            Some(DpiInfo { list: d.dpi_list(0).ok()?, default: d.dpi(0).ok()?.1 })
-        });
+            (|| Some(DpiInfo { list: d.dpi_list(0).ok()?, default: d.dpi(0).ok()?.1, extended: None }))()
+        } else if dev.has_feature(feature_id::EXTENDED_ADJUSTABLE_DPI) {
+            let d = ExtendedDpi(&dev);
+            (|| {
+                let (separate_y, _) = d.capabilities(0).ok()?;
+                let st = d.dpi(0).ok()?;
+                let default = if st.default_x != 0 { st.default_x } else { st.x };
+                Some(DpiInfo { list: d.dpi_list(0).ok()?, default, extended: Some((separate_y, st.lod)) })
+            })()
+        } else {
+            None
+        };
+        let thumbwheel =
+            dev.feature(feature_id::THUMBWHEEL).and_then(|f| Some((f.index, Thumbwheel(&dev).info().ok()?)));
         let wheel_index = dev.feature(feature_id::HIRES_WHEEL).map(|f| f.index);
         let wheel_multiplier = HiResWheel(&dev).capabilities().map_or(1, |c| c.multiplier.max(1));
         let key = serial.clone().unwrap_or_else(|| format!("{}#{index}", dev.channel().info().container_id));
@@ -305,6 +345,9 @@ impl DeviceRt {
             key,
             name: db.display_name(&model_id, extended_model_id, &fw_name),
             scroll_defaults: db.scroll_defaults(&model_id),
+            thumb_defaults: db.thumb_wheel_defaults(&model_id),
+            high_res: db.high_resolution_sensor(&model_id),
+            thumbwheel,
             default_cards: db.default_cards(&model_id),
             slot_prefix: db.slot_prefix(&model_id, &fw_name),
             model_id,
@@ -320,7 +363,7 @@ impl DeviceRt {
             rc_index,
             wheel_index,
             wheel_multiplier,
-            dpi: dpi.flatten(),
+            dpi,
             state: Mutex::new(State::default()),
             config_errors: AtomicU32::new(0),
         })
@@ -394,6 +437,9 @@ impl DeviceRt {
                 smartshift_torque: has(feature_id::SMART_SHIFT_TUNABLE),
                 hires_wheel: has(feature_id::HIRES_WHEEL),
                 thumbwheel: has(feature_id::THUMBWHEEL),
+                pointer_scaling: self.dpi.is_none() && has(feature_id::POINTER_MOTION_SCALING),
+                high_resolution_sensor: self.high_res.is_some() && self.dpi.is_some(),
+                haptics: has(feature_id::HAPTIC_FEEDBACK),
                 fn_inversion: has(feature_id::FN_INVERSION)
                     || has(feature_id::FN_INVERSION_2)
                     || has(feature_id::FN_INVERSION_3),
@@ -401,6 +447,7 @@ impl DeviceRt {
                 easy_switch_hosts: self.hosts,
             },
             scroll_defaults: self.scroll_defaults.clone(),
+            thumb_wheel_defaults: self.thumbwheel.is_some().then(|| self.thumb_defaults.clone()).flatten(),
         }
     }
 
@@ -451,7 +498,7 @@ impl DeviceRt {
     /// 0x4825 (Options+).
     fn config_cookie(&self, settings: &Settings) -> u16 {
         let mut parts = vec![self.slot_prefix.clone()];
-        for suffix in ["mouse_settings", "mouse_scroll_wheel_settings"] {
+        for suffix in ["mouse_settings", "mouse_scroll_wheel_settings", "mouse_thumb_wheel_settings", "haptic_settings"] {
             let a = settings.resolve(None, &format!("{}_{suffix}", self.slot_prefix));
             parts.push(serde_json::to_string(&a.and_then(|a| a.card.as_ref())).unwrap_or_default());
         }
@@ -468,19 +515,52 @@ impl DeviceRt {
         let prefix = &self.slot_prefix;
         let card = |suffix: &str| settings.resolve(None, &format!("{prefix}_{suffix}")).and_then(|a| a.card.clone());
 
-        if let Some(DpiInfo { list: DpiList::Range { min, max, step }, default }) = &self.dpi {
-            // Without a pointer speed card the device's default resolution applies (Options+ does the same).
-            let value = card("mouse_settings")
-                .and_then(|c| c.mouse_settings)
-                .and_then(|m| m.pointer_speed)
-                .and_then(|p| p.active)
-                .map_or(0.0, |a| a.value);
-            let target = mapping::pointer_speed_to_dpi(value as f64, *min, *default, *max, *step);
-            match AdjustableDpi(&self.dev).set_dpi(0, target) {
+        // Without a pointer speed card the device's default resolution applies (Options+ does the same).
+        let speed = card("mouse_settings").and_then(|c| c.mouse_settings).and_then(|m| m.pointer_speed).and_then(|p| p.active);
+        let value = speed.as_ref().map_or(0.0, |a| a.value);
+        let range = match (&self.high_res, &self.dpi) {
+            // The description's ranges: the normal one, or the high-resolution one when switched on.
+            (Some(hr), Some(_)) => {
+                let on = speed.as_ref().map_or(hr.default_enabled, |a| a.high_resolution_sensor_active);
+                let r = if on { hr.on } else { hr.off };
+                Some((r.min, r.default, r.max, r.step))
+            }
+            (None, Some(DpiInfo { list: DpiList::Range { min, max, step }, default, .. })) => {
+                Some((*min, *default, *max, *step))
+            }
+            _ => None,
+        };
+        if let Some((min, default, max, step)) = range {
+            let target = mapping::pointer_speed_to_dpi(value as f64, min, default, max, step);
+            match self.write_dpi(target) {
                 Ok(()) => log::info!("{}: DPI {target} (pointer speed {value:.2})", self.name),
                 Err(e) => {
                     self.config_errors.fetch_add(1, Ordering::Relaxed);
                     log::warn!("{}: set DPI failed: {e}", self.name);
+                }
+            }
+        } else if self.dpi.is_none() && self.dev.has_feature(feature_id::POINTER_MOTION_SCALING) {
+            let target = mapping::pointer_speed_to_scaling(value as f64);
+            match PointerSpeed(&self.dev).set(target) {
+                Ok(()) => log::info!("{}: pointer scaling {target:#06x} (pointer speed {value:.2})", self.name),
+                Err(e) => {
+                    self.config_errors.fetch_add(1, Ordering::Relaxed);
+                    log::warn!("{}: pointer scaling failed: {e}", self.name);
+                }
+            }
+        }
+
+        self.apply_thumbwheel(settings);
+        if self.dev.has_feature(feature_id::HAPTIC_FEEDBACK)
+            && let Some(h) = card("haptic_settings").and_then(|c| c.haptic_settings)
+        {
+            let haptics = Haptics(&self.dev);
+            let level = h.haptic_feedback_level.min(100) as u8;
+            match haptics.config().and_then(|cur| haptics.set(&cur, h.is_global_haptics_enabled, level)) {
+                Ok(()) => log::info!("{}: haptics {} level {level}", self.name, h.is_global_haptics_enabled),
+                Err(e) => {
+                    self.config_errors.fetch_add(1, Ordering::Relaxed);
+                    log::warn!("{}: haptics failed: {e}", self.name);
                 }
             }
         }
@@ -510,6 +590,42 @@ impl DeviceRt {
             }
         }
         self.apply_scroll(scroll.as_ref());
+    }
+
+    /// Thumb wheel settings: the profile's card, else the model's defaults.
+    fn thumb_settings(&self, settings: &Settings) -> ThumbWheelSettings {
+        settings
+            .resolve(None, &format!("{}_mouse_thumb_wheel_settings", self.slot_prefix))
+            .and_then(|a| a.card.as_ref())
+            .and_then(|c| c.mouse_thumb_wheel_settings.clone())
+            .or_else(|| self.thumb_defaults.clone())
+            .unwrap_or(ThumbWheelSettings { is_smooth: true, ..Default::default() })
+    }
+
+    /// The thumb wheel scrolls natively (direction through the device's invert bit) unless its speed
+    /// is changed or smooth scrolling is off; then it is diverted and the agent injects the scrolling.
+    fn apply_thumbwheel(&self, settings: &Settings) {
+        if self.thumbwheel.is_none() {
+            return;
+        }
+        let tw = self.thumb_settings(settings);
+        let natural = tw.dir == WheelDirection::Natural;
+        let diverted = tw.speed != 0.0 || !tw.is_smooth;
+        let status = ThumbwheelStatus { diverted, inverted: natural && !diverted };
+        match Thumbwheel(&self.dev).set(status) {
+            Ok(()) => log::info!("{}: thumb wheel {status:?} speed {:.2}", self.name, tw.speed),
+            Err(e) => {
+                self.config_errors.fetch_add(1, Ordering::Relaxed);
+                log::warn!("{}: thumb wheel failed: {e}", self.name);
+            }
+        }
+        self.state.lock().unwrap().thumb = ThumbConfig {
+            diverted,
+            natural,
+            smooth: tw.is_smooth,
+            factor: mapping::thumbwheel_speed_factor(tw.speed),
+            remainder: 0.0,
+        };
     }
 
     /// Scroll wheel settings: the profile's card, else the model's defaults.
@@ -603,9 +719,9 @@ impl DeviceRt {
 
     /// Restores native behaviour of every diverted control.
     pub fn release_controls(&self) {
-        let (diverted, scroll) = {
+        let (diverted, scroll, thumb) = {
             let mut st = self.state.lock().unwrap();
-            (std::mem::take(&mut st.diverted), std::mem::take(&mut st.scroll))
+            (std::mem::take(&mut st.diverted), std::mem::take(&mut st.scroll), std::mem::take(&mut st.thumb))
         };
         let rc = ReprogControls(&self.dev);
         for c in self.controls.iter().filter(|c| diverted.contains(&c.cid)) {
@@ -625,6 +741,9 @@ impl DeviceRt {
         if scroll.smooth {
             let _ = HiResWheel(&self.dev).set_mode(HiResMode { inverted: scroll.natural, ..Default::default() });
         }
+        if thumb.diverted {
+            let _ = Thumbwheel(&self.dev).set(ThumbwheelStatus { diverted: false, inverted: thumb.natural });
+        }
     }
 
     pub fn handle_report(&self, r: &Report, shared: &Shared) {
@@ -638,6 +757,12 @@ impl DeviceRt {
         }
         if let Some(m) = self.wheel_index.and_then(|i| wheel::parse_wheel_movement(i, r)) {
             self.on_wheel(m, shared);
+            return;
+        }
+        if let Some((index, info)) = &self.thumbwheel
+            && let Some(m) = wheel::parse_thumbwheel_movement(*index, r)
+        {
+            self.on_thumbwheel(m, info, shared);
             return;
         }
         let Some(rc) = self.rc_index else { return };
@@ -680,6 +805,26 @@ impl DeviceRt {
         let natural = self.state.lock().unwrap().scroll.natural;
         let per_notch = if m.high_resolution { self.wheel_multiplier } else { 1 };
         let _ = shared.executor.sink().wheel(mapping::wheel_units(m.delta, per_notch, natural), 0);
+    }
+
+    /// Diverted thumb wheel: horizontal scrolling at the configured speed.
+    fn on_thumbwheel(&self, m: ThumbwheelMovement, info: &ThumbwheelInfo, shared: &Shared) {
+        let out = {
+            let mut st = self.state.lock().unwrap();
+            let t = &mut st.thumb;
+            if !t.diverted {
+                return;
+            }
+            let units = mapping::thumbwheel_units(m.rotation, info.native_resolution, info.diverted_resolution, t.factor)
+                * if t.natural != info.default_direction_inverted { -1.0 } else { 1.0 };
+            t.remainder += units;
+            let out = if t.smooth { t.remainder.trunc() } else { (t.remainder / 120.0).trunc() * 120.0 };
+            t.remainder = if m.state == 3 { 0.0 } else { t.remainder - out };
+            out as i32
+        };
+        if out != 0 {
+            let _ = shared.executor.sink().wheel(0, out);
+        }
     }
 
     fn on_press(&self, cid: u16, shared: &Shared) {
@@ -769,14 +914,24 @@ impl DeviceRt {
                 *vals.iter().min_by_key(|&&x| (x as f64 - target).abs() as u32).unwrap_or(&dpi.default)
             }
         };
-        match AdjustableDpi(&self.dev).set_dpi(0, v) {
+        match self.write_dpi(v) {
             Ok(()) => log::info!("{}: DPI -> {v}", self.name),
             Err(e) => log::warn!("{}: DPI change failed: {e}", self.name),
         }
     }
 
     fn current_dpi(&self) -> Option<u16> {
-        AdjustableDpi(&self.dev).dpi(0).ok().map(|d| d.0)
+        match self.dpi.as_ref()?.extended {
+            None => AdjustableDpi(&self.dev).dpi(0).ok().map(|d| d.0),
+            Some(_) => ExtendedDpi(&self.dev).dpi(0).ok().map(|d| d.x),
+        }
+    }
+
+    fn write_dpi(&self, dpi: u16) -> inputsmith_hidpp::Result<()> {
+        match self.dpi.as_ref().and_then(|d| d.extended) {
+            Some((separate_y, lod)) => ExtendedDpi(&self.dev).set_dpi(0, dpi, separate_y, lod),
+            None => AdjustableDpi(&self.dev).set_dpi(0, dpi),
+        }
     }
 }
 

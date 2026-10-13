@@ -8,7 +8,10 @@ use iced::widget::{
 };
 use iced::{Alignment, Element, Length, Padding, Subscription, Task, Theme, window};
 use inputsmith_ipc::api::{self, ProfileAssignment, ProfileList, routes};
-use inputsmith_ipc::model::{Application, Attribute, Card, Profile, ScrollMode, ScrollWheelSettings, WheelDirection};
+use inputsmith_ipc::model::{
+    Application, Attribute, Card, HapticSettings, Profile, ScrollMode, ScrollWheelSettings, ThumbWheelSettings,
+    WheelDirection,
+};
 use inputsmith_ipc::{Message as IpcMessage, Verb};
 
 use crate::client::{self, Event};
@@ -64,6 +67,15 @@ pub enum Msg {
     /// Scroll direction: `true` = natural ("Inverted").
     Direction(bool),
     HScroll(u16, bool),
+    /// Thumb wheel direction: `true` = natural ("Inverted").
+    ThumbDirection(bool),
+    ThumbSmooth(bool),
+    ThumbSpeed(f32),
+    CommitThumb,
+    HighResolution(bool),
+    Haptics(bool),
+    HapticLevel(f32),
+    CommitHaptics,
     SwapButtons(bool),
     ForgetDevice(String),
     Autostart(bool),
@@ -88,6 +100,9 @@ struct Drafts {
     pointer: Option<f32>,
     sensitivity: Option<f32>,
     force: Option<f32>,
+    /// Thumb wheel speed in percent (50 = the device's own speed).
+    thumb_speed: Option<f32>,
+    haptic_level: Option<f32>,
 }
 
 pub struct App {
@@ -322,6 +337,31 @@ impl App {
                 self.edit_scroll(|w| w.dir = if natural { WheelDirection::Natural } else { WheelDirection::Standard })
             }
             Msg::HScroll(cid, on) => self.edit_scroll(|w| model::set_hscroll(w, cid, on)),
+            Msg::ThumbDirection(natural) => {
+                self.edit_thumb(|t| t.dir = if natural { WheelDirection::Natural } else { WheelDirection::Standard })
+            }
+            Msg::ThumbSmooth(on) => self.edit_thumb(|t| t.is_smooth = on),
+            Msg::ThumbSpeed(v) => self.drafts.thumb_speed = Some(v),
+            Msg::CommitThumb => {
+                if let Some(pct) = self.drafts.thumb_speed {
+                    self.edit_thumb(|t| t.speed = (pct as f64 / 50.0 - 1.0).clamp(-1.0, 1.0));
+                }
+            }
+            Msg::HighResolution(on) => {
+                if let Some(dev) = self.current_device() {
+                    let slot = format!("{}_mouse_settings", dev.slot_prefix);
+                    let cur = model::resolve(&self.profiles, None, &slot).and_then(|a| a.card.clone());
+                    let card = model::with_high_resolution(cur.as_ref(), &slot, on);
+                    self.send_assignment(self.global_profile_id(), &slot, card);
+                }
+            }
+            Msg::Haptics(on) => self.edit_haptics(|h| h.is_global_haptics_enabled = on),
+            Msg::HapticLevel(v) => self.drafts.haptic_level = Some(v),
+            Msg::CommitHaptics => {
+                if let Some(level) = self.drafts.haptic_level {
+                    self.edit_haptics(|h| h.haptic_feedback_level = level.round() as u32);
+                }
+            }
             Msg::SwapButtons(swapped) => {
                 self.buttons_swapped = Some(swapped);
                 client::set(routes::BUTTON_SWAP, &api::ButtonSwap { swapped });
@@ -432,6 +472,26 @@ impl App {
         let mut s = model::scroll_settings(cur.as_ref(), dev.scroll_defaults.as_ref());
         f(&mut s);
         let card = model::with_scroll_settings(cur.as_ref(), &slot, s);
+        self.send_assignment(self.global_profile_id(), &slot, card);
+    }
+
+    fn edit_thumb(&mut self, f: impl FnOnce(&mut ThumbWheelSettings)) {
+        let Some(dev) = self.current_device() else { return };
+        let slot = format!("{}_mouse_thumb_wheel_settings", dev.slot_prefix);
+        let cur = model::resolve(&self.profiles, None, &slot).and_then(|a| a.card.clone());
+        let mut t = model::thumb_settings(cur.as_ref(), dev.thumb_wheel_defaults.as_ref());
+        f(&mut t);
+        let card = model::with_thumb_settings(cur.as_ref(), &slot, t);
+        self.send_assignment(self.global_profile_id(), &slot, card);
+    }
+
+    fn edit_haptics(&mut self, f: impl FnOnce(&mut HapticSettings)) {
+        let Some(dev) = self.current_device() else { return };
+        let slot = format!("{}_haptic_settings", dev.slot_prefix);
+        let cur = model::resolve(&self.profiles, None, &slot).and_then(|a| a.card.clone());
+        let mut h = model::haptic_settings(cur.as_ref());
+        f(&mut h);
+        let card = model::with_haptic_settings(cur.as_ref(), &slot, h);
         self.send_assignment(self.global_profile_id(), &slot, card);
     }
 
@@ -734,6 +794,13 @@ impl App {
                     ..Default::default()
                 },
             ];
+            if d.capabilities.thumbwheel {
+                spots.push(Hotspot {
+                    slot_id: format!("{}_mouse_thumb_wheel_settings", d.slot_prefix),
+                    name_key: "SLOT_NAME_THUMBWHEEL_SETTINGS".into(),
+                    ..Default::default()
+                });
+            }
             for c in d.controls.iter().filter(|c| c.horizontal_scroll) {
                 let button = if c.cid == 0x53 { "BACK" } else { "FORWARD" };
                 spots.push(Hotspot {
@@ -783,6 +850,12 @@ impl App {
                 Some(c) => (card_title(c), title),
                 None => ("Default".into(), title),
             };
+        }
+        if s.slot_id.ends_with("_mouse_thumb_wheel_settings") {
+            let t = model::thumb_settings(card, d.thumb_wheel_defaults.as_ref());
+            let dir = if t.dir == WheelDirection::Natural { "Inverted" } else { "Standard" };
+            let speed = ((t.speed + 1.0) * 50.0).round();
+            return (title, format!("Direction: {dir}\nSpeed: {speed}%\nSmooth scrolling: {}", on_off(t.is_smooth)));
         }
         if s.slot_id.ends_with("_mouse_settings") {
             let pct = self.drafts.pointer.unwrap_or_else(|| model::pointer_speed_percent(card));
@@ -918,9 +991,37 @@ impl App {
     fn point_scroll_panel<'a>(&'a self, d: &'a api::Device) -> Element<'a, Msg> {
         let scroll_slot = format!("{}_mouse_scroll_wheel_settings", d.slot_prefix);
         let pointer_slot = format!("{}_mouse_settings", d.slot_prefix);
+        let thumb_slot = format!("{}_mouse_thumb_wheel_settings", d.slot_prefix);
         let selected = self.selected_slot.clone().unwrap_or_else(|| scroll_slot.clone());
         let mut col = column![].spacing(14).padding(20);
-        if let Some(cid) = hscroll_slot_cid(&d.slot_prefix, &selected) {
+        if selected == thumb_slot {
+            let card = model::resolve(&self.profiles, None, &thumb_slot).and_then(|a| a.card.as_ref());
+            let t = model::thumb_settings(card, d.thumb_wheel_defaults.as_ref());
+            let speed = self.drafts.thumb_speed.unwrap_or(((t.speed + 1.0) * 50.0) as f32);
+            col = col.push(text("Thumb wheel").size(20).font(BOLD));
+            col = col.push(text("Direction").size(14).font(BOLD));
+            col = col.push(
+                radio("Inverted", true, Some(t.dir == WheelDirection::Natural), Msg::ThumbDirection).size(14).text_size(13),
+            );
+            col = col.push(
+                radio("Standard", false, Some(t.dir == WheelDirection::Natural), Msg::ThumbDirection)
+                    .size(14)
+                    .text_size(13),
+            );
+            col = col.push(labeled_value("Speed", format!("{speed:.0}%")));
+            col = col.push(
+                slider(0.0..=100.0, speed, Msg::ThumbSpeed)
+                    .step(1.0_f32)
+                    .on_release(Msg::CommitThumb)
+                    .style(theme::slider_style),
+            );
+            col = col.push(setting_toggle(
+                "Smooth scrolling",
+                "Scroll horizontally in small steps instead of whole notches.",
+                t.is_smooth,
+                Msg::ThumbSmooth,
+            ));
+        } else if let Some(cid) = hscroll_slot_cid(&d.slot_prefix, &selected) {
             let card = model::resolve(&self.profiles, None, &scroll_slot).and_then(|a| a.card.as_ref());
             let w = model::scroll_settings(card, d.scroll_defaults.as_ref());
             col = col.push(text("Horizontal scrolling").size(20).font(BOLD));
@@ -948,6 +1049,14 @@ impl App {
                     .on_release(Msg::CommitPointer)
                     .style(theme::slider_style),
             );
+            if d.capabilities.high_resolution_sensor {
+                col = col.push(setting_toggle(
+                    "High-resolution sensor",
+                    "Extends the pointer speed range to the sensor's highest resolution.",
+                    model::high_resolution_active(card, false),
+                    Msg::HighResolution,
+                ));
+            }
             if let Some(dpi) = &d.dpi {
                 col = col.push(text(format!("Current sensor resolution: {} DPI", dpi.current)).size(12).color(MUTED));
             }
@@ -1030,6 +1139,27 @@ impl App {
                 ]
                 .align_y(Alignment::Center),
             );
+        }
+        if d.capabilities.haptics {
+            let slot = format!("{}_haptic_settings", d.slot_prefix);
+            let card = model::resolve(&self.profiles, None, &slot).and_then(|a| a.card.as_ref());
+            let h = model::haptic_settings(card);
+            let level = self.drafts.haptic_level.unwrap_or(h.haptic_feedback_level as f32);
+            general = general.push(setting_toggle(
+                "Haptic feedback",
+                "Lets the mouse give tactile feedback.",
+                h.is_global_haptics_enabled,
+                Msg::Haptics,
+            ));
+            if h.is_global_haptics_enabled {
+                general = general.push(labeled_value("Strength", format!("{level:.0}%")));
+                general = general.push(
+                    slider(0.0..=100.0, level, Msg::HapticLevel)
+                        .step(1.0_f32)
+                        .on_release(Msg::CommitHaptics)
+                        .style(theme::slider_style),
+                );
+            }
         }
         let col = column![
             about,

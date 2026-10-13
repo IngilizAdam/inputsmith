@@ -27,7 +27,7 @@
 | Crate | Binary | Purpose |
 |---|---|---|
 | `inputsmith-hid` | | HID transport: Windows HID API (overlapped I/O), Linux hidraw (untested). |
-| `inputsmith-hidpp` | | HID++ 1.0/2.0: channels and request matching, receivers (Unifying, Bolt), feature tables, typed features (device info, battery, DPI, SmartShift, hi-res wheel, thumbwheel, special keys, config cookie, change host, Fn inversion). |
+| `inputsmith-hidpp` | | HID++ 1.0/2.0: channels and request matching, receivers (Unifying, Bolt), feature tables, typed features (device info, battery, DPI and extended DPI, pointer scaling, SmartShift, hi-res wheel, thumbwheel, haptics, special keys, config cookie, change host, Fn inversion). |
 | `inputsmith-data` | | Built-in data: device descriptions, device art (SVG), action catalog, per-control picker data, UI text. |
 | `inputsmith-ipc` | | Settings model (`model`), agent API (`api`), local IPC transport (named pipe / Unix socket, length-prefixed JSON). |
 | `inputsmith-input` | | Input injection (Windows `SendInput`), foreground application, launching, button swap. |

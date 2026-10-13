@@ -27,6 +27,23 @@ pub fn pointer_speed_to_dpi(value: f64, min: u16, default: u16, max: u16, step: 
     snapped.clamp(min, max) as u16
 }
 
+/// 0x2205 pointer motion scaling (1/256 units, 0x100 = the device's own speed) for a pointer speed
+/// value −1…1, with the same curve as the DPI mapping over the feature's range 0x2E…0x1FF.
+pub fn pointer_speed_to_scaling(value: f64) -> u16 {
+    pointer_speed_to_dpi(value, 0x2E, 0x100, 0x1FF, 1)
+}
+
+/// Speed factor for a thumb wheel speed setting −1…1 (0 = the device's own speed, ×¼ … ×4).
+pub fn thumbwheel_speed_factor(speed: f64) -> f64 {
+    4f64.powf(speed.clamp(-1.0, 1.0))
+}
+
+/// Horizontal scrolling (1/120 detents) for a diverted thumb wheel rotation, scaled so that one
+/// native count is one detent at the device's own speed.
+pub fn thumbwheel_units(rotation: i16, native_resolution: u16, diverted_resolution: u16, factor: f64) -> f64 {
+    rotation as f64 * 120.0 * native_resolution.max(1) as f64 / diverted_resolution.max(1) as f64 * factor
+}
+
 /// Vertical wheel event (1/120 detent units, positive = up) for a diverted wheel report of `delta`
 /// (positive = up) in 1/`per_notch` notches. `natural` is the "Inverted" direction setting.
 pub fn wheel_units(delta: i16, per_notch: u8, natural: bool) -> i32 {
@@ -66,6 +83,22 @@ pub fn dpi_to_pointer_speed(dpi: u16, min: u16, default: u16, max: u16) -> f64 {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn pointer_scaling_curve() {
+        assert_eq!(pointer_speed_to_scaling(0.0), 0x100);
+        assert_eq!(pointer_speed_to_scaling(-1.0), 0x2E);
+        assert_eq!(pointer_speed_to_scaling(1.0), 0x1FF);
+    }
+
+    #[test]
+    fn thumbwheel_scaling() {
+        assert_eq!(thumbwheel_speed_factor(0.0), 1.0);
+        assert_eq!(thumbwheel_speed_factor(1.0), 4.0);
+        // 18 native counts per turn, 144 diverted: 8 diverted counts are one detent.
+        assert_eq!(thumbwheel_units(8, 18, 144, 1.0), 120.0);
+        assert_eq!(thumbwheel_units(-8, 18, 144, 0.5), -60.0);
+    }
 
     #[test]
     fn smartshift_matches_measurements() {

@@ -5,8 +5,8 @@
 
 use std::collections::HashMap;
 
-use inputsmith_data::DeviceData;
-use inputsmith_ipc::model::{Card, ScrollWheelSettings};
+use inputsmith_data::{DeviceData, HighResolutionSensor};
+use inputsmith_ipc::model::{Card, ScrollWheelSettings, ThumbWheelSettings};
 
 #[derive(Debug, Default)]
 pub struct DeviceDb;
@@ -32,6 +32,16 @@ impl DeviceDb {
     pub fn default_cards(&self, model_id: &str) -> HashMap<u16, Card> {
         let Some(d) = self.get(model_id) else { return HashMap::new() };
         d.defaults.keys().filter_map(|&cid| Some((cid, inputsmith_data::default_card(model_id, cid)?.clone()))).collect()
+    }
+
+    /// The model's default thumb wheel settings.
+    pub fn thumb_wheel_defaults(&self, model_id: &str) -> Option<ThumbWheelSettings> {
+        self.get(model_id)?.thumb_wheel_defaults.clone()
+    }
+
+    /// DPI ranges of the model's high-resolution sensor, if it has one.
+    pub fn high_resolution_sensor(&self, model_id: &str) -> Option<HighResolutionSensor> {
+        self.get(model_id)?.high_resolution_sensor
     }
 
     /// The model's default scroll wheel settings.

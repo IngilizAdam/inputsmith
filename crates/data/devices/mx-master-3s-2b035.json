@@ -15,6 +15,26 @@
     },
     "speed": 0
   },
+  "thumbWheelDefaults": {
+    "dir": "STANDARD",
+    "isSmooth": true,
+    "speed": 0
+  },
+  "highResolutionSensor": {
+    "off": {
+      "min": 200,
+      "max": 4000,
+      "default": 1000,
+      "step": 50
+    },
+    "on": {
+      "min": 200,
+      "max": 8000,
+      "default": 2000,
+      "step": 50
+    },
+    "defaultEnabled": false
+  },
   "controls": [
     82,
     83,
@@ -83,6 +103,14 @@
       "x": 56.3,
       "y": 71.8,
       "dx": 1,
+      "dy": 0
+    },
+    {
+      "slot": "mouse_thumb_wheel_settings",
+      "name": "SLOT_NAME_THUMBWHEEL_SETTINGS",
+      "x": 29.8,
+      "y": 49.5,
+      "dx": -1,
       "dy": 0
     }
   ]

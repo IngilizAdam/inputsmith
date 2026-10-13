@@ -1,8 +1,8 @@
 //! Profile and card helpers shared by the views.
 
 use inputsmith_ipc::model::{
-    Application, Assignment, Attribute, Card, MouseSettings, PointerSpeed, Profile, ScrollMode, ScrollWheelSettings,
-    SmartShiftSettings, StateChange, VirtualThumbwheelKey, WheelDirection,
+    Application, Assignment, Attribute, Card, HapticSettings, MouseSettings, PointerSpeed, Profile, ScrollMode,
+    ScrollWheelSettings, SmartShiftSettings, StateChange, ThumbWheelSettings, VirtualThumbwheelKey, WheelDirection,
 };
 
 use crate::catalog;
@@ -136,6 +136,61 @@ pub fn with_scroll_settings(card: Option<&Card>, slot: &str, s: ScrollWheelSetti
         ..Default::default()
     });
     c.mouse_scroll_wheel_settings = Some(s);
+    c
+}
+
+/// Whether the pointer speed card uses the high-resolution sensor range.
+pub fn high_resolution_active(card: Option<&Card>, default: bool) -> bool {
+    card.and_then(|c| c.mouse_settings.as_ref())
+        .and_then(|m| m.pointer_speed.as_ref())
+        .and_then(|p| p.active.as_ref())
+        .map_or(default, |a| a.high_resolution_sensor_active)
+}
+
+pub fn with_high_resolution(card: Option<&Card>, slot: &str, on: bool) -> Card {
+    let percent = pointer_speed_percent(card);
+    let mut c = with_pointer_speed(card, slot, percent);
+    if let Some(a) = c.mouse_settings.as_mut().and_then(|m| m.pointer_speed.as_mut()).and_then(|p| p.active.as_mut()) {
+        a.high_resolution_sensor_active = on;
+    }
+    c
+}
+
+/// Thumb wheel settings in effect: the card's, else the model's defaults, else smooth native scrolling.
+pub fn thumb_settings(card: Option<&Card>, defaults: Option<&ThumbWheelSettings>) -> ThumbWheelSettings {
+    card.and_then(|c| c.mouse_thumb_wheel_settings.clone())
+        .or_else(|| defaults.cloned())
+        .unwrap_or(ThumbWheelSettings { dir: WheelDirection::Standard, is_smooth: true, ..Default::default() })
+}
+
+pub fn with_thumb_settings(card: Option<&Card>, slot: &str, s: ThumbWheelSettings) -> Card {
+    let mut c = card.cloned().unwrap_or_else(|| Card {
+        id: format!("inputsmith_{slot}"),
+        name: "Mouse".into(),
+        attribute: Attribute::MouseThumbWheelSettings,
+        ..Default::default()
+    });
+    c.mouse_thumb_wheel_settings = Some(s);
+    c
+}
+
+/// Haptic settings in effect: the card's, else on at medium strength (Options+' default).
+pub fn haptic_settings(card: Option<&Card>) -> HapticSettings {
+    card.and_then(|c| c.haptic_settings.clone()).unwrap_or(HapticSettings {
+        is_global_haptics_enabled: true,
+        haptic_feedback_level: 60,
+        ..Default::default()
+    })
+}
+
+pub fn with_haptic_settings(card: Option<&Card>, slot: &str, h: HapticSettings) -> Card {
+    let mut c = card.cloned().unwrap_or_else(|| Card {
+        id: format!("inputsmith_{slot}"),
+        name: "Haptics".into(),
+        attribute: Attribute::HapticSettings,
+        ..Default::default()
+    });
+    c.haptic_settings = Some(h);
     c
 }
 

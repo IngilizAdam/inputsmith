@@ -10,7 +10,8 @@ use inputsmith_hidpp::device::{self, Device};
 use inputsmith_hidpp::features::battery::Battery;
 use inputsmith_hidpp::features::change_host::ChangeHost;
 use inputsmith_hidpp::features::device_info::{DeviceInformation, DeviceName, FriendlyName};
-use inputsmith_hidpp::features::dpi::{AdjustableDpi, PointerSpeed};
+use inputsmith_hidpp::features::dpi::{AdjustableDpi, ExtendedDpi, PointerSpeed};
+use inputsmith_hidpp::features::haptics::Haptics;
 use inputsmith_hidpp::features::fn_inversion::FnInversion;
 use inputsmith_hidpp::features::reprog_controls::{ReprogControls, control_name};
 use inputsmith_hidpp::features::wheel::{HiResWheel, SmartShift, Thumbwheel};
@@ -270,6 +271,13 @@ fn show_device(ch: &Channel, index: u8, detail: bool, ind: &str) {
         if let (Ok(cur), Ok(list)) = (d.dpi(0), d.dpi_list(0)) {
             println!("{ind}dpi: {} (default {}), supported {:?}", cur.0, cur.1, list);
         }
+    }
+    if dev.has_feature(feature_id::EXTENDED_ADJUSTABLE_DPI) {
+        let d = ExtendedDpi(&dev);
+        println!("{ind}extended dpi: {:?}, capabilities (separate y, lod) {:?}, supported {:?}", d.dpi(0), d.capabilities(0), d.dpi_list(0));
+    }
+    if dev.has_feature(feature_id::HAPTIC_FEEDBACK) {
+        println!("{ind}haptics: {:?}", Haptics(&dev).config());
     }
     if let Ok(s) = PointerSpeed(&dev).get() {
         println!("{ind}pointer speed: {:.3}x", s as f32 / 256.0);

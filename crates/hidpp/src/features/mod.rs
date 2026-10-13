@@ -8,6 +8,7 @@ pub mod config_change;
 pub mod device_info;
 pub mod dpi;
 pub mod fn_inversion;
+pub mod haptics;
 pub mod reprog_controls;
 pub mod wheel;
 

@@ -41,8 +41,8 @@ injected into the system) rather than guessed. Details are in
 | Feature | Status | Notes |
 |---|---|---|
 | Pointer speed | ✅ | Applied as sensor DPI with the same curve as Options+. |
-| Pointer speed on high-resolution sensors (MX Master 3S / 4, MX Anywhere 3S) | ❌ | These use the extended DPI feature (0x2202), which is not implemented. |
-| Pointer speed on mice without adjustable DPI | ❌ | Options+ changes the Windows pointer speed for these; Inputsmith does not yet. |
+| Pointer speed on high-resolution sensors (MX Master 3S / 4, MX Anywhere 3S) | 🔬 | Extended DPI (0x2202) with the model's normal and high-resolution ranges (switch in the pointer speed panel). |
+| Pointer speed on mice without adjustable DPI | 🔬 | Through the mouse's own speed scaling (0x2205), as Options+ does; the curve is not measured. |
 | SmartShift on/off, sensitivity | ✅ | |
 | Scrolling force (SmartShift with tunable torque) | ✅ | |
 | Scroll direction (standard / inverted) | ✅ | |
@@ -51,7 +51,8 @@ injected into the system) rather than guessed. Details are in
 | Swap left/right buttons | ✅ | System setting, applies to every mouse (as in Options+). |
 | Per-model defaults | ✅ | From the built-in device description (same values as Options+). |
 | Scroll speed | ❌ | |
-| Thumbwheel (MX Master etc.) | ❌ | Feature access exists; settings and actions not wired up. The wheel still scrolls horizontally on its own. |
+| Thumb wheel direction, speed, smooth scrolling (MX Master etc.) | 🔬 | Direction through the device; other speeds and stepped scrolling divert the wheel and scroll in software. The feel is not matched to Options+. |
+| Thumb wheel actions (zoom, volume, switch tabs, …) | ❌ | Only horizontal scrolling. |
 | Report rate, onboard profiles (gaming mice) | ❌ | |
 
 ## Buttons and actions
@@ -110,7 +111,8 @@ Mice and trackballs: see the [device list](devices/README.md) for every model an
 | Device type | Status | Notes |
 |---|---|---|
 | Older HID++ 1.0 mice (Performance MX, MX Anywhere 1st gen, M570, early M705) | ❌ | Configured through registers instead of features; not implemented. |
-| Haptic feedback, Actions Ring (MX Master 4) | ❌ | The thumb panel is offered for re-assignment like other buttons; haptics and the Actions Ring are not implemented. |
+| Haptic feedback on/off and strength (MX Master 4) | 🔬 | Device settings page. |
+| Haptic feedback on events, Actions Ring (MX Master 4) | ❌ | The thumb panel is offered for re-assignment like other buttons. |
 | Keyboards (Fn lock, backlight, disable keys, key remapping) | ❌ | Fn inversion feature access exists, untested; no UI. |
 | Dials, crowns, multi-rollers, haptics, force-sensing buttons | ❌ | |
 | Presenters, touchpads | ❌ | |

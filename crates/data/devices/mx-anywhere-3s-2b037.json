@@ -29,6 +29,21 @@
       ]
     }
   },
+  "highResolutionSensor": {
+    "off": {
+      "min": 200,
+      "max": 4000,
+      "default": 1000,
+      "step": 50
+    },
+    "on": {
+      "min": 200,
+      "max": 8000,
+      "default": 2000,
+      "step": 50
+    },
+    "defaultEnabled": false
+  },
   "controls": [
     82,
     83,

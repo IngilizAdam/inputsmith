@@ -12,9 +12,11 @@ built-in description (name, settings key, default scroll settings, buttons, defa
 | 🔬 Untested | Everything below is implemented, but nobody has tried it on this model yet — [reports welcome](#reporting-a-device). Features listed as *not implemented* in the notes are missing. |
 | ❌ Not implemented | Needs support that Inputsmith does not have yet. |
 
-What every 🔬 model gets: pointer speed (if the mouse has adjustable DPI), scroll wheel settings and
-SmartShift where the model has them, button re-assignment, gestures on gesture buttons (the default
-binding, as in Options+), and horizontal scrolling with the side buttons on models that support it.
+What every 🔬 model gets, where the model has the hardware: pointer speed (through adjustable DPI,
+extended DPI with the high-resolution sensor mode, or the mouse's own speed scaling), scroll wheel settings
+and SmartShift, thumb wheel direction, speed and smooth scrolling, haptic feedback on/off and strength,
+button re-assignment, gestures on gesture buttons (the default binding, as in Options+), and horizontal
+scrolling with the side buttons.
 *Drawing* means the Buttons and Point & Scroll pages show a picture with hotspots; *button list* means
 they show a list instead. Only Unifying connections are tested so far (see the
 [feature matrix](../FEATURES.md#connections)).
@@ -52,22 +54,22 @@ they show a list instead. Only Unifying connections are tested so far (see the
 | MX Anywhere 2S | `6b01a` | Unifying, Bluetooth | 🔬 Untested | drawing |
 | MX Anywhere 3 | `6b025` | Unifying, Bluetooth | ✅ Tested | [notes](mx-anywhere-3.md); drawing |
 | MX Anywhere 3 for Business | `2b02d` | Bolt, Bluetooth | 🔬 Untested | drawing |
-| MX Anywhere 3S | `2b037` | Bolt, Bluetooth | 🔬 Untested | drawing; pointer speed needs the extended DPI feature (not implemented) |
-| MX Anywhere 3S for Business | `2b038` | Bolt, Bluetooth | 🔬 Untested | drawing; pointer speed needs the extended DPI feature (not implemented) |
+| MX Anywhere 3S | `2b037` | Bolt, Bluetooth | 🔬 Untested | drawing |
+| MX Anywhere 3S for Business | `2b038` | Bolt, Bluetooth | 🔬 Untested | drawing |
 | MX Ergo (trackball) | `6b01d` | Unifying, Bluetooth | 🔬 Untested | drawing |
 | MX Ergo S (trackball) | `2b03e` | Bolt, Bluetooth | 🔬 Untested | button list (no drawing yet) |
-| MX Master | `6b012` | Unifying, Bluetooth | 🔬 Untested | drawing; thumb wheel settings not implemented (it scrolls horizontally on its own) |
-| MX Master | `6b01e` | Unifying, Bluetooth | 🔬 Untested | drawing; thumb wheel settings not implemented (it scrolls horizontally on its own) |
-| MX Master | `6b017` | Unifying, Bluetooth | 🔬 Untested | drawing; thumb wheel settings not implemented (it scrolls horizontally on its own) |
-| MX Master 2S | `6b019` | Unifying, Bluetooth | 🔬 Untested | drawing; thumb wheel settings not implemented (it scrolls horizontally on its own) |
-| MX Master 3 | `6b023` | Unifying, Bluetooth | 🔬 Untested | drawing; thumb wheel settings not implemented (it scrolls horizontally on its own) |
-| MX Master 3 B | `2b028` | Bolt, Bluetooth | 🔬 Untested | drawing; thumb wheel settings not implemented (it scrolls horizontally on its own) |
-| MX Master 3S | `2b034` | Bolt, Bluetooth | 🔬 Untested | drawing; thumb wheel settings not implemented (it scrolls horizontally on its own); pointer speed needs the extended DPI feature (not implemented) |
-| MX Master 3S | `2b043` | Bolt, Bluetooth | 🔬 Untested | drawing; thumb wheel settings not implemented (it scrolls horizontally on its own); pointer speed needs the extended DPI feature (not implemented) |
-| MX Master 3s for Business | `2b035` | Bolt, Bluetooth | 🔬 Untested | drawing; thumb wheel settings not implemented (it scrolls horizontally on its own); pointer speed needs the extended DPI feature (not implemented) |
-| MX Master 3s for Business | `2b044` | Bolt, Bluetooth | 🔬 Untested | drawing; thumb wheel settings not implemented (it scrolls horizontally on its own); pointer speed needs the extended DPI feature (not implemented) |
-| MX Master 4 | `2b042` | Bolt, Bluetooth | 🔬 Untested | button list (no drawing yet); thumb wheel settings not implemented (it scrolls horizontally on its own); pointer speed needs the extended DPI feature (not implemented); haptic feedback and Actions Ring not implemented |
-| MX Master 4 for Business | `2b048` | Bolt, Bluetooth | 🔬 Untested | button list (no drawing yet); thumb wheel settings not implemented (it scrolls horizontally on its own); pointer speed needs the extended DPI feature (not implemented); haptic feedback and Actions Ring not implemented |
+| MX Master | `6b012` | Unifying, Bluetooth | 🔬 Untested | drawing; thumb wheel actions other than horizontal scrolling not implemented |
+| MX Master | `6b01e` | Unifying, Bluetooth | 🔬 Untested | drawing; thumb wheel actions other than horizontal scrolling not implemented |
+| MX Master | `6b017` | Unifying, Bluetooth | 🔬 Untested | drawing; thumb wheel actions other than horizontal scrolling not implemented |
+| MX Master 2S | `6b019` | Unifying, Bluetooth | 🔬 Untested | drawing; thumb wheel actions other than horizontal scrolling not implemented |
+| MX Master 3 | `6b023` | Unifying, Bluetooth | 🔬 Untested | drawing; thumb wheel actions other than horizontal scrolling not implemented |
+| MX Master 3 B | `2b028` | Bolt, Bluetooth | 🔬 Untested | drawing; thumb wheel actions other than horizontal scrolling not implemented |
+| MX Master 3S | `2b034` | Bolt, Bluetooth | 🔬 Untested | drawing; thumb wheel actions other than horizontal scrolling not implemented |
+| MX Master 3S | `2b043` | Bolt, Bluetooth | 🔬 Untested | drawing; thumb wheel actions other than horizontal scrolling not implemented |
+| MX Master 3s for Business | `2b035` | Bolt, Bluetooth | 🔬 Untested | drawing; thumb wheel actions other than horizontal scrolling not implemented |
+| MX Master 3s for Business | `2b044` | Bolt, Bluetooth | 🔬 Untested | drawing; thumb wheel actions other than horizontal scrolling not implemented |
+| MX Master 4 | `2b042` | Bolt, Bluetooth | 🔬 Untested | button list (no drawing yet); thumb wheel actions other than horizontal scrolling not implemented; haptic feedback on events and the Actions Ring not implemented |
+| MX Master 4 for Business | `2b048` | Bolt, Bluetooth | 🔬 Untested | button list (no drawing yet); thumb wheel actions other than horizontal scrolling not implemented; haptic feedback on events and the Actions Ring not implemented |
 | MX Vertical | `eb020` | Unifying, Bluetooth, USB cable | 🔬 Untested | drawing |
 | Pebble Mouse 2 M350s | `2b036` | Bolt, Bluetooth | 🔬 Untested | button list (no drawing yet) |
 | Pebble Up | `2b04c` | Bolt, Bluetooth | 🔬 Untested | button list (no drawing yet) |
@@ -82,9 +84,9 @@ they show a list instead. Only Unifying connections are tested so far (see the
 | Signature Plus M750 L | `2b02c` | Bolt, Bluetooth | 🔬 Untested | button list (no drawing yet) |
 | Signature Plus M750 L For Business | `2b03d` | Bolt, Bluetooth | 🔬 Untested | button list (no drawing yet) |
 | Signature Wired M520 L for Business | `8c0a2` | USB cable | 🔬 Untested | button list (no drawing yet) |
-| Wireless Mouse (M310) | `44055` | Unifying | 🔬 Untested | button list (no drawing yet) |
 | Wireless Mouse (M185) | `4091` | Unifying | 🔬 Untested | button list (no drawing yet) |
 | Wireless Mouse (M187) | `4054` | Unifying | 🔬 Untested | button list (no drawing yet) |
+| Wireless Mouse (M310) | `44055` | Unifying | 🔬 Untested | button list (no drawing yet) |
 
 Keyboards (69 models in Options+), presenters, touchpads, dials and webcams are not supported yet.
 Logitech mice that Options+ does not list but that speak HID++ 2.0 should still get the common features,

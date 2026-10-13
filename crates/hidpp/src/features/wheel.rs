@@ -163,6 +163,24 @@ pub fn parse_wheel_movement(feature_index: u8, r: &crate::report::Report) -> Opt
     Some(WheelMovement { delta: be16(p, 1) as i16, high_resolution: p[0] & 0x10 != 0, periods: p[0] & 0x0f })
 }
 
+/// Thumb wheel rotation reported while the thumb wheel is diverted (0x2150 event 0).
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct ThumbwheelMovement {
+    /// Signed rotation in diverted-resolution units; positive is towards the front of the mouse.
+    pub rotation: i16,
+    /// 0 inactive, 1 start, 2 active, 3 stop.
+    pub state: u8,
+}
+
+/// Parses a 0x2150 rotation event, given the feature's index on the device.
+pub fn parse_thumbwheel_movement(feature_index: u8, r: &crate::report::Report) -> Option<ThumbwheelMovement> {
+    if r.feature_index() != feature_index || r.sw_id() != 0 || r.function() != 0 {
+        return None;
+    }
+    let p = r.params();
+    Some(ThumbwheelMovement { rotation: be16(p, 0) as i16, state: p[4] })
+}
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct ThumbwheelInfo {
     pub native_resolution: u16,
@@ -223,5 +241,14 @@ mod tests {
             Some(WheelMovement { delta: -10, high_resolution: false, periods: 2 })
         );
         assert_eq!(parse_wheel_movement(0x0d, &r), None);
+    }
+
+    #[test]
+    fn parses_thumbwheel_movement() {
+        // Layout as documented by Solaar: rotation (BE16), timestamp, state, flags.
+        let mut b = [0u8; 20];
+        b[..9].copy_from_slice(&[0x11, 0x01, 0x10, 0x00, 0xff, 0xfd, 0x12, 0x34, 0x02]);
+        let r = Report::parse(&b).unwrap();
+        assert_eq!(parse_thumbwheel_movement(0x10, &r), Some(ThumbwheelMovement { rotation: -3, state: 2 }));
     }
 }

@@ -8,7 +8,7 @@
 use std::collections::{BTreeMap, HashMap};
 use std::sync::OnceLock;
 
-use inputsmith_ipc::model::{Card, ScrollWheelSettings};
+use inputsmith_ipc::model::{Card, ScrollWheelSettings, ThumbWheelSettings};
 use serde::Deserialize;
 
 include!(concat!(env!("OUT_DIR"), "/embedded.rs"));
@@ -29,6 +29,12 @@ pub struct DeviceData {
     /// Scroll wheel settings used until the user changes them.
     #[serde(default)]
     pub scroll_defaults: Option<ScrollWheelSettings>,
+    /// Thumb wheel settings used until the user changes them.
+    #[serde(default)]
+    pub thumb_wheel_defaults: Option<ThumbWheelSettings>,
+    /// DPI ranges of a high-resolution sensor (normal and high-resolution mode).
+    #[serde(default)]
+    pub high_resolution_sensor: Option<HighResolutionSensor>,
     /// Control ids that can be re-assigned.
     #[serde(default)]
     pub controls: Vec<u16>,
@@ -45,6 +51,26 @@ pub struct DeviceData {
     /// Hotspots on the "Point & scroll" page.
     #[serde(default)]
     pub point_scroll: Vec<Hotspot>,
+}
+
+/// DPI ranges of a high-resolution sensor.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct HighResolutionSensor {
+    /// Range while the high-resolution mode is off.
+    pub off: DpiRange,
+    /// Range while it is on.
+    pub on: DpiRange,
+    #[serde(default)]
+    pub default_enabled: bool,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Deserialize)]
+pub struct DpiRange {
+    pub min: u16,
+    pub max: u16,
+    pub default: u16,
+    pub step: u16,
 }
 
 /// A marker on the device art.
