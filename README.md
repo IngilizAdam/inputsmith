@@ -42,7 +42,8 @@ or missing, is in [`docs/FEATURES.md`](docs/FEATURES.md).
 Download `inputsmith-<version>-windows-x64.msi` from the
 [releases page](https://github.com/IngilizAdam/inputsmith/releases) and run it. It installs for the
 current user into `%LOCALAPPDATA%\Programs\inputsmith` (no administrator rights needed) and adds a Start
-Menu entry; uninstall it from *Settings → Apps*. Your settings are kept either way.
+Menu entry; uninstall it from *Settings → Apps*. Your settings are kept either way. A fresh install turns
+on *Start at login* (switch it off in the app's settings); updates keep your choice.
 
 The installer is not code-signed yet, so SmartScreen may warn on first run ("More info" → "Run
 anyway"). To build it yourself, see [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).

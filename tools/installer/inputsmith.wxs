@@ -76,14 +76,20 @@
     <CustomAction Id="RemoveAutostart" BinaryRef="Wix4UtilCA_$(sys.BUILDARCHSHORT)" DllEntry="WixQuietExec"
                   Execute="deferred" Impersonate="yes" Return="ignore" />
 
-    <!-- Start the app after installing or upgrading (not for quiet installs). -->
+    <!-- Start the app after installing or upgrading (not for quiet installs). A fresh install also
+         turns on "Start at login"; an upgrade keeps the user's choice. -->
+    <CustomAction Id="LaunchAppFirstInstall" Directory="INSTALLFOLDER"
+                  ExeCommand="&quot;[INSTALLFOLDER]inputsmith-gui.exe&quot; --enable-autostart" Return="asyncNoWait" />
     <CustomAction Id="LaunchApp" Directory="INSTALLFOLDER" ExeCommand="&quot;[INSTALLFOLDER]inputsmith-gui.exe&quot;"
                   Return="asyncNoWait" />
 
     <InstallExecuteSequence>
       <Custom Action="RemoveAutostart" Before="RemoveFiles"
               Condition="REMOVE~=&quot;ALL&quot; AND NOT UPGRADINGPRODUCTCODE" />
-      <Custom Action="LaunchApp" After="InstallFinalize" Condition="NOT Installed AND NOT REMOVE AND UILevel &lt;&gt; 2" />
+      <Custom Action="LaunchAppFirstInstall" After="InstallFinalize"
+              Condition="NOT Installed AND NOT REMOVE AND NOT WIX_UPGRADE_DETECTED AND UILevel &lt;&gt; 2" />
+      <Custom Action="LaunchApp" After="LaunchAppFirstInstall"
+              Condition="NOT Installed AND NOT REMOVE AND WIX_UPGRADE_DETECTED AND UILevel &lt;&gt; 2" />
     </InstallExecuteSequence>
   </Package>
 </Wix>

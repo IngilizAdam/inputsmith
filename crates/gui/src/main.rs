@@ -34,6 +34,13 @@ pub fn window_icon_rgba() -> Vec<u8> {
 
 fn main() -> iced::Result {
     env_logger::Builder::from_env(env_logger::Env::default().default_filter_or("info")).init();
+    // Passed by the installer on a fresh install (not on upgrades), so "Start at
+    // login" is on by default like in Options+ but a user's choice survives updates.
+    if std::env::args().any(|a| a == "--enable-autostart") {
+        if let Err(e) = desktop::set_autostart(true) {
+            log::warn!("cannot enable start at login: {e}");
+        }
+    }
     if !desktop::claim_single_instance() {
         log::info!("already running; asked the running instance to show its window");
         return Ok(());
