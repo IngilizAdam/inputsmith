@@ -19,7 +19,7 @@ jobs:
     name: Windows x64
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: ${{ inputs.ref }}
 
@@ -40,7 +40,12 @@ jobs:
         run: wix extension add --global WixToolset.Util.wixext/5.0.2
 
       - name: Package (msi)
-        run: ./tools/package.ps1
+        # WiX errors become annotations, so they show on the run's summary page.
+        run: |
+          ./tools/package.ps1 2>&1 | ForEach-Object {
+            $line = "$_"
+            if ($line -match '\b(error|warning) WIX\d+') { "::$($Matches[1])::$line" } else { $line }
+          }
 
       - uses: actions/upload-artifact@v4
         with:

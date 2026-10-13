@@ -38,6 +38,15 @@
           </Component>
         </Directory>
       </Directory>
+      <!-- The agent's log (at most ~2 MB, see crates/agent/src/logfile.rs); removed on uninstall. -->
+      <Directory Id="LogDir" Name="inputsmith">
+        <Component Id="Logs">
+          <RegistryValue Root="HKCU" Key="Software\Inputsmith" Name="LogDir" Type="string" Value="[LogDir]"
+                         KeyPath="yes" />
+          <RemoveFile Id="RemoveLogs" Name="*.log" On="uninstall" />
+          <RemoveFolder Id="RemoveLogDir" On="uninstall" />
+        </Component>
+      </Directory>
     </StandardDirectory>
 
     <StandardDirectory Id="ProgramMenuFolder">
@@ -52,6 +61,7 @@
     <Feature Id="Main">
       <ComponentRef Id="Programs" />
       <ComponentRef Id="StartMenuShortcut" />
+      <ComponentRef Id="Logs" />
     </Feature>
 
     <!-- Running copies keep the files locked. The GUI restarts the agent, so it goes first. -->
