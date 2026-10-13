@@ -67,9 +67,10 @@
 
     <!-- Running copies keep the files and folders locked. End them before Windows Installer checks for
          files in use (it would ask the user to close them) and before an old version is removed. The
-         GUI restarts the agent, so it goes first; /T also ends the agent it started. -->
+         GUI restarts the agent, so it goes first. Each is waited for: a process that is still exiting
+         would show up in the files-in-use check. -->
     <SetProperty Id="WixQuietExecCmdLine" Sequence="execute" Before="CloseRunningApp"
-                 Value="&quot;[System64Folder]taskkill.exe&quot; /F /T /IM inputsmith-gui.exe /IM inputsmith-agent.exe" />
+                 Value="&quot;[System64Folder]WindowsPowerShell\v1.0\powershell.exe&quot; -NoProfile -NonInteractive -Command &quot;Get-Process inputsmith-gui -ErrorAction SilentlyContinue | Stop-Process -Force -PassThru | Wait-Process -Timeout 10 -ErrorAction SilentlyContinue; Get-Process inputsmith-agent -ErrorAction SilentlyContinue | Stop-Process -Force -PassThru | Wait-Process -Timeout 10 -ErrorAction SilentlyContinue&quot;" />
     <CustomAction Id="CloseRunningApp" BinaryRef="Wix4UtilCA_$(sys.BUILDARCHSHORT)" DllEntry="WixQuietExec"
                   Execute="immediate" Return="ignore" />
 
