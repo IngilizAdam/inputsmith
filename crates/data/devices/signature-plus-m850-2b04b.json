@@ -1,0 +1,31 @@
+{
+  "modelId": "2b04b",
+  "displayName": "Signature Comfort Plus M850 L for Business",
+  "slotPrefix": "signature-plus-m850-2b04b",
+  "type": "MOUSE",
+  "scrollDefaults": {
+    "dir": "STANDARD",
+    "isSmooth": false,
+    "speed": 0,
+    "virtualThumbwheel": {
+      "keys": [
+        {
+          "controlId": 83,
+          "enabled": true,
+          "stateChange": "DEFAULT"
+        },
+        {
+          "controlId": 86,
+          "enabled": true,
+          "stateChange": "DEFAULT"
+        }
+      ]
+    }
+  },
+  "controls": [
+    82,
+    83,
+    86,
+    253
+  ]
+}

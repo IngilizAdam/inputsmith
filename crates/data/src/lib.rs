@@ -29,6 +29,13 @@ pub struct DeviceData {
     /// Scroll wheel settings used until the user changes them.
     #[serde(default)]
     pub scroll_defaults: Option<ScrollWheelSettings>,
+    /// Control ids that can be re-assigned.
+    #[serde(default)]
+    pub controls: Vec<u16>,
+    /// Card id per control id for controls whose default is not their own function (e.g. the
+    /// gesture button, which does nothing by itself).
+    #[serde(default)]
+    pub defaults: BTreeMap<u16, String>,
     /// File name in `art/`.
     #[serde(default)]
     pub art: Option<String>,
@@ -83,6 +90,12 @@ pub fn devices() -> &'static [DeviceData] {
 
 pub fn device(model_id: &str) -> Option<&'static DeviceData> {
     devices().iter().find(|d| d.model_id == model_id)
+}
+
+/// The card a control uses until the user assigns one, if it differs from the control's own function.
+pub fn default_card(model_id: &str, cid: u16) -> Option<&'static Card> {
+    let id = device(model_id)?.defaults.get(&cid)?;
+    cards().iter().find(|c| &c.id == id)
 }
 
 /// An SVG from `art/`.
@@ -160,6 +173,15 @@ mod tests {
             assert!(d.slot_prefix.ends_with(&d.model_id), "{}: slot prefix", d.model_id);
             if let Some(a) = &d.art {
                 assert!(art(a).is_some(), "{}: missing art/{a}", d.model_id);
+                // A picture must show every control, or some would not be reachable.
+                for cid in &d.controls {
+                    let slot = format!("c{cid}");
+                    assert!(d.buttons.iter().any(|h| h.slot == slot), "{}: no hotspot for {cid}", d.model_id);
+                }
+            }
+            for (cid, card) in &d.defaults {
+                assert!(d.controls.contains(cid), "{}: default for unknown control {cid}", d.model_id);
+                assert!(cards().iter().any(|c| &c.id == card), "{}: unknown default card {card}", d.model_id);
             }
             for h in d.buttons.iter().chain(&d.point_scroll) {
                 assert!(text(&h.name).is_some(), "{}: no text for {}", d.model_id, h.name);

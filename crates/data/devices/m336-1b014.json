@@ -1,0 +1,17 @@
+{
+  "modelId": "1b014",
+  "displayName": "M336/M337/M535",
+  "slotPrefix": "m336-1b014",
+  "type": "MOUSE",
+  "scrollDefaults": {
+    "dir": "STANDARD",
+    "isSmooth": false,
+    "speed": 0
+  },
+  "controls": [
+    82,
+    206,
+    207,
+    208
+  ]
+}

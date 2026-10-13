@@ -262,6 +262,9 @@ pub struct DeviceRt {
     wheel_multiplier: u8,
     dpi: Option<DpiInfo>,
     scroll_defaults: Option<ScrollWheelSettings>,
+    /// Cards used by controls the user has not assigned, when their own function is not the default
+    /// (the gesture button does nothing by itself).
+    default_cards: HashMap<u16, Card>,
     state: Mutex<State>,
     /// Writes that failed during the current [`Self::configure`] run.
     config_errors: AtomicU32,
@@ -302,6 +305,7 @@ impl DeviceRt {
             key,
             name: db.display_name(&model_id, extended_model_id, &fw_name),
             scroll_defaults: db.scroll_defaults(&model_id),
+            default_cards: db.default_cards(&model_id),
             slot_prefix: db.slot_prefix(&model_id, &fw_name),
             model_id,
             extended_model_id,
@@ -567,7 +571,11 @@ impl DeviceRt {
                 continue;
             }
             let slot = self.slot(c.cid);
-            let cards: Vec<&Card> = settings.cards_for_slot(&slot).collect();
+            let mut cards: Vec<&Card> = settings.cards_for_slot(&slot).collect();
+            // Unassigned in the default profile: the device default applies there.
+            if settings.resolve(None, &slot).is_none() {
+                cards.extend(self.default_cards.get(&c.cid));
+            }
             let horizontal = hscroll.contains(&c.cid);
             let divert = horizontal || cards.iter().any(|card| !is_native_card(c.cid, card));
             let raw_xy = divert && c.flags.raw_xy() && cards.iter().any(|card| is_gesture_card(card));
@@ -703,7 +711,10 @@ impl DeviceRt {
             let settings = shared.settings.read().unwrap();
             let app = shared.app_profile.read().unwrap();
             let app_profile = app.as_ref().and_then(|id| settings.profiles.iter().find(|p| &p.id == id));
-            settings.resolve(app_profile, &self.slot(cid)).and_then(|a| a.card.clone())
+            settings
+                .resolve(app_profile, &self.slot(cid))
+                .and_then(|a| a.card.clone())
+                .or_else(|| self.default_cards.get(&cid).cloned())
         };
         log::debug!("{}: press {cid:#x} -> {:?}", self.name, card.as_ref().map(|c| &c.id));
         let active = match card {

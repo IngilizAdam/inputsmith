@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Logitech M500s, top view.
+  From Piper (https://github.com/libratbag/piper), data/svgs/logitech-m500s.svg, by the Piper contributors
+  (FoxVK), licensed GPL-2.0-or-later.
+  Modified for Inputsmith: only the device layer is kept (no button leaders), cropped to the device,
+  editor metadata removed. See crates/data/README.md.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="233.96" height="386.96" viewBox="4.97 15.17 233.96 386.96">
+<defs
+     id="defs2" />
+<g
+     id="Device"
+     transform="translate(-68.791597,-390.00576)"
+     style="display:inline;opacity:1">
+    <path
+       id="path950"
+       d="m 134.36546,419.51033 c -32.1034,44.06568 -38.250666,88.78703 -35.439504,130.61916 4.048624,60.24641 36.900534,102.9714 56.085204,131.56235 29.34793,43.73727 31.62003,58.26635 28.72613,70.70827 -2.44369,10.50633 -9.36244,21.35458 -9.36244,21.35458 -39.64793,-13.47214 -73.6149,-61.22849 -69.14685,-148.5713 0.12346,-2.41357 7.66154,16.58211 13.41429,14.15899 4.43131,-1.86651 -15.39157,-32.31433 -19.698702,-49.69306 C 89.79516,552.73656 83.101562,485.14999 134.36546,419.51033 Z"
+       style="color:#000000;overflow:visible;opacity:1;vector-effect:none;fill:#d3d3ce;fill-opacity:1;stroke:#babdb6;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;paint-order:normal" />
+    <path
+       style="color:#000000;overflow:visible;opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:#babdb6;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;paint-order:normal"
+       d="m 92.874939,518.37875 c 0.144869,15.84123 -0.351344,30.56844 2.035881,49.24367 -7.559859,2.44229 -9.737964,-35.18962 -2.035881,-49.24367 z"
+       id="button4" />
+    <path
+       id="button3"
+       d="m 95.115999,569.31083 c -12.282246,2.81321 11.935001,72.96065 23.362631,70.12188 5.94103,-2.07837 -20.494383,-37.06368 -23.362631,-70.12188 z"
+       style="color:#000000;overflow:visible;opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:#babdb6;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;paint-order:normal" />
+    <rect
+       style="color:#000000;overflow:visible;opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:#babdb6;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;paint-order:normal"
+       id="button2"
+       width="23.155933"
+       height="69.467789"
+       x="187.91942"
+       y="451.26083"
+       rx="11.577967"
+       ry="11.577966" />
+    <path
+       id="dummy_button"
+       d="m 208.57282,542.24549 -0.65676,17.92859 c -0.16469,4.49569 -3.83301,8.12045 -8.59419,8.12045 -4.76117,0 -8.49995,-3.62273 -8.59417,-8.12045 l -0.65677,-17.92859 z"
+       style="color:#000000;overflow:visible;opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:#babdb6;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;paint-order:normal" />
+    <path
+       style="opacity:1;fill:#4d4d4d;stroke:#bfc2bb;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 199.0734,420.47153 -0.0212,30.55574"
+       id="path55" />
+    <path
+       style="opacity:1;fill:#4d4d4d;stroke:#bfc2bb;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 199.34376,542.55698 c 0,-21.03371 0.23142,-21.03371 0.23142,-21.03371 v 0"
+       id="path57" />
+    <path
+       style="opacity:1;fill:#4d4d4d;stroke:#bfc2bb;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 199.2676,568.73186 0.0633,39.50012"
+       id="path59" />
+    <path
+       style="display:inline;opacity:1;fill:#ffffff;stroke:#babdb6;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 65.573866,29.504567 12.970465,-0.04193 c -46.952612,66.607 -39.25832,137.434673 -13.640008,192.741493 5.407718,11.6746 13.121148,22.10102 19.124141,32.58399 19.428466,33.92773 72.183546,78.97221 34.320206,132.55782 l -12.76542,-3.59701 c 23.04906,-37.4308 3.65589,-56.09704 -31.994645,-111.04748 -25.147073,-38.7608 -50.809736,-79.7729 -41.576942,-162.64463 2.622015,-23.534689 9.95749,-41.623077 33.562203,-80.552253 z"
+       id="path920"
+       transform="translate(68.791597,390.00576)" />
+    <path
+       style="display:inline;opacity:1;fill:#d3d3ce;fill-opacity:1;stroke:#babdb6;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 78.544331,29.462637 49.004659,1.630479 0.0937,28.087366 c -7.06584,1.939444 -11.05204,6.739521 -10.97025,13.231795 v 48.411043 c 0.55597,7.44476 4.53613,10.58698 11.42741,12.27391 v 16.25262 h -9.61689 v 23.26223 c 0.79081,3.40719 2.77986,6.54472 8.77968,8.77968 v 37.93226 H 63.344801 C 33.975314,152.23973 40.091888,82.391497 78.544331,29.462637 Z"
+       id="button0"
+       transform="translate(68.791597,390.00576)" />
+    <path
+       style="display:inline;opacity:1;fill:#d3d3ce;fill-opacity:1;stroke:#babdb6;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 133.08336,31.243468 0.0381,27.826048 c 4.51626,0.577422 10.67575,4.570262 11.50851,11.493699 l 0.001,48.533095 c -0.13326,4.63993 -2.34723,11.62657 -11.45528,13.86363 l 0.0183,16.40475 9.44037,0.006 -0.30301,23.01617 c -1.29233,4.27806 -4.33453,8.00054 -8.86853,8.92742 l 0.0251,37.80663 86.38424,0.0299 c -3.55318,-33.63361 0.31989,-51.10663 -7.05298,-99.23152 C 204.64011,66.53207 203.7966,40.115242 133.0833,31.243488 Z"
+       id="button1"
+       transform="translate(68.791597,390.00576)" />
+    <path
+       style="display:inline;opacity:1;fill:#d3d3ce;fill-opacity:1;stroke:#babdb6;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 63.344801,219.32402 219.87222,219.15071 C 239.9237,330.27301 194.03419,393.5234 118.34867,387.34594 158.48163,327.67734 98.157771,289.0612 63.344801,219.32402 Z"
+       id="path1259"
+       transform="translate(68.791597,390.00576)" />
+    <path
+       style="color:#000000;display:inline;overflow:visible;opacity:1;vector-effect:none;fill:#888a85;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;paint-order:normal"
+       d="m 181.23965,481.55695 v 7.97553 l -3.83319,-3.83321 z"
+       id="button5" />
+    <path
+       id="button6"
+       d="m 217.40647,481.55695 v 7.97553 l 3.83318,-3.83321 z"
+       style="color:#000000;display:inline;overflow:visible;opacity:1;vector-effect:none;fill:#888a85;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;paint-order:normal" />
+  </g>
+</svg>

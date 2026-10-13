@@ -1,0 +1,14 @@
+{
+  "modelId": "4040",
+  "displayName": "M275/M280/M320/M330/M331",
+  "slotPrefix": "m280-4040",
+  "type": "MOUSE",
+  "scrollDefaults": {
+    "dir": "STANDARD",
+    "isSmooth": true,
+    "speed": 0
+  },
+  "controls": [
+    82
+  ]
+}

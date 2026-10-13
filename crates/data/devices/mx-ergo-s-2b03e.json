@@ -1,0 +1,31 @@
+{
+  "modelId": "2b03e",
+  "displayName": "MX Ergo S",
+  "extendedDisplayNames": {
+    "1": "MX Ergo S Plus"
+  },
+  "slotPrefix": "mx-ergo-s-2b03e",
+  "type": "TRACKBALL",
+  "scrollDefaults": {
+    "dir": "STANDARD",
+    "isSmooth": false,
+    "speed": 0,
+    "virtualThumbwheel": {
+      "keys": [
+        {
+          "controlId": 253,
+          "enabled": true,
+          "stateChange": "DEFAULT"
+        }
+      ]
+    }
+  },
+  "controls": [
+    82,
+    83,
+    86,
+    91,
+    93,
+    253
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "modelId": "44055",
+  "displayName": "Wireless Mouse",
+  "slotPrefix": "m310-44055",
+  "type": "MOUSE",
+  "scrollDefaults": {
+    "dir": "STANDARD",
+    "isSmooth": true,
+    "speed": 0
+  },
+  "controls": [
+    82
+  ]
+}

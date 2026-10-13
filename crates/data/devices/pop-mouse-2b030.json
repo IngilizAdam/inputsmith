@@ -1,0 +1,14 @@
+{
+  "modelId": "2b030",
+  "displayName": "POP Mouse",
+  "slotPrefix": "pop-mouse-2b030",
+  "type": "MOUSE",
+  "scrollDefaults": {
+    "dir": "STANDARD",
+    "speed": 0
+  },
+  "controls": [
+    82,
+    264
+  ]
+}

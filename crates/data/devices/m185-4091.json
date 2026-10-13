@@ -1,0 +1,14 @@
+{
+  "modelId": "4091",
+  "displayName": "Wireless Mouse",
+  "slotPrefix": "m185-4091",
+  "type": "MOUSE",
+  "scrollDefaults": {
+    "dir": "STANDARD",
+    "isSmooth": true,
+    "speed": 0
+  },
+  "controls": [
+    82
+  ]
+}

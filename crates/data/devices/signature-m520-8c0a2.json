@@ -1,0 +1,18 @@
+{
+  "modelId": "8c0a2",
+  "displayName": "Signature Wired M520 L for Business",
+  "extendedDisplayNames": {
+    "1": "Signature Wired M520 for Business"
+  },
+  "slotPrefix": "signature-m520-8c0a2",
+  "type": "MOUSE",
+  "scrollDefaults": {
+    "dir": "STANDARD",
+    "isSmooth": false,
+    "speed": 0
+  },
+  "controls": [
+    82,
+    253
+  ]
+}

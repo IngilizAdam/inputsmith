@@ -1,16 +1,94 @@
 # Devices
 
-## Tested devices
+## Supported mice and trackballs
 
-| Device | Model id | Connection | Status | Notes |
+Every mouse and trackball that Logi Options+ 2.8 knows about. Each one that speaks HID++ 2.0 has a
+built-in description (name, settings key, default scroll settings, buttons, default bindings) in
+[`crates/data/devices`](../../crates/data/README.md); the values match Options+.
+
+| Mark | Meaning |
+|---|---|
+| ✅ Tested | Verified on real hardware; see the notes page. |
+| 🔬 Untested | Everything below is implemented, but nobody has tried it on this model yet — [reports welcome](#reporting-a-device). Features listed as *not implemented* in the notes are missing. |
+| ❌ Not implemented | Needs support that Inputsmith does not have yet. |
+
+What every 🔬 model gets: pointer speed (if the mouse has adjustable DPI), scroll wheel settings and
+SmartShift where the model has them, button re-assignment, gestures on gesture buttons (the default
+binding, as in Options+), and horizontal scrolling with the side buttons on models that support it.
+*Drawing* means the Buttons and Point & Scroll pages show a picture with hotspots; *button list* means
+they show a list instead. Only Unifying connections are tested so far (see the
+[feature matrix](../FEATURES.md#connections)).
+
+| Device | Model id | Connections | Status | Notes |
 |---|---|---|---|---|
-| MX Anywhere 3 | `6b025` | Unifying receiver | ✅ Fully supported | [mx-anywhere-3.md](mx-anywhere-3.md) |
+| Ergo M575 (trackball) | `6b027` | Unifying, Bluetooth | 🔬 Untested | button list (no drawing yet) |
+| Ergo M575 for Business | `2b02f` | Bolt, Bluetooth | 🔬 Untested | button list (no drawing yet) |
+| ERGO M575S Trackball | `2b041` | Bolt, Bluetooth | 🔬 Untested | button list (no drawing yet) |
+| LIFT | `2b031` | Bolt, Bluetooth | 🔬 Untested | button list (no drawing yet) |
+| LIFT for Business | `2b033` | Bolt, Bluetooth | 🔬 Untested | button list (no drawing yet) |
+| M240 Silent | `2b03a` | Bolt, Bluetooth | 🔬 Untested | button list (no drawing yet) |
+| M240 Silent for Business | `2b03b` | Bolt, Bluetooth | 🔬 Untested | button list (no drawing yet) |
+| M275/M280/M320/M330/M331 | `44057` | Unifying | 🔬 Untested | button list (no drawing yet) |
+| M275/M280/M320/M330/M331 | `4040` | Unifying | 🔬 Untested | button list (no drawing yet) |
+| M275/M280/M320/M330/M331 | `44058` | Unifying | 🔬 Untested | button list (no drawing yet) |
+| M325 | `44094` | Unifying | 🔬 Untested | button list (no drawing yet) |
+| M335 | `44050` | Unifying | 🔬 Untested | button list (no drawing yet) |
+| M336 / M337 / M535 | `1b016` | Bluetooth | 🔬 Untested | button list (no drawing yet) |
+| M336/M337/M535 | `1b014` | Bluetooth | 🔬 Untested | button list (no drawing yet) |
+| M500s | `8c093` | USB cable | 🔬 Untested | drawing |
+| M510 | `44051` | Unifying | 🔬 Untested | button list (no drawing yet) |
+| M545/M546 | `44052` | Unifying | 🔬 Untested | button list (no drawing yet) |
+| M570 (trackball) | `41028` | Unifying | ❌ Not implemented | older HID++ 1.0 device: needs register-based support |
+| M585/M590 | `6b01b` | Unifying, Bluetooth | 🔬 Untested | button list (no drawing yet) |
+| M705 | `4101b` | Unifying | ❌ Not implemented | older HID++ 1.0 device: needs register-based support |
+| M705 | `4406d` | Unifying | 🔬 Untested | button list (no drawing yet) |
+| M720 TRIATHLON | `6b015` | Unifying, Bluetooth | 🔬 Untested | drawing |
+| Mobi Fold | `2b045` | Bolt, Bluetooth | 🔬 Untested | button list (no drawing yet) |
+| Mobi Fold for Business | `2b047` | Bolt, Bluetooth | 🔬 Untested | button list (no drawing yet) |
+| MX Anywhere | `41017` | Unifying | ❌ Not implemented | older HID++ 1.0 device: needs register-based support |
+| MX Anywhere 2 | `6b013` | Unifying, Bluetooth | 🔬 Untested | drawing |
+| MX Anywhere 2 | `6b018` | Unifying, Bluetooth | 🔬 Untested | drawing |
+| MX Anywhere 2 | `6b01f` | Unifying, Bluetooth | 🔬 Untested | drawing |
+| MX Anywhere 2S | `6b01a` | Unifying, Bluetooth | 🔬 Untested | drawing |
+| MX Anywhere 3 | `6b025` | Unifying, Bluetooth | ✅ Tested | [notes](mx-anywhere-3.md); drawing |
+| MX Anywhere 3 for Business | `2b02d` | Bolt, Bluetooth | 🔬 Untested | drawing |
+| MX Anywhere 3S | `2b037` | Bolt, Bluetooth | 🔬 Untested | drawing; pointer speed needs the extended DPI feature (not implemented) |
+| MX Anywhere 3S for Business | `2b038` | Bolt, Bluetooth | 🔬 Untested | drawing; pointer speed needs the extended DPI feature (not implemented) |
+| MX Ergo (trackball) | `6b01d` | Unifying, Bluetooth | 🔬 Untested | drawing |
+| MX Ergo S (trackball) | `2b03e` | Bolt, Bluetooth | 🔬 Untested | button list (no drawing yet) |
+| MX Master | `6b012` | Unifying, Bluetooth | 🔬 Untested | drawing; thumb wheel settings not implemented (it scrolls horizontally on its own) |
+| MX Master | `6b01e` | Unifying, Bluetooth | 🔬 Untested | drawing; thumb wheel settings not implemented (it scrolls horizontally on its own) |
+| MX Master | `6b017` | Unifying, Bluetooth | 🔬 Untested | drawing; thumb wheel settings not implemented (it scrolls horizontally on its own) |
+| MX Master 2S | `6b019` | Unifying, Bluetooth | 🔬 Untested | drawing; thumb wheel settings not implemented (it scrolls horizontally on its own) |
+| MX Master 3 | `6b023` | Unifying, Bluetooth | 🔬 Untested | drawing; thumb wheel settings not implemented (it scrolls horizontally on its own) |
+| MX Master 3 B | `2b028` | Bolt, Bluetooth | 🔬 Untested | drawing; thumb wheel settings not implemented (it scrolls horizontally on its own) |
+| MX Master 3S | `2b034` | Bolt, Bluetooth | 🔬 Untested | drawing; thumb wheel settings not implemented (it scrolls horizontally on its own); pointer speed needs the extended DPI feature (not implemented) |
+| MX Master 3S | `2b043` | Bolt, Bluetooth | 🔬 Untested | drawing; thumb wheel settings not implemented (it scrolls horizontally on its own); pointer speed needs the extended DPI feature (not implemented) |
+| MX Master 3s for Business | `2b035` | Bolt, Bluetooth | 🔬 Untested | drawing; thumb wheel settings not implemented (it scrolls horizontally on its own); pointer speed needs the extended DPI feature (not implemented) |
+| MX Master 3s for Business | `2b044` | Bolt, Bluetooth | 🔬 Untested | drawing; thumb wheel settings not implemented (it scrolls horizontally on its own); pointer speed needs the extended DPI feature (not implemented) |
+| MX Master 4 | `2b042` | Bolt, Bluetooth | 🔬 Untested | button list (no drawing yet); thumb wheel settings not implemented (it scrolls horizontally on its own); pointer speed needs the extended DPI feature (not implemented); haptic feedback and Actions Ring not implemented |
+| MX Master 4 for Business | `2b048` | Bolt, Bluetooth | 🔬 Untested | button list (no drawing yet); thumb wheel settings not implemented (it scrolls horizontally on its own); pointer speed needs the extended DPI feature (not implemented); haptic feedback and Actions Ring not implemented |
+| MX Vertical | `eb020` | Unifying, Bluetooth, USB cable | 🔬 Untested | drawing |
+| Pebble Mouse 2 M350s | `2b036` | Bolt, Bluetooth | 🔬 Untested | button list (no drawing yet) |
+| Pebble Up | `2b04c` | Bolt, Bluetooth | 🔬 Untested | button list (no drawing yet) |
+| Performance MX | `4101a` | Unifying | ❌ Not implemented | older HID++ 1.0 device: needs register-based support |
+| POP Mouse | `2b030` | Bolt, Bluetooth | 🔬 Untested | button list (no drawing yet) |
+| Signature AI Edition M750 | `2b040` | Bolt, Bluetooth | 🔬 Untested | button list (no drawing yet) |
+| Signature Comfort Plus M850 L | `2b049` | Bolt, Bluetooth | 🔬 Untested | button list (no drawing yet) |
+| Signature Comfort Plus M850 L for Business | `2b04b` | Bolt, Bluetooth | 🔬 Untested | button list (no drawing yet) |
+| Signature M550 L | `2b02b` | Bolt, Bluetooth | 🔬 Untested | button list (no drawing yet) |
+| Signature M650 For Business | `2b032` | Bolt, Bluetooth | 🔬 Untested | button list (no drawing yet) |
+| Signature M650 L | `2b02a` | Bolt, Bluetooth | 🔬 Untested | button list (no drawing yet) |
+| Signature Plus M750 L | `2b02c` | Bolt, Bluetooth | 🔬 Untested | button list (no drawing yet) |
+| Signature Plus M750 L For Business | `2b03d` | Bolt, Bluetooth | 🔬 Untested | button list (no drawing yet) |
+| Signature Wired M520 L for Business | `8c0a2` | USB cable | 🔬 Untested | button list (no drawing yet) |
+| Wireless Mouse (M310) | `44055` | Unifying | 🔬 Untested | button list (no drawing yet) |
+| Wireless Mouse (M185) | `4091` | Unifying | 🔬 Untested | button list (no drawing yet) |
+| Wireless Mouse (M187) | `4054` | Unifying | 🔬 Untested | button list (no drawing yet) |
 
-Other Logitech mice that speak HID++ 2.0 (most devices supported by Options+) should already get the
-common features — pointer speed, SmartShift, button re-assignment, gestures — but have not been tested.
-Without a built-in description they are shown with their firmware name and a plain list of buttons
-instead of a picture. Keyboards and other device types are not supported yet; see the
-[feature matrix](../FEATURES.md).
+Keyboards (69 models in Options+), presenters, touchpads, dials and webcams are not supported yet.
+Logitech mice that Options+ does not list but that speak HID++ 2.0 should still get the common features,
+with their firmware name and a button list.
 
 ## Adding a device
 

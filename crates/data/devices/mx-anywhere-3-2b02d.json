@@ -1,0 +1,107 @@
+{
+  "modelId": "2b02d",
+  "displayName": "MX Anywhere 3 for Business",
+  "slotPrefix": "mx-anywhere-3-2b02d",
+  "type": "MOUSE",
+  "scrollDefaults": {
+    "dir": "STANDARD",
+    "isSmooth": false,
+    "smartshift": {
+      "is_enabled": true,
+      "is_scroll_force_enabled": true,
+      "mode": "RATCHET",
+      "scroll_force": 50,
+      "sensitivity": 83
+    },
+    "speed": 0,
+    "virtualThumbwheel": {
+      "keys": [
+        {
+          "controlId": 83,
+          "enabled": true,
+          "stateChange": "DEFAULT"
+        },
+        {
+          "controlId": 86,
+          "enabled": true,
+          "stateChange": "DEFAULT"
+        }
+      ]
+    }
+  },
+  "controls": [
+    82,
+    83,
+    86,
+    196
+  ],
+  "art": "mx-anywhere-3.svg",
+  "buttons": [
+    {
+      "slot": "c82",
+      "name": "SLOT_NAME_MIDDLE_BUTTON",
+      "x": 50,
+      "y": 19.7,
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "slot": "c196",
+      "name": "SLOT_NAME_MODESHIFT_BUTTON",
+      "x": 49.9,
+      "y": 35.7,
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "slot": "c86",
+      "name": "SLOT_NAME_FORWARD_BUTTON",
+      "x": 6,
+      "y": 45.8,
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "slot": "c83",
+      "name": "SLOT_NAME_BACK_BUTTON",
+      "x": 7.2,
+      "y": 58.2,
+      "dx": -1,
+      "dy": 0
+    }
+  ],
+  "pointScroll": [
+    {
+      "slot": "mouse_scroll_wheel_settings",
+      "name": "SLOT_NAME_SCROLL_WHEEL_SETTINGS",
+      "x": 50,
+      "y": 19.7,
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "slot": "mouse_settings",
+      "name": "SLOT_NAME_POINTER_SETTINGS",
+      "x": 49.8,
+      "y": 67.3,
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "slot": "mouse_scroll_wheel_settings",
+      "name": "SLOT_NAME_HORIZONTAL_SCROLL_FORWARD_BUTTON",
+      "x": 6,
+      "y": 45.8,
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "slot": "mouse_scroll_wheel_settings",
+      "name": "SLOT_NAME_HORIZONTAL_SCROLL_BACK_BUTTON",
+      "x": 7.2,
+      "y": 58.2,
+      "dx": -1,
+      "dy": 0
+    }
+  ]
+}

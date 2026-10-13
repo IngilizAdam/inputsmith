@@ -1,0 +1,18 @@
+{
+  "modelId": "6b01b",
+  "displayName": "M585/M590",
+  "slotPrefix": "m585-6b01b",
+  "type": "MOUSE",
+  "scrollDefaults": {
+    "dir": "STANDARD",
+    "isSmooth": false,
+    "speed": 0
+  },
+  "controls": [
+    82,
+    83,
+    86,
+    91,
+    93
+  ]
+}

@@ -53,6 +53,25 @@ pub fn card(id: &str) -> Option<&'static Card> {
     inputsmith_data::cards().iter().find(|c| c.id == id)
 }
 
+/// The card a control of this model uses until the user assigns one, when that differs from the
+/// control's own function (the gesture button).
+pub fn default_card(model_id: &str, cid: u16) -> Option<&'static Card> {
+    inputsmith_data::default_card(model_id, cid)
+}
+
+/// The card describing what an unassigned control does by itself, for showing it by name (Options+
+/// lists "Middle button", "Back", … rather than "Default").
+pub fn native_card(cid: u16) -> Option<&'static Card> {
+    let id = match cid {
+        0x52 => "card_global_presets_middle_button",
+        0x53 => "card_global_presets_win_back",
+        0x56 => "card_global_presets_win_forward",
+        0xC4 => "card_global_presets_mode_shift",
+        _ => return None,
+    };
+    card(id)
+}
+
 /// Cards shown first for a control, in order.
 pub fn recommended(cid: u16) -> Vec<&'static Card> {
     inputsmith_data::control(cid).into_iter().flat_map(|c| &c.recommended).filter_map(|id| card(id)).collect()
@@ -153,6 +172,16 @@ mod tests {
         let has_shift =
             |cid| super::categories(cid).iter().flat_map(|(_, c)| c).any(|c| c.id == "card_global_presets_mode_shift");
         assert!(has_shift(196) && !has_shift(83));
+    }
+
+    #[test]
+    fn unassigned_buttons_are_named_after_their_function() {
+        assert_eq!(super::native_card(0x53).map(|c| c.id.as_str()), Some("card_global_presets_win_back"));
+        assert!(super::native_card(0xC3).is_none());
+        assert_eq!(
+            super::default_card("6b023", 0xC3).map(|c| c.id.as_str()),
+            Some("card_global_presets_one_of_gesture_button")
+        );
     }
 
     #[test]

@@ -1,0 +1,18 @@
+{
+  "modelId": "4406d",
+  "displayName": "M705",
+  "slotPrefix": "m705-4406d",
+  "type": "MOUSE",
+  "scrollDefaults": {
+    "dir": "STANDARD",
+    "isSmooth": false,
+    "speed": 0
+  },
+  "controls": [
+    82,
+    83,
+    86,
+    91,
+    93
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "modelId": "2b045",
+  "displayName": "Mobi Fold",
+  "slotPrefix": "mobi-fold-2b045",
+  "type": "MOUSE",
+  "scrollDefaults": {
+    "dir": "STANDARD",
+    "isSmooth": false,
+    "speed": 0
+  },
+  "controls": [
+    83,
+    86
+  ]
+}

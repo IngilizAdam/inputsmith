@@ -3,8 +3,10 @@
 //! keyed by and default scroll settings. Devices without a description get
 //! their name from firmware and a slot prefix from [`fallback_slot_prefix`].
 
+use std::collections::HashMap;
+
 use inputsmith_data::DeviceData;
-use inputsmith_ipc::model::ScrollWheelSettings;
+use inputsmith_ipc::model::{Card, ScrollWheelSettings};
 
 #[derive(Debug, Default)]
 pub struct DeviceDb;
@@ -24,6 +26,12 @@ impl DeviceDb {
         self.get(model_id)
             .map(|d| d.slot_prefix.clone())
             .unwrap_or_else(|| fallback_slot_prefix(firmware_name, model_id))
+    }
+
+    /// Cards for controls whose default is not their own function, by control id.
+    pub fn default_cards(&self, model_id: &str) -> HashMap<u16, Card> {
+        let Some(d) = self.get(model_id) else { return HashMap::new() };
+        d.defaults.keys().filter_map(|&cid| Some((cid, inputsmith_data::default_card(model_id, cid)?.clone()))).collect()
     }
 
     /// The model's default scroll wheel settings.
@@ -73,6 +81,16 @@ mod tests {
         assert_eq!(keys.iter().filter(|k| k.enabled).map(|k| k.control_id).collect::<Vec<_>>(), [83, 86]);
         assert!(db.scroll_defaults("4082").is_none());
         assert_eq!(db.slot_prefix("4082", "MX Master 3"), "mx-master-3-4082");
+        assert!(db.default_cards("6b025").is_empty());
+    }
+
+    #[test]
+    fn gesture_button_defaults_to_gestures() {
+        let db = DeviceDb;
+        assert_eq!(db.slot_prefix("6b023", "ignored"), "mx-master-3-6b023");
+        let cards = db.default_cards("6b023");
+        assert_eq!(cards[&195].id, "card_global_presets_one_of_gesture_button");
+        assert_eq!(cards.len(), 1);
     }
 
     #[test]

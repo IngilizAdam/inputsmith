@@ -1,0 +1,38 @@
+{
+  "modelId": "2b02c",
+  "displayName": "Signature Plus M750 L",
+  "extendedDisplayNames": {
+    "2": "Signature Plus M750",
+    "3": "Signature Plus M750",
+    "4": "Signature Plus M750",
+    "8": "Signature Plus M750",
+    "9": "Signature Plus M750"
+  },
+  "slotPrefix": "signature-m750-2b02c",
+  "type": "MOUSE",
+  "scrollDefaults": {
+    "dir": "STANDARD",
+    "isSmooth": false,
+    "speed": 0,
+    "virtualThumbwheel": {
+      "keys": [
+        {
+          "controlId": 83,
+          "enabled": true,
+          "stateChange": "DEFAULT"
+        },
+        {
+          "controlId": 86,
+          "enabled": true,
+          "stateChange": "DEFAULT"
+        }
+      ]
+    }
+  },
+  "controls": [
+    82,
+    83,
+    86,
+    253
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "modelId": "2b02f",
+  "displayName": "Ergo M575 for Business",
+  "slotPrefix": "m575-2b02f",
+  "type": "MOUSE",
+  "scrollDefaults": {
+    "dir": "STANDARD",
+    "isSmooth": false,
+    "speed": 0
+  },
+  "controls": [
+    82,
+    83,
+    86
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "modelId": "2b049",
+  "displayName": "Signature Comfort Plus M850 L",
+  "extendedDisplayNames": {
+    "10": "Signature Comfort M840 L",
+    "11": "Signature Comfort M840 L",
+    "12": "Signature Comfort M840 L"
+  },
+  "slotPrefix": "signature-plus-m850-2b049",
+  "type": "MOUSE",
+  "scrollDefaults": {
+    "dir": "STANDARD",
+    "isSmooth": false,
+    "speed": 0,
+    "virtualThumbwheel": {
+      "keys": [
+        {
+          "controlId": 83,
+          "enabled": true,
+          "stateChange": "DEFAULT"
+        },
+        {
+          "controlId": 86,
+          "enabled": true,
+          "stateChange": "DEFAULT"
+        }
+      ]
+    }
+  },
+  "controls": [
+    82,
+    83,
+    86,
+    253
+  ]
+}

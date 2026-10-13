@@ -1,0 +1,34 @@
+{
+  "modelId": "2b032",
+  "displayName": "Signature M650 For Business",
+  "extendedDisplayNames": {
+    "14": "Signature M650 L For Business",
+    "15": "Signature M650 L For Business"
+  },
+  "slotPrefix": "signature-m650-2b032",
+  "type": "MOUSE",
+  "scrollDefaults": {
+    "dir": "STANDARD",
+    "isSmooth": false,
+    "speed": 0,
+    "virtualThumbwheel": {
+      "keys": [
+        {
+          "controlId": 83,
+          "enabled": true,
+          "stateChange": "DEFAULT"
+        },
+        {
+          "controlId": 86,
+          "enabled": true,
+          "stateChange": "DEFAULT"
+        }
+      ]
+    }
+  },
+  "controls": [
+    82,
+    83,
+    86
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "modelId": "44058",
+  "displayName": "M275/M280/M320/M330/M331",
+  "slotPrefix": "m280-44058",
+  "type": "MOUSE",
+  "scrollDefaults": {
+    "dir": "STANDARD",
+    "isSmooth": true,
+    "speed": 0
+  },
+  "controls": [
+    82
+  ]
+}

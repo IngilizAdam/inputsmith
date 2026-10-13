@@ -1,0 +1,39 @@
+{
+  "modelId": "2b033",
+  "displayName": "LIFT for Business",
+  "extendedDisplayNames": {
+    "6": "LIFT for Business Left"
+  },
+  "slotPrefix": "mx-vertical-mini-for-business-2b033",
+  "type": "MOUSE",
+  "scrollDefaults": {
+    "dir": "STANDARD",
+    "isSmooth": false,
+    "smartshift": {
+      "is_scroll_force_enabled": false,
+      "mode": "RATCHET",
+      "scroll_force": 0
+    },
+    "speed": 0,
+    "virtualThumbwheel": {
+      "keys": [
+        {
+          "controlId": 83,
+          "enabled": true,
+          "stateChange": "DEFAULT"
+        },
+        {
+          "controlId": 86,
+          "enabled": true,
+          "stateChange": "DEFAULT"
+        }
+      ]
+    }
+  },
+  "controls": [
+    82,
+    83,
+    86,
+    253
+  ]
+}

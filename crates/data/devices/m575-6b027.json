@@ -1,0 +1,14 @@
+{
+  "modelId": "6b027",
+  "displayName": "Ergo M575",
+  "extendedDisplayNames": {
+    "3": "Ergo M575S"
+  },
+  "slotPrefix": "m575-6b027",
+  "type": "TRACKBALL",
+  "controls": [
+    82,
+    83,
+    86
+  ]
+}

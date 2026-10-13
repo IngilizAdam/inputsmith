@@ -41,6 +41,8 @@ injected into the system) rather than guessed. Details are in
 | Feature | Status | Notes |
 |---|---|---|
 | Pointer speed | ✅ | Applied as sensor DPI with the same curve as Options+. |
+| Pointer speed on high-resolution sensors (MX Master 3S / 4, MX Anywhere 3S) | ❌ | These use the extended DPI feature (0x2202), which is not implemented. |
+| Pointer speed on mice without adjustable DPI | ❌ | Options+ changes the Windows pointer speed for these; Inputsmith does not yet. |
 | SmartShift on/off, sensitivity | ✅ | |
 | Scrolling force (SmartShift with tunable torque) | ✅ | |
 | Scroll direction (standard / inverted) | ✅ | |
@@ -49,7 +51,7 @@ injected into the system) rather than guessed. Details are in
 | Swap left/right buttons | ✅ | System setting, applies to every mouse (as in Options+). |
 | Per-model defaults | ✅ | From the built-in device description (same values as Options+). |
 | Scroll speed | ❌ | |
-| Thumbwheel (MX Master etc.) | ❌ | Feature access exists; settings and actions not wired up. |
+| Thumbwheel (MX Master etc.) | ❌ | Feature access exists; settings and actions not wired up. The wheel still scrolls horizontally on its own. |
 | Report rate, onboard profiles (gaming mice) | ❌ | |
 
 ## Buttons and actions
@@ -57,6 +59,7 @@ injected into the system) rather than guessed. Details are in
 | Feature | Status | Notes |
 |---|---|---|
 | Re-assign buttons (middle, back, forward, top / mode-shift, gesture button) | ✅ | Left and right click are never taken over. The picker offers the common actions (28, incl. gestures); the rest of Options+'s list is still to come. |
+| Default bindings (gesture button → Gestures) | 🔬 | As in Options+; other buttons keep their own function until re-assigned. |
 | Per-application profiles | 🔬 | Switches with the foreground application; covered by unit tests, not yet verified end-to-end. |
 | Keyboard shortcut | 🟡 | Runs; the GUI offers presets only — a shortcut recorder is missing. |
 | Mouse actions (click, back/forward, wheel, middle) | ✅ | Back/forward verified; the others use the same path. |
@@ -102,8 +105,12 @@ injected into the system) rather than guessed. Details are in
 
 ## Other device types
 
+Mice and trackballs: see the [device list](devices/README.md) for every model and its status.
+
 | Device type | Status | Notes |
 |---|---|---|
+| Older HID++ 1.0 mice (Performance MX, MX Anywhere 1st gen, M570, early M705) | ❌ | Configured through registers instead of features; not implemented. |
+| Haptic feedback, Actions Ring (MX Master 4) | ❌ | The thumb panel is offered for re-assignment like other buttons; haptics and the Actions Ring are not implemented. |
 | Keyboards (Fn lock, backlight, disable keys, key remapping) | ❌ | Fn inversion feature access exists, untested; no UI. |
 | Dials, crowns, multi-rollers, haptics, force-sensing buttons | ❌ | |
 | Presenters, touchpads | ❌ | |

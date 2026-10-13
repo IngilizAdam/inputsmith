@@ -1,0 +1,15 @@
+{
+  "modelId": "2b047",
+  "displayName": "Mobi Fold for Business",
+  "slotPrefix": "mobi-fold-for-business-2b047",
+  "type": "MOUSE",
+  "scrollDefaults": {
+    "dir": "STANDARD",
+    "isSmooth": false,
+    "speed": 0
+  },
+  "controls": [
+    83,
+    86
+  ]
+}

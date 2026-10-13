@@ -1,0 +1,34 @@
+{
+  "modelId": "2b03d",
+  "displayName": "Signature Plus M750 L For Business",
+  "extendedDisplayNames": {
+    "1": "Signature Plus M750 For Business"
+  },
+  "slotPrefix": "signature-plus-m750-2b03d",
+  "type": "MOUSE",
+  "scrollDefaults": {
+    "dir": "STANDARD",
+    "isSmooth": false,
+    "speed": 0,
+    "virtualThumbwheel": {
+      "keys": [
+        {
+          "controlId": 83,
+          "enabled": true,
+          "stateChange": "DEFAULT"
+        },
+        {
+          "controlId": 86,
+          "enabled": true,
+          "stateChange": "DEFAULT"
+        }
+      ]
+    }
+  },
+  "controls": [
+    82,
+    83,
+    86,
+    253
+  ]
+}

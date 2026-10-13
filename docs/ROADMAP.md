@@ -59,7 +59,13 @@ Needs hardware or testers; each newly tested model gets a page in [`devices/`](d
 
 - [ ] Bolt receivers and direct Bluetooth connections (implemented, untested)
 - [ ] Pairing new devices ("Add device")
+- [x] Built-in descriptions for every HID++ 2.0 mouse and trackball Options+ lists (60), drawings for 22
+- [ ] Verify the described mice on hardware (device reports)
+- [ ] Drawings for the remaining mice (MX Master 4, LIFT, Signature, POP, Pebble, M575, …)
 - [ ] Mice with a thumbwheel (MX Master series): thumbwheel settings and actions
+- [ ] Extended DPI (0x2202) for high-resolution sensors (MX Master 3S / 4, MX Anywhere 3S)
+- [ ] Windows pointer speed for mice without adjustable DPI
+- [ ] Older HID++ 1.0 mice (register-based configuration)
 - [ ] Keyboards: Fn lock, backlight, disable keys, key re-assignment
 - [ ] Easy-Switch: switch hosts from the app
 - [ ] Dials, crowns, multi-rollers, haptics, force-sensing buttons

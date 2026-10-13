@@ -68,7 +68,8 @@ Useful while developing:
 - `inputsmith ipc get /devices` queries the running agent; `inputsmith ipc subscribe /devices/changed`
   prints events (in Git Bash set `MSYS_NO_PATHCONV=1` so paths are not rewritten).
 - `tools/shot.sh <buttons|point|settings|app-settings> out.png [slot]` opens the GUI on a page and saves
-  a window screenshot (`INPUTSMITH_START_PAGE`, `INPUTSMITH_START_SLOT`).
+  a window screenshot (`INPUTSMITH_START_PAGE`, `INPUTSMITH_START_SLOT`; `INPUTSMITH_START_DEVICE=<model id>`
+  picks the device, `SHOT_BIN` another build directory).
 - Logi Options+ must not run at the same time as the agent: quit it (and its background agent) first.
 
 ## Continuous integration and releases

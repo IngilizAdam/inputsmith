@@ -1,0 +1,14 @@
+{
+  "modelId": "2b036",
+  "displayName": "Pebble Mouse 2 M350s",
+  "slotPrefix": "m350s-2b036",
+  "type": "MOUSE",
+  "scrollDefaults": {
+    "dir": "STANDARD",
+    "isSmooth": true,
+    "speed": 0
+  },
+  "controls": [
+    82
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "modelId": "44051",
+  "displayName": "M510",
+  "slotPrefix": "m510-44051",
+  "type": "MOUSE",
+  "scrollDefaults": {
+    "dir": "STANDARD",
+    "isSmooth": true,
+    "speed": 0
+  },
+  "controls": [
+    82,
+    83,
+    86,
+    91,
+    93
+  ]
+}

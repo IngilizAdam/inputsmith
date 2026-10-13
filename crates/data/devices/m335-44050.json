@@ -1,0 +1,17 @@
+{
+  "modelId": "44050",
+  "displayName": "M335",
+  "slotPrefix": "m335-44050",
+  "type": "MOUSE",
+  "scrollDefaults": {
+    "dir": "STANDARD",
+    "isSmooth": false,
+    "speed": 0
+  },
+  "controls": [
+    82,
+    83,
+    86,
+    204
+  ]
+}

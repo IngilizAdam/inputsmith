@@ -1,0 +1,14 @@
+{
+  "modelId": "2b03a",
+  "displayName": "M240 Silent",
+  "slotPrefix": "m240-2b03a",
+  "type": "MOUSE",
+  "scrollDefaults": {
+    "dir": "STANDARD",
+    "isSmooth": true,
+    "speed": 0
+  },
+  "controls": [
+    82
+  ]
+}

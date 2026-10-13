@@ -1,0 +1,29 @@
+{
+  "modelId": "2b048",
+  "displayName": "MX Master 4 for Business",
+  "slotPrefix": "mx-master-4-for-business-2b048",
+  "type": "MOUSE",
+  "scrollDefaults": {
+    "dir": "STANDARD",
+    "isSmooth": false,
+    "smartshift": {
+      "is_enabled": true,
+      "is_scroll_force_enabled": true,
+      "mode": "RATCHET",
+      "scroll_force": 75,
+      "sensitivity": 83
+    },
+    "speed": 0
+  },
+  "controls": [
+    82,
+    83,
+    86,
+    195,
+    196,
+    416
+  ],
+  "defaults": {
+    "195": "card_global_presets_one_of_gesture_button"
+  }
+}

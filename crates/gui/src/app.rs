@@ -396,7 +396,12 @@ impl App {
         use std::sync::atomic::{AtomicBool, Ordering};
         static DONE: AtomicBool = AtomicBool::new(false);
         let Ok(page) = std::env::var("INPUTSMITH_START_PAGE") else { return };
-        let Some(id) = self.devices.first().map(|d| d.id.clone()) else { return };
+        let wanted = std::env::var("INPUTSMITH_START_DEVICE").ok();
+        let device = match &wanted {
+            Some(model) => self.devices.iter().find(|d| &d.model_id == model),
+            None => self.devices.first(),
+        };
+        let Some(id) = device.map(|d| d.id.clone()) else { return };
         if DONE.swap(true, Ordering::Relaxed) {
             return;
         }
@@ -662,6 +667,8 @@ impl App {
             Space::new().width(total_w).height(IMG_H + 40.0).into(),
             pin(svg(img.handle).width(img_w).height(IMG_H)).x(MARGIN).y(20.0).into(),
         ];
+        // Markers go on top of every callout so a neighbouring callout never hides one.
+        let mut markers: Vec<Element<'a, Msg>> = Vec::new();
         // Several point&scroll hotspots can share one settings slot; show each slot once.
         let mut seen = HashSet::new();
         for s in spots.iter().filter(|s| seen.insert((s.slot_id.clone(), s.name_key.clone()))) {
@@ -675,7 +682,7 @@ impl App {
             let selected = self.selected_slot.as_ref().or(default_slot.as_ref()) == Some(&key);
             let mx = MARGIN + img_w * s.x / 100.0;
             let my = 20.0 + IMG_H * s.y / 100.0;
-            layers.push(
+            markers.push(
                 pin(container(Space::new().width(14).height(14)).style(theme::marker(selected)))
                     .x(mx - 7.0)
                     .y(my - 7.0)
@@ -697,6 +704,7 @@ impl App {
                 .on_press(Msg::SelectSlot(Some(key)));
             layers.push(pin(callout).x(cx).y(cy.max(0.0)).into());
         }
+        layers.extend(markers);
         mouse_area(stack(layers)).into()
     }
 
@@ -764,6 +772,8 @@ impl App {
         let card =
             model::resolve(&self.profiles, self.app_profile.as_deref(), &s.slot_id).and_then(|a| a.card.as_ref());
         if buttons {
+            let cid = slot_cid(&s.slot_id);
+            let card = card.or_else(|| catalog::default_card(&d.model_id, cid)).or_else(|| catalog::native_card(cid));
             // Options+ layout: assigned action as the title, then the slot.
             return match card {
                 Some(c) if c.attribute == Attribute::OneOf => {
@@ -793,8 +803,11 @@ impl App {
 
     /// Right-hand action picker for a button slot.
     fn action_panel<'a>(&'a self, d: &'a api::Device, slot: &'a str) -> Element<'a, Msg> {
-        let cid: u16 = slot.rsplit("_c").next().and_then(|s| s.parse().ok()).unwrap_or(0);
-        let current = model::resolve(&self.profiles, self.app_profile.as_deref(), slot).and_then(|a| a.card.as_ref());
+        let cid = slot_cid(slot);
+        let current = model::resolve(&self.profiles, self.app_profile.as_deref(), slot)
+            .and_then(|a| a.card.as_ref())
+            .or_else(|| catalog::default_card(&d.model_id, cid))
+            .or_else(|| catalog::native_card(cid));
         let current_id = current.map(|c| c.id.clone()).unwrap_or_default();
         let q = self.search.to_lowercase();
         let matches = |c: &Card| q.is_empty() || card_title(c).to_lowercase().contains(&q);
@@ -1224,13 +1237,25 @@ fn device_glyph(kind: &str) -> &'static str {
     }
 }
 
+/// Control id of a button slot (`<prefix>_c<id>`), 0 for other slots.
+fn slot_cid(slot: &str) -> u16 {
+    slot.rsplit("_c").next().and_then(|s| s.parse().ok()).unwrap_or(0)
+}
+
 fn control_name_key(cid: u16) -> &'static str {
     match cid {
         0x52 => "SLOT_NAME_MIDDLE_BUTTON",
         0x53 => "SLOT_NAME_BACK_BUTTON",
         0x56 => "SLOT_NAME_FORWARD_BUTTON",
+        0x5B => "SLOT_NAME_LEFT_SCROLL_BUTTON",
+        0x5D => "SLOT_NAME_RIGHT_SCROLL_BUTTON",
         0xC3 => "SLOT_NAME_GESTURE_BUTTON",
         0xC4 => "SLOT_NAME_MODESHIFT_BUTTON",
+        0xD0 => "SLOT_NAME_THUMB_BUTTON",
+        0xED => "SLOT_NAME_PRECISION_MODE_BUTTON",
+        0xFD => "SLOT_NAME_TOP_BUTTON",
+        0x108 => "SLOT_NAME_EMOJI_BUTTON",
+        0x1A0 => "SLOT_NAME_THUMB_PANEL",
         _ => "SLOT_NAME_BUTTON",
     }
 }

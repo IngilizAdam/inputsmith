@@ -1,0 +1,15 @@
+{
+  "modelId": "2b04c",
+  "displayName": "Pebble Up",
+  "slotPrefix": "pebble-up-2b04c",
+  "type": "MOUSE",
+  "scrollDefaults": {
+    "dir": "STANDARD",
+    "isSmooth": true,
+    "speed": 0
+  },
+  "controls": [
+    82,
+    253
+  ]
+}

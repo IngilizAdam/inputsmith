@@ -1,0 +1,79 @@
+{
+  "modelId": "6b01f",
+  "displayName": "MX Anywhere 2",
+  "slotPrefix": "mx-anywhere-2-6b01f",
+  "type": "MOUSE",
+  "scrollDefaults": {
+    "dir": "STANDARD",
+    "isSmooth": false,
+    "speed": 0
+  },
+  "controls": [
+    82,
+    83,
+    86,
+    91,
+    93
+  ],
+  "art": "mx-anywhere-2.svg",
+  "buttons": [
+    {
+      "slot": "c82",
+      "name": "SLOT_NAME_MIDDLE_BUTTON",
+      "x": 51.9,
+      "y": 25.5,
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "slot": "c83",
+      "name": "SLOT_NAME_BACK_BUTTON",
+      "x": 7.5,
+      "y": 56.1,
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "slot": "c86",
+      "name": "SLOT_NAME_FORWARD_BUTTON",
+      "x": 6.7,
+      "y": 42.9,
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "slot": "c91",
+      "name": "SLOT_NAME_LEFT_SCROLL_BUTTON",
+      "x": 44.6,
+      "y": 21.8,
+      "dx": -1,
+      "dy": -1
+    },
+    {
+      "slot": "c93",
+      "name": "SLOT_NAME_RIGHT_SCROLL_BUTTON",
+      "x": 59.1,
+      "y": 21.8,
+      "dx": 1,
+      "dy": -1
+    }
+  ],
+  "pointScroll": [
+    {
+      "slot": "mouse_scroll_wheel_settings",
+      "name": "SLOT_NAME_SCROLL_WHEEL_SETTINGS",
+      "x": 51.9,
+      "y": 25.5,
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "slot": "mouse_settings",
+      "name": "SLOT_NAME_POINTER_SETTINGS",
+      "x": 49.9,
+      "y": 73.4,
+      "dx": 1,
+      "dy": 0
+    }
+  ]
+}

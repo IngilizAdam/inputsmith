@@ -8,8 +8,9 @@ does not exist for Linux. Inputsmith re-implements it from scratch: same setting
 device, no account, no telemetry.
 
 > **Status: early.** Works on **Windows** today and fully supports the **MX Anywhere 3** (the device it
-> was developed with). Other HID++ mice likely work for the common features but are untested. Linux is
-> the next milestone; macOS comes later. See the [feature matrix](docs/FEATURES.md) for exactly what is
+> was developed with). 59 more Logitech mice and trackballs have built-in support but are untested — see
+> the [device list](docs/devices/README.md). Keyboards are not supported yet. Linux is the next
+> milestone; macOS comes later. See the [feature matrix](docs/FEATURES.md) for exactly what is
 > and is not supported.
 
 This is an independent project, not affiliated with or endorsed by Logitech.
@@ -75,7 +76,7 @@ only read when you choose to import its settings.
 
 - [Feature matrix](docs/FEATURES.md) — what is supported, partial, untested, missing or not planned
 - [Roadmap](docs/ROADMAP.md) — milestones and progress
-- [Devices](docs/devices/README.md) — tested devices and how to report a new one
+- [Devices](docs/devices/README.md) — every supported mouse and its status, and how to report a device
 - [Development](docs/DEVELOPMENT.md) — architecture, building, measuring Options+
 - [Measured behaviour](docs/BEHAVIOR.md) — how devices are driven and what was measured against Options+
 

@@ -1,0 +1,89 @@
+{
+  "modelId": "6b019",
+  "displayName": "MX Master 2S",
+  "slotPrefix": "mx-master-2s-6b019",
+  "type": "MOUSE",
+  "scrollDefaults": {
+    "dir": "STANDARD",
+    "isSmooth": false,
+    "smartshift": {
+      "is_enabled": true,
+      "is_scroll_force_enabled": false,
+      "mode": "RATCHET",
+      "scroll_force": 0,
+      "sensitivity": 26
+    },
+    "speed": 0
+  },
+  "controls": [
+    82,
+    83,
+    86,
+    195,
+    196
+  ],
+  "defaults": {
+    "195": "card_global_presets_one_of_gesture_button"
+  },
+  "art": "mx-master-2s.svg",
+  "buttons": [
+    {
+      "slot": "c82",
+      "name": "SLOT_NAME_MIDDLE_BUTTON",
+      "x": 57.9,
+      "y": 22.4,
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "slot": "c83",
+      "name": "SLOT_NAME_BACK_BUTTON",
+      "x": 26.1,
+      "y": 65.8,
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "slot": "c86",
+      "name": "SLOT_NAME_FORWARD_BUTTON",
+      "x": 24,
+      "y": 60.1,
+      "dx": -1,
+      "dy": -1
+    },
+    {
+      "slot": "c195",
+      "name": "SLOT_NAME_GESTURE_BUTTON",
+      "x": 14,
+      "y": 76.8,
+      "dx": -1,
+      "dy": 1
+    },
+    {
+      "slot": "c196",
+      "name": "SLOT_NAME_MODESHIFT_BUTTON",
+      "x": 58.1,
+      "y": 38.6,
+      "dx": 1,
+      "dy": 0
+    }
+  ],
+  "pointScroll": [
+    {
+      "slot": "mouse_scroll_wheel_settings",
+      "name": "SLOT_NAME_SCROLL_WHEEL_SETTINGS",
+      "x": 57.9,
+      "y": 22.4,
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "slot": "mouse_settings",
+      "name": "SLOT_NAME_POINTER_SETTINGS",
+      "x": 54.4,
+      "y": 71.4,
+      "dx": 1,
+      "dy": 0
+    }
+  ]
+}

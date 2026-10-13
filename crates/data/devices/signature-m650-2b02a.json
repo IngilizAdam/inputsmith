@@ -1,0 +1,40 @@
+{
+  "modelId": "2b02a",
+  "displayName": "Signature M650 L",
+  "extendedDisplayNames": {
+    "6": "Signature M650 L Left-Handed",
+    "7": "Signature M650 L Left-Handed",
+    "8": "Signature M650",
+    "9": "Signature M650",
+    "10": "Signature M650",
+    "11": "Signature M650",
+    "16": "Signature M650",
+    "17": "Signature M650"
+  },
+  "slotPrefix": "signature-m650-2b02a",
+  "type": "MOUSE",
+  "scrollDefaults": {
+    "dir": "STANDARD",
+    "isSmooth": false,
+    "speed": 0,
+    "virtualThumbwheel": {
+      "keys": [
+        {
+          "controlId": 83,
+          "enabled": true,
+          "stateChange": "DEFAULT"
+        },
+        {
+          "controlId": 86,
+          "enabled": true,
+          "stateChange": "DEFAULT"
+        }
+      ]
+    }
+  },
+  "controls": [
+    82,
+    83,
+    86
+  ]
+}

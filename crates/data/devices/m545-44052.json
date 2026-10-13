@@ -1,0 +1,18 @@
+{
+  "modelId": "44052",
+  "displayName": "M545/M546",
+  "slotPrefix": "m545-44052",
+  "type": "MOUSE",
+  "scrollDefaults": {
+    "dir": "STANDARD",
+    "isSmooth": false,
+    "speed": 0
+  },
+  "controls": [
+    82,
+    83,
+    86,
+    91,
+    93
+  ]
+}

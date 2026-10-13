@@ -1,0 +1,22 @@
+{
+  "modelId": "2b02b",
+  "displayName": "Signature M550 L",
+  "extendedDisplayNames": {
+    "5": "Signature M550",
+    "6": "Signature M550",
+    "7": "Signature M550",
+    "8": "Signature M550",
+    "10": "Signature M550",
+    "11": "Signature M550"
+  },
+  "slotPrefix": "signature-m550-2b02b",
+  "type": "MOUSE",
+  "scrollDefaults": {
+    "dir": "STANDARD",
+    "isSmooth": false,
+    "speed": 0
+  },
+  "controls": [
+    82
+  ]
+}

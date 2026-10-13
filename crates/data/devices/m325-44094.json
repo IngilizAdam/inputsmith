@@ -1,0 +1,16 @@
+{
+  "modelId": "44094",
+  "displayName": "M325",
+  "slotPrefix": "m325-44094",
+  "type": "MOUSE",
+  "scrollDefaults": {
+    "dir": "STANDARD",
+    "isSmooth": false,
+    "speed": 0
+  },
+  "controls": [
+    82,
+    83,
+    86
+  ]
+}
