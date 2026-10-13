@@ -29,6 +29,10 @@ impl DeviceInfo {
     /// database, e.g. `6b025` for an MX Anywhere 3: transport bits in hex
     /// followed by the first product ID.
     pub fn model_id(&self) -> String {
+        // Without transport bits there is no leading digit (Options+ lists e.g. `4040`).
+        if self.transport == 0 {
+            return format!("{:04x}", self.model_ids[0]);
+        }
         format!("{:x}{:04x}", self.transport, self.model_ids[0])
     }
 
@@ -229,5 +233,21 @@ impl FriendlyName<'_> {
             out.extend_from_slice(&chunk[1..1 + take]);
         }
         Ok((String::from_utf8_lossy(&out).trim_end_matches('\0').to_string(), max))
+    }
+}
+
+#[cfg(test)]
+mod model_id_tests {
+    use super::DeviceInfo;
+
+    fn info(transport: u16, pid: u16) -> DeviceInfo {
+        DeviceInfo { entity_count: 0, unit_id: [0; 4], transport, model_ids: [pid, 0, 0], extended_model_id: 0, capabilities: 0 }
+    }
+
+    #[test]
+    fn formats_like_options_plus() {
+        assert_eq!(info(0x06, 0xb025).model_id(), "6b025");
+        assert_eq!(info(0x04, 0x4057).model_id(), "44057");
+        assert_eq!(info(0x00, 0x4040).model_id(), "4040");
     }
 }
