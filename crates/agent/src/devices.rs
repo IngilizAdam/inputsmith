@@ -162,6 +162,9 @@ impl Shared {
     }
 }
 
+/// "Shift wheel mode": switches SmartShift between ratchet and free spin.
+const MODE_SHIFT_CARD: &str = "card_global_presets_mode_shift";
+
 /// What a control does natively, used when no card overrides it.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 enum Native {
@@ -297,7 +300,7 @@ impl DeviceRt {
         let key = serial.clone().unwrap_or_else(|| format!("{}#{index}", dev.channel().info().container_id));
         Ok(Self {
             key,
-            name: db.display_name(&model_id, &fw_name),
+            name: db.display_name(&model_id, extended_model_id, &fw_name),
             scroll_defaults: db.scroll_defaults(&model_id),
             slot_prefix: db.slot_prefix(&model_id, &fw_name),
             model_id,
@@ -706,6 +709,11 @@ impl DeviceRt {
         let active = match card {
             Some(c) if is_gesture_card(&c) => {
                 Active::Gesture(Box::new(GestureSession::new(effective_card(&c).clone(), shared.gesture)))
+            }
+            // Options+ stores this card with an empty macro; the action is implied by its id.
+            Some(c) if c.id == MODE_SHIFT_CARD => {
+                self.toggle_smartshift();
+                Active::Native(Native::Nothing)
             }
             Some(c) => {
                 shared.executor.press(&c, self);

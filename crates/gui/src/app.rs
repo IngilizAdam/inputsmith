@@ -3,7 +3,7 @@
 use std::collections::{HashMap, HashSet};
 
 use iced::widget::{
-    Space, button, column, container, image, mouse_area, pin, radio, row, scrollable, slider, stack, text, text_input,
+    Space, button, column, container, mouse_area, pin, radio, row, scrollable, slider, stack, svg, text, text_input,
     toggler,
 };
 use iced::{Alignment, Element, Length, Padding, Subscription, Task, Theme, window};
@@ -15,7 +15,7 @@ use crate::client::{self, Event};
 use crate::model::{self, card_title};
 use crate::theme::{self, ACCENT, BOLD, MUTED, SEMIBOLD};
 use crate::tray::{self, TrayEvent};
-use crate::vendor::{self, DeviceArt, Hotspot, Vendor};
+use crate::catalog::{self, DeviceArt, Hotspot};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Tab {
@@ -453,7 +453,7 @@ impl App {
                     for d in &list.devices {
                         self.art
                             .entry(d.id.clone())
-                            .or_insert_with(|| Vendor::get().art(&d.model_id, d.extended_model_id));
+                            .or_insert_with(|| catalog::art(&d.model_id, &d.slot_prefix));
                     }
                     self.devices = list.devices;
                     self.apply_start_page();
@@ -543,8 +543,8 @@ impl App {
         let art = self.art.get(&d.id);
         // Devices that are off stay listed, dimmed, like Options+ shows them.
         let opacity: f32 = if d.online { 1.0 } else { 0.45 };
-        let img: Element<'a, Msg> = match art.and_then(|a| a.front.as_deref()).and_then(vendor::image) {
-            Some((h, _, _)) => image(h).height(260).opacity(opacity).into(),
+        let img: Element<'a, Msg> = match art.and_then(|a| a.image.as_ref()) {
+            Some(a) => svg(a.handle.clone()).width(260.0 * a.width / a.height).height(260).opacity(opacity).into(),
             None => container(text(device_glyph(&d.kind)).size(90)).center_x(200).height(260).into(),
         };
         let tile = button(column![img, text(&d.name).size(15).font(SEMIBOLD)].spacing(10).align_x(Alignment::Center))
@@ -651,20 +651,16 @@ impl App {
         const MARGIN: f32 = 230.0;
         const CALLOUT_W: f32 = 180.0;
         let art = self.art.get(&d.id).cloned().unwrap_or_default();
-        let (path, spots) = if buttons {
-            (art.buttons.clone(), art.button_hotspots.clone())
-        } else {
-            (art.point_scroll.clone(), art.point_scroll_hotspots.clone())
-        };
+        let spots = if buttons { art.button_hotspots.clone() } else { art.point_scroll_hotspots.clone() };
         let spots = if spots.is_empty() { self.synthetic_spots(d, buttons) } else { spots };
-        let Some((handle, w, h)) = path.as_deref().and_then(vendor::image) else {
+        let Some(img) = art.image else {
             return self.spot_list(d, &spots, buttons);
         };
-        let img_w = IMG_H * w as f32 / h as f32;
+        let img_w = IMG_H * img.width / img.height;
         let total_w = img_w + 2.0 * MARGIN;
         let mut layers: Vec<Element<'a, Msg>> = vec![
             Space::new().width(total_w).height(IMG_H + 40.0).into(),
-            pin(image(handle).height(IMG_H)).x(MARGIN).y(20.0).into(),
+            pin(svg(img.handle).width(img_w).height(IMG_H)).x(MARGIN).y(20.0).into(),
         ];
         // Several point&scroll hotspots can share one settings slot; show each slot once.
         let mut seen = HashSet::new();
@@ -704,7 +700,7 @@ impl App {
         mouse_area(stack(layers)).into()
     }
 
-    /// Hotspots from the device's control list when no vendor art exists.
+    /// Hotspots from the device's control list when the device has no art.
     fn synthetic_spots(&self, d: &api::Device, buttons: bool) -> Vec<Hotspot> {
         if buttons {
             d.controls
@@ -764,16 +760,15 @@ impl App {
     }
 
     fn slot_summary(&self, d: &api::Device, s: &Hotspot, buttons: bool) -> (String, String) {
-        let v = Vendor::get();
-        let title = v.text(&s.name_key);
+        let title = catalog::text(&s.name_key);
         let card =
             model::resolve(&self.profiles, self.app_profile.as_deref(), &s.slot_id).and_then(|a| a.card.as_ref());
         if buttons {
             // Options+ layout: assigned action as the title, then the slot.
             return match card {
                 Some(c) if c.attribute == Attribute::OneOf => {
-                    let sel = c.nested_cards.get(&c.selected_nested_card).map(|n| v.text(&n.name)).unwrap_or_default();
-                    (v.text(&c.name), format!("{sel}\n{title}"))
+                    let sel = c.nested_cards.get(&c.selected_nested_card).map(|n| catalog::text(&n.name)).unwrap_or_default();
+                    (catalog::text(&c.name), format!("{sel}\n{title}"))
                 }
                 Some(c) => (card_title(c), title),
                 None => ("Default".into(), title),
@@ -785,7 +780,7 @@ impl App {
         }
         let w = model::scroll_settings(card, d.scroll_defaults.as_ref());
         if let Some(cid) = model::hscroll_control(&s.name_key) {
-            return (title, on_off(model::hscroll_enabled(&w, cid)).into());
+            return (title, format!("Horizontal scroll: {}", on_off(model::hscroll_enabled(&w, cid))));
         }
         let ss = w.smartshift.clone().unwrap_or_default();
         let dir = if w.dir == WheelDirection::Natural { "Inverted" } else { "Standard" };
@@ -798,7 +793,6 @@ impl App {
 
     /// Right-hand action picker for a button slot.
     fn action_panel<'a>(&'a self, d: &'a api::Device, slot: &'a str) -> Element<'a, Msg> {
-        let v = Vendor::get();
         let cid: u16 = slot.rsplit("_c").next().and_then(|s| s.parse().ok()).unwrap_or(0);
         let current = model::resolve(&self.profiles, self.app_profile.as_deref(), slot).and_then(|a| a.card.as_ref());
         let current_id = current.map(|c| c.id.clone()).unwrap_or_default();
@@ -823,7 +817,7 @@ impl App {
                 if let Some(n) = card.nested_cards.get(key) {
                     let selected = &card.selected_nested_card == key;
                     list = list.push(
-                        button(text(v.text(&n.name)).size(13))
+                        button(text(catalog::text(&n.name)).size(13))
                             .style(theme::action_row(selected))
                             .padding([8, 12])
                             .width(Length::Fill)
@@ -844,7 +838,7 @@ impl App {
             }
         }
 
-        let recommended: Vec<&Card> = v.recommended(cid).into_iter().filter(|c| matches(c)).collect();
+        let recommended: Vec<&Card> = catalog::recommended(cid).into_iter().filter(|c| matches(c)).collect();
         if !recommended.is_empty() {
             list = list.push(section_title("RECOMMENDED"));
             for c in recommended {
@@ -852,7 +846,7 @@ impl App {
             }
         }
         list = list.push(section_title("OTHER ACTIONS"));
-        for (name, cards) in v.categories(cid) {
+        for (name, cards) in catalog::categories(cid) {
             let cards: Vec<&Card> = cards.into_iter().filter(|c| matches(c)).collect();
             if cards.is_empty() {
                 continue;
@@ -889,8 +883,8 @@ impl App {
             .art
             .get(&d.id)
             .and_then(|a| a.button_hotspots.iter().find(|h| h.slot_id == slot))
-            .map(|h| v.text(&h.name_key))
-            .unwrap_or_else(|| v.text(control_name_key(cid)));
+            .map(|h| catalog::text(&h.name_key))
+            .unwrap_or_else(|| catalog::text(control_name_key(cid)));
         column![
             row![
                 text("Actions").size(20).font(BOLD),

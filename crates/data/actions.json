@@ -1,0 +1,1670 @@
+{
+  "cards": [
+    {
+      "id": "card_global_presets_middle_button",
+      "name": "ASSIGNMENT_NAME_MIDDLE_BUTTON",
+      "attribute": "MACRO_PLAYBACK",
+      "readOnly": true,
+      "continuous": false,
+      "macro": {
+        "type": "MOUSE",
+        "mouse": {
+          "action": "BUTTON",
+          "hidUsage": 3
+        },
+        "onboardable": false,
+        "actionName": "MB3",
+        "icon": ""
+      },
+      "nestedCards": {},
+      "tags": [
+        "PRESET_TAG_MOUSE",
+        "PRESET_MOUSE_FUNCTIONS"
+      ]
+    },
+    {
+      "id": "card_global_presets_win_back",
+      "name": "ASSIGNMENT_NAME_BACK",
+      "category": "ASSIGNMENT_CATEGORY_NAVIGATE_COMPUTER",
+      "attribute": "MACRO_PLAYBACK",
+      "readOnly": true,
+      "continuous": false,
+      "macro": {
+        "type": "MOUSE",
+        "mouse": {
+          "action": "WIN_BACK",
+          "hidUsage": 0
+        },
+        "onboardable": false,
+        "actionName": "",
+        "icon": ""
+      },
+      "nestedCards": {},
+      "tags": [
+        "PRESET_TAG_KEY_OR_BUTTON",
+        "PRESET_TAG_LPS_SUPPORTED",
+        "PRESET_COMPUTER_FUNCTIONS"
+      ]
+    },
+    {
+      "id": "card_global_presets_win_forward",
+      "name": "ASSIGNMENT_NAME_FORWARD",
+      "category": "ASSIGNMENT_CATEGORY_NAVIGATE_COMPUTER",
+      "attribute": "MACRO_PLAYBACK",
+      "readOnly": true,
+      "continuous": false,
+      "macro": {
+        "type": "MOUSE",
+        "mouse": {
+          "action": "WIN_FORWARD",
+          "hidUsage": 0
+        },
+        "onboardable": false,
+        "actionName": "",
+        "icon": ""
+      },
+      "nestedCards": {},
+      "tags": [
+        "PRESET_TAG_KEY_OR_BUTTON",
+        "PRESET_TAG_LPS_SUPPORTED",
+        "PRESET_COMPUTER_FUNCTIONS"
+      ]
+    },
+    {
+      "id": "card_global_presets_mode_shift",
+      "name": "ASSIGNMENT_NAME_MODE_SHIFT",
+      "attribute": "MACRO_PLAYBACK",
+      "readOnly": true,
+      "continuous": false,
+      "macro": {},
+      "nestedCards": {},
+      "tags": [
+        "PRESET_TAG_MOUSE_SMARTSHIFT",
+        "PRESET_TAG_NO_GESTURE",
+        "PRESET_MOUSE_FUNCTIONS"
+      ]
+    },
+    {
+      "id": "card_global_presets_one_of_gesture_button",
+      "name": "ASSIGNMENT_NAME_GESTURE",
+      "attribute": "ONE_OF",
+      "readOnly": false,
+      "continuous": true,
+      "selectedNestedCard": "virtual_desktops",
+      "nestedCardsOrder": [
+        "virtual_desktops",
+        "media_control",
+        "window_management",
+        "application_navigation",
+        "zoom_rotate",
+        "pan",
+        "arrange_windows",
+        "custom_gesture"
+      ],
+      "nestedCards": {
+        "media_control": {
+          "id": "card_global_presets_one_of_gesture_button_media_control",
+          "name": "ASSIGNMENT_NAME_MEDIA_CONTROL",
+          "attribute": "ADAPTER_4WAYS",
+          "gestureInfo": {
+            "x": {
+              "invertable": false,
+              "speedControl": true,
+              "autoRepeat": false,
+              "actionDuration": {
+                "minimumSensitivityActionDurationMs": 400,
+                "maximumSensitivityActionDurationMs": 400
+              }
+            },
+            "y": {
+              "invertable": false,
+              "speedControl": true,
+              "autoRepeat": false,
+              "speedFactor": 0.5
+            }
+          },
+          "readOnly": true,
+          "continuous": true,
+          "tags": [
+            "PRESET_TAG_BUTTON",
+            "PRESET_TAG_GESTURE"
+          ],
+          "nestedCards": {
+            "up": {
+              "id": "inner_card_mc_volume_up",
+              "name": "ASSIGNMENT_NAME_VOLUME_UP",
+              "attribute": "MACRO_PLAYBACK",
+              "readOnly": true,
+              "continuous": true,
+              "macro": {
+                "type": "MEDIA",
+                "media": {
+                  "usage": "VOLUME_UP"
+                },
+                "onboardable": false,
+                "actionName": "",
+                "icon": ""
+              },
+              "tags": [
+                "PRESET_TAG_KEY_OR_BUTTON"
+              ]
+            },
+            "down": {
+              "id": "inner_card_mc_volume_down",
+              "name": "ASSIGNMENT_NAME_VOLUME_DOWN",
+              "attribute": "MACRO_PLAYBACK",
+              "readOnly": true,
+              "continuous": true,
+              "macro": {
+                "type": "MEDIA",
+                "media": {
+                  "usage": "VOLUME_DOWN"
+                },
+                "onboardable": false,
+                "actionName": "",
+                "icon": ""
+              },
+              "tags": [
+                "PRESET_TAG_KEY_OR_BUTTON",
+                "PRESET_COMPUTER_FUNCTIONS"
+              ]
+            },
+            "left": {
+              "id": "inner_card_mc_previous_track",
+              "name": "ASSIGNMENT_NAME_PREVIOUS_TRACK",
+              "attribute": "MACRO_PLAYBACK",
+              "readOnly": true,
+              "continuous": true,
+              "macro": {
+                "type": "MEDIA",
+                "media": {
+                  "usage": "PREVIOUS_TRACK"
+                },
+                "onboardable": false,
+                "actionName": "",
+                "icon": ""
+              },
+              "tags": [
+                "PRESET_TAG_KEY_OR_BUTTON"
+              ]
+            },
+            "right": {
+              "id": "inner_card_mc_next_track",
+              "name": "ASSIGNMENT_NAME_NEXT_TRACK",
+              "attribute": "MACRO_PLAYBACK",
+              "readOnly": true,
+              "continuous": true,
+              "macro": {
+                "type": "MEDIA",
+                "media": {
+                  "usage": "NEXT_TRACK"
+                },
+                "onboardable": false,
+                "actionName": "",
+                "icon": ""
+              },
+              "tags": [
+                "PRESET_TAG_KEY_OR_BUTTON"
+              ]
+            },
+            "click": {
+              "id": "inner_card_mc_play_pause",
+              "name": "ASSIGNMENT_NAME_PLAY_PAUSE",
+              "attribute": "MACRO_PLAYBACK",
+              "readOnly": true,
+              "continuous": true,
+              "macro": {
+                "type": "MEDIA",
+                "media": {
+                  "usage": "PLAY_PAUSE"
+                },
+                "onboardable": false,
+                "actionName": "",
+                "icon": ""
+              },
+              "tags": [
+                "PRESET_TAG_KEY_OR_BUTTON"
+              ]
+            }
+          }
+        },
+        "window_management": {
+          "id": "card_global_presets_one_of_gesture_button_window_management",
+          "name": "ASSIGNMENT_NAME_WINDOW_MANAGEMENT",
+          "attribute": "ADAPTER_4WAYS",
+          "gestureInfo": {
+            "x": {
+              "invertable": false,
+              "speedControl": true,
+              "autoRepeat": false,
+              "actionDuration": {
+                "minimumSensitivityActionDurationMs": 400,
+                "maximumSensitivityActionDurationMs": 400
+              }
+            },
+            "y": {
+              "invertable": false,
+              "speedControl": true,
+              "autoRepeat": false,
+              "pauseBetweenActionsMs": 300
+            },
+            "directionLocked": true
+          },
+          "readOnly": true,
+          "continuous": true,
+          "tags": [
+            "PRESET_TAG_BUTTON",
+            "PRESET_TAG_GESTURE"
+          ],
+          "nestedCards": {
+            "horizontal": {
+              "attribute": "MACRO_PLAYBACK",
+              "id": "inner_card_wm_key_pressed",
+              "macro": {
+                "actionName": "keyboard_none",
+                "keystroke": {
+                  "modifiers": [
+                    227
+                  ]
+                },
+                "type": "KEYSTROKE"
+              },
+              "name": "ASSIGNMENT_NAME_KEYBOARD_SHORTCUT",
+              "tags": [
+                "PRESET_TAG_EMBEDDED"
+              ]
+            },
+            "up": {
+              "id": "inner_card_wm_maximize_window",
+              "name": "ASSIGNMENT_NAME_MAXIMIZE_WINDOW",
+              "attribute": "MACRO_PLAYBACK",
+              "readOnly": true,
+              "continuous": true,
+              "macro": {
+                "type": "SYSTEM",
+                "system": {
+                  "action": "MAXIMIZE"
+                },
+                "onboardable": false,
+                "actionName": "",
+                "icon": ""
+              },
+              "tags": [
+                "PRESET_TAG_EMBEDDED"
+              ]
+            },
+            "down": {
+              "id": "inner_card_wm_hide_show_desktop",
+              "name": "ASSIGNMENT_NAME_HIDE_SHOW_DESKTOP",
+              "attribute": "MACRO_PLAYBACK",
+              "readOnly": true,
+              "continuous": true,
+              "macro": {
+                "type": "KEYSTROKE",
+                "keystroke": {
+                  "code": 7,
+                  "modifiers": [
+                    227
+                  ],
+                  "displayCharacter": ""
+                },
+                "onboardable": false,
+                "actionName": "Left Windows + D",
+                "icon": ""
+              },
+              "tags": [
+                "PRESET_TAG_EMBEDDED"
+              ]
+            },
+            "left": {
+              "id": "inner_card_wm_swap_left",
+              "name": "ASSIGNMENT_NAME_SNAP_LEFT",
+              "attribute": "MACRO_PLAYBACK",
+              "readOnly": true,
+              "continuous": true,
+              "macro": {
+                "actionName": "keyboard_none",
+                "keystroke": {
+                  "code": 80,
+                  "displayCharacter": "Left",
+                  "modifiers": []
+                },
+                "type": "KEYSTROKE"
+              },
+              "tags": [
+                "PRESET_TAG_EMBEDDED"
+              ]
+            },
+            "right": {
+              "id": "inner_card_wm_swap_right",
+              "name": "ASSIGNMENT_NAME_SNAP_RIGHT",
+              "attribute": "MACRO_PLAYBACK",
+              "readOnly": true,
+              "continuous": true,
+              "macro": {
+                "actionName": "keyboard_none",
+                "keystroke": {
+                  "code": 79,
+                  "displayCharacter": "Right",
+                  "modifiers": []
+                },
+                "type": "KEYSTROKE"
+              },
+              "tags": [
+                "PRESET_TAG_EMBEDDED"
+              ]
+            },
+            "click": {
+              "id": "inner_card_wm_switch_applications",
+              "name": "ASSIGNMENT_NAME_SWITCH_APPLICATIONS",
+              "attribute": "MACRO_PLAYBACK",
+              "readOnly": true,
+              "continuous": true,
+              "macro": {
+                "type": "SYSTEM",
+                "system": {
+                  "action": "SWITCH_APPS"
+                },
+                "onboardable": false,
+                "actionName": "Alt + Tab",
+                "icon": ""
+              },
+              "tags": [
+                "PRESET_TAG_KEY_OR_BUTTON"
+              ]
+            }
+          }
+        },
+        "application_navigation": {
+          "id": "card_global_presets_one_of_gesture_button_application_navigation",
+          "name": "ASSIGNMENT_NAME_APPLICATION_NAVIGATION",
+          "attribute": "ADAPTER_4WAYS",
+          "gestureInfo": {
+            "x": {
+              "invertable": true,
+              "speedControl": true,
+              "autoRepeat": false,
+              "actionDuration": {
+                "minimumSensitivityActionDurationMs": 100,
+                "maximumSensitivityActionDurationMs": 100
+              }
+            },
+            "y": {
+              "invertable": false,
+              "speedControl": true,
+              "autoRepeat": false,
+              "pauseBetweenActionsMs": 300
+            },
+            "directionLocked": true
+          },
+          "readOnly": true,
+          "continuous": true,
+          "tags": [
+            "PRESET_TAG_BUTTON",
+            "PRESET_TAG_GESTURE"
+          ],
+          "nestedCards": {
+            "horizontal": {
+              "id": "inner_card_an_alt_key_pressed",
+              "attribute": "MACRO_PLAYBACK",
+              "macro": {
+                "actionName": "keyboard_none",
+                "keystroke": {
+                  "modifiers": [
+                    226
+                  ]
+                },
+                "type": "KEYSTROKE"
+              },
+              "name": "ASSIGNMENT_NAME_KEYBOARD_SHORTCUT",
+              "tags": [
+                "PRESET_TAG_EMBEDDED"
+              ]
+            },
+            "up": {
+              "id": "inner_card_an_start_menu",
+              "name": "ASSIGNMENT_NAME_START_MENU",
+              "attribute": "MACRO_PLAYBACK",
+              "readOnly": true,
+              "continuous": true,
+              "macro": {
+                "actionName": "keyboard_none",
+                "keystroke": {
+                  "displayCharacter": "Windows",
+                  "modifiers": [
+                    227
+                  ]
+                },
+                "type": "KEYSTROKE"
+              },
+              "tags": [
+                "PRESET_TAG_EMBEDDED"
+              ]
+            },
+            "down": {
+              "id": "inner_card_an_hide_show_desktop",
+              "name": "ASSIGNMENT_NAME_HIDE_SHOW_DESKTOP",
+              "attribute": "MACRO_PLAYBACK",
+              "readOnly": true,
+              "continuous": true,
+              "macro": {
+                "type": "KEYSTROKE",
+                "keystroke": {
+                  "code": 7,
+                  "modifiers": [
+                    227
+                  ],
+                  "displayCharacter": ""
+                },
+                "onboardable": false,
+                "actionName": "Left Windows + D",
+                "icon": ""
+              },
+              "tags": [
+                "PRESET_TAG_EMBEDDED"
+              ]
+            },
+            "left": {
+              "id": "inner_card_an_switch_application_left",
+              "name": "ASSIGNMENT_NAME_SWITCH_APPLICATIONS",
+              "attribute": "MACRO_PLAYBACK",
+              "readOnly": true,
+              "continuous": true,
+              "macro": {
+                "actionName": "keyboard_none",
+                "keystroke": {
+                  "code": 43,
+                  "displayCharacter": "Tab",
+                  "modifiers": [
+                    225
+                  ]
+                },
+                "type": "KEYSTROKE"
+              },
+              "tags": [
+                "PRESET_TAG_EMBEDDED"
+              ]
+            },
+            "right": {
+              "id": "inner_card_an_switch_application_right",
+              "name": "ASSIGNMENT_NAME_SWITCH_APPLICATIONS",
+              "attribute": "MACRO_PLAYBACK",
+              "readOnly": true,
+              "continuous": true,
+              "macro": {
+                "actionName": "keyboard_none",
+                "keystroke": {
+                  "code": 43,
+                  "displayCharacter": "Tab",
+                  "modifiers": []
+                },
+                "type": "KEYSTROKE"
+              },
+              "tags": [
+                "PRESET_TAG_EMBEDDED"
+              ]
+            },
+            "click": {
+              "id": "inner_card_an_switch_applications",
+              "name": "ASSIGNMENT_NAME_SWITCH_APPLICATIONS",
+              "attribute": "MACRO_PLAYBACK",
+              "readOnly": true,
+              "continuous": true,
+              "macro": {
+                "type": "SYSTEM",
+                "system": {
+                  "action": "SWITCH_APPS"
+                },
+                "onboardable": false,
+                "actionName": "Alt + Tab",
+                "icon": ""
+              },
+              "tags": [
+                "PRESET_TAG_KEY_OR_BUTTON"
+              ]
+            }
+          }
+        },
+        "arrange_windows": {
+          "id": "card_global_presets_one_of_gesture_button_arrange_windows",
+          "name": "ASSIGNMENT_NAME_ARRANGE_WINDOWS",
+          "attribute": "ADAPTER_4WAYS",
+          "gestureInfo": {
+            "x": {
+              "invertable": false,
+              "speedControl": true,
+              "autoRepeat": false,
+              "actionDuration": {
+                "minimumSensitivityActionDurationMs": 400,
+                "maximumSensitivityActionDurationMs": 400
+              }
+            },
+            "y": {
+              "invertable": false,
+              "speedControl": true,
+              "autoRepeat": false,
+              "pauseBetweenActionsMs": 300
+            },
+            "directionLocked": true
+          },
+          "readOnly": true,
+          "continuous": true,
+          "tags": [
+            "PRESET_TAG_BUTTON",
+            "PRESET_TAG_GESTURE"
+          ],
+          "nestedCards": {
+            "horizontal": {
+              "id": "inner_card_aw_windows_key_pressed",
+              "attribute": "MACRO_PLAYBACK",
+              "macro": {
+                "actionName": "keyboard_none",
+                "keystroke": {
+                  "modifiers": [
+                    227
+                  ]
+                },
+                "type": "KEYSTROKE"
+              },
+              "name": "ASSIGNMENT_NAME_KEYBOARD_SHORTCUT",
+              "tags": [
+                "PRESET_TAG_EMBEDDED"
+              ]
+            },
+            "up": {
+              "id": "inner_card_aw_maximize_window",
+              "name": "ASSIGNMENT_NAME_MAXIMIZE_WINDOW",
+              "attribute": "MACRO_PLAYBACK",
+              "readOnly": true,
+              "continuous": true,
+              "macro": {
+                "type": "SYSTEM",
+                "system": {
+                  "action": "MAXIMIZE"
+                },
+                "onboardable": false,
+                "actionName": "",
+                "icon": ""
+              },
+              "tags": [
+                "PRESET_TAG_EMBEDDED"
+              ]
+            },
+            "down": {
+              "id": "inner_card_aw_minimize_window",
+              "name": "ASSIGNMENT_NAME_MINIMIZE_WINDOW",
+              "attribute": "MACRO_PLAYBACK",
+              "readOnly": true,
+              "continuous": true,
+              "macro": {
+                "type": "SYSTEM",
+                "system": {
+                  "action": "MINIMIZE"
+                },
+                "onboardable": false,
+                "actionName": "",
+                "icon": ""
+              },
+              "tags": [
+                "PRESET_TAG_EMBEDDED"
+              ]
+            },
+            "left": {
+              "id": "inner_card_aw_snap_left",
+              "name": "ASSIGNMENT_NAME_SNAP_LEFT",
+              "attribute": "MACRO_PLAYBACK",
+              "readOnly": true,
+              "continuous": true,
+              "macro": {
+                "actionName": "keyboard_none",
+                "keystroke": {
+                  "code": 80,
+                  "displayCharacter": "Left",
+                  "modifiers": []
+                },
+                "type": "KEYSTROKE"
+              },
+              "tags": [
+                "PRESET_TAG_EMBEDDED"
+              ]
+            },
+            "right": {
+              "id": "inner_card_aw_snap_right",
+              "name": "ASSIGNMENT_NAME_SNAP_RIGHT",
+              "attribute": "MACRO_PLAYBACK",
+              "readOnly": true,
+              "continuous": true,
+              "macro": {
+                "actionName": "keyboard_none",
+                "keystroke": {
+                  "code": 79,
+                  "displayCharacter": "Right",
+                  "modifiers": []
+                },
+                "type": "KEYSTROKE"
+              },
+              "tags": [
+                "PRESET_TAG_EMBEDDED"
+              ]
+            },
+            "click": {
+              "id": "inner_card_aw_switch_applications",
+              "name": "ASSIGNMENT_NAME_SWITCH_APPLICATIONS",
+              "attribute": "MACRO_PLAYBACK",
+              "readOnly": true,
+              "continuous": true,
+              "macro": {
+                "type": "SYSTEM",
+                "system": {
+                  "action": "SWITCH_APPS"
+                },
+                "onboardable": false,
+                "actionName": "Alt + Tab",
+                "icon": ""
+              },
+              "tags": [
+                "PRESET_TAG_KEY_OR_BUTTON"
+              ]
+            }
+          }
+        },
+        "virtual_desktops": {
+          "id": "card_global_presets_one_of_gesture_button_virtual_desktops",
+          "name": "ASSIGNMENT_NAME_VIRTUAL_DESKTOPS",
+          "attribute": "ADAPTER_4WAYS",
+          "gestureInfo": {
+            "x": {
+              "invertable": false,
+              "speedControl": true,
+              "autoRepeat": false,
+              "actionDuration": {
+                "minimumSensitivityActionDurationMs": 400,
+                "maximumSensitivityActionDurationMs": 400
+              }
+            },
+            "y": {
+              "invertable": false,
+              "speedControl": true,
+              "autoRepeat": false,
+              "pauseBetweenActionsMs": 300
+            }
+          },
+          "readOnly": true,
+          "continuous": true,
+          "tags": [
+            "PRESET_TAG_BUTTON",
+            "PRESET_TAG_GESTURE"
+          ],
+          "nestedCards": {
+            "up": {
+              "id": "inner_card_vd_start_menu",
+              "name": "ASSIGNMENT_NAME_START_MENU",
+              "attribute": "MACRO_PLAYBACK",
+              "readOnly": true,
+              "continuous": true,
+              "macro": {
+                "actionName": "keyboard_none",
+                "keystroke": {
+                  "displayCharacter": "Windows",
+                  "modifiers": [
+                    227
+                  ]
+                },
+                "type": "KEYSTROKE"
+              },
+              "tags": [
+                "PRESET_TAG_EMBEDDED"
+              ]
+            },
+            "down": {
+              "id": "inner_card_vd_hide_show_desktop",
+              "name": "ASSIGNMENT_NAME_HIDE_SHOW_DESKTOP",
+              "attribute": "MACRO_PLAYBACK",
+              "readOnly": true,
+              "continuous": true,
+              "macro": {
+                "type": "KEYSTROKE",
+                "keystroke": {
+                  "code": 7,
+                  "modifiers": [
+                    227
+                  ],
+                  "displayCharacter": ""
+                },
+                "onboardable": false,
+                "actionName": "Left Windows + D",
+                "icon": ""
+              },
+              "tags": [
+                "PRESET_TAG_EMBEDDED"
+              ]
+            },
+            "left": {
+              "id": "inner_card_vd_desktop_left",
+              "name": "ASSIGNMENT_NAME_DESKTOP_LEFT",
+              "attribute": "MACRO_PLAYBACK",
+              "readOnly": true,
+              "continuous": true,
+              "macro": {
+                "actionName": "keyboard_none",
+                "keystroke": {
+                  "code": 80,
+                  "displayCharacter": "Left",
+                  "modifiers": [
+                    224,
+                    227
+                  ]
+                },
+                "type": "KEYSTROKE"
+              },
+              "tags": [
+                "PRESET_TAG_EMBEDDED"
+              ]
+            },
+            "right": {
+              "id": "inner_card_vd_desktop_right",
+              "name": "ASSIGNMENT_NAME_DESKTOP_RIGHT",
+              "attribute": "MACRO_PLAYBACK",
+              "readOnly": true,
+              "continuous": true,
+              "macro": {
+                "actionName": "keyboard_none",
+                "keystroke": {
+                  "code": 79,
+                  "displayCharacter": "Right",
+                  "modifiers": [
+                    224,
+                    227
+                  ]
+                },
+                "type": "KEYSTROKE"
+              },
+              "tags": [
+                "PRESET_TAG_EMBEDDED"
+              ]
+            },
+            "click": {
+              "id": "inner_card_vd_task_view",
+              "name": "ASSIGNMENT_NAME_TASK_VIEW",
+              "attribute": "MACRO_PLAYBACK",
+              "readOnly": true,
+              "continuous": true,
+              "macro": {
+                "type": "SYSTEM",
+                "system": {
+                  "action": "TASK_VIEW"
+                },
+                "onboardable": false,
+                "actionName": "",
+                "icon": ""
+              },
+              "tags": [
+                "PRESET_TAG_KEY_OR_BUTTON"
+              ]
+            }
+          }
+        },
+        "zoom_rotate": {
+          "id": "card_global_presets_one_of_gesture_button_zoom_rotate",
+          "name": "ASSIGNMENT_NAME_ZOOM_ROTATE",
+          "attribute": "ADAPTER_4WAYS",
+          "gestureInfo": {
+            "x": {
+              "invertable": false,
+              "speedControl": true,
+              "autoRepeat": false
+            },
+            "y": {
+              "invertable": false,
+              "speedControl": true,
+              "autoRepeat": false
+            },
+            "implementation": "CUSTOM_ZOOM_ROTATE"
+          },
+          "readOnly": false,
+          "continuous": true,
+          "nestedCards": {
+            "click": {
+              "id": "inner_card_zr_zoom_reset",
+              "name": "ASSIGNMENT_NAME_ZOOM_RESET",
+              "attribute": "INVALID",
+              "readOnly": true,
+              "continuous": true,
+              "nestedCards": {},
+              "tags": [
+                "PRESET_TAG_MISC"
+              ]
+            },
+            "right": {
+              "id": "inner_card_zr_rotate_right",
+              "name": "ASSIGNMENT_NAME_ROTATE",
+              "attribute": "INVALID",
+              "readOnly": true,
+              "continuous": true,
+              "nestedCards": {},
+              "tags": [
+                "PRESET_TAG_MISC"
+              ]
+            },
+            "left": {
+              "id": "inner_card_zr_rotate_left",
+              "name": "ASSIGNMENT_NAME_ROTATE",
+              "attribute": "INVALID",
+              "readOnly": true,
+              "continuous": true,
+              "nestedCards": {},
+              "tags": [
+                "PRESET_TAG_MISC"
+              ]
+            },
+            "down": {
+              "id": "inner_card_zr_zoom_out",
+              "name": "ASSIGNMENT_NAME_ZOOM_OUT",
+              "attribute": "INVALID",
+              "readOnly": true,
+              "continuous": true,
+              "nestedCards": {},
+              "tags": [
+                "PRESET_TAG_MISC"
+              ]
+            },
+            "up": {
+              "id": "inner_card_zr_zoom_in",
+              "name": "ASSIGNMENT_NAME_ZOOM_IN",
+              "attribute": "INVALID",
+              "readOnly": true,
+              "continuous": true,
+              "nestedCards": {},
+              "tags": [
+                "PRESET_TAG_MISC"
+              ]
+            }
+          },
+          "tags": [
+            "PRESET_TAG_BUTTON",
+            "PRESET_TAG_GESTURE"
+          ]
+        },
+        "pan": {
+          "id": "card_global_presets_one_of_gesture_button_pan",
+          "name": "ASSIGNMENT_NAME_PAN",
+          "attribute": "ADAPTER_4WAYS",
+          "gestureInfo": {
+            "x": {
+              "invertable": true,
+              "speedControl": true,
+              "autoRepeat": false
+            },
+            "y": {
+              "invertable": true,
+              "speedControl": true,
+              "autoRepeat": false
+            },
+            "implementation": "CUSTOM_PAN"
+          },
+          "readOnly": false,
+          "continuous": true,
+          "nestedCards": {
+            "click": {
+              "id": "inner_card_pan_middle_button",
+              "name": "ASSIGNMENT_NAME_MIDDLE_BUTTON",
+              "attribute": "INVALID",
+              "readOnly": true,
+              "continuous": true,
+              "nestedCards": {},
+              "tags": [
+                "PRESET_TAG_MISC"
+              ]
+            },
+            "right": {
+              "id": "inner_card_pan_right",
+              "name": "ASSIGNMENT_NAME_PAN",
+              "attribute": "INVALID",
+              "readOnly": true,
+              "continuous": true,
+              "nestedCards": {},
+              "tags": [
+                "PRESET_TAG_MISC"
+              ]
+            },
+            "left": {
+              "id": "inner_card_pan_left",
+              "name": "ASSIGNMENT_NAME_PAN",
+              "attribute": "INVALID",
+              "readOnly": true,
+              "continuous": true,
+              "nestedCards": {},
+              "tags": [
+                "PRESET_TAG_MISC"
+              ]
+            },
+            "down": {
+              "id": "inner_card_pan_down",
+              "name": "ASSIGNMENT_NAME_PAN",
+              "attribute": "INVALID",
+              "readOnly": true,
+              "continuous": true,
+              "nestedCards": {},
+              "tags": [
+                "PRESET_TAG_MISC"
+              ]
+            },
+            "up": {
+              "id": "inner_card_pan_up",
+              "name": "ASSIGNMENT_NAME_PAN",
+              "attribute": "INVALID",
+              "readOnly": true,
+              "continuous": true,
+              "nestedCards": {},
+              "tags": [
+                "PRESET_TAG_MISC"
+              ]
+            }
+          },
+          "tags": [
+            "PRESET_TAG_BUTTON",
+            "PRESET_TAG_GESTURE"
+          ]
+        },
+        "custom_gesture": {
+          "id": "card_global_presets_one_of_gesture_button_custom_gesture",
+          "name": "ASSIGNMENT_NAME_CUSTOM_GESTURE",
+          "attribute": "ADAPTER_4WAYS",
+          "gestureInfo": {
+            "x": {
+              "invertable": false,
+              "speedControl": true,
+              "autoRepeat": false,
+              "actionDuration": {
+                "minimumSensitivityActionDurationMs": 200,
+                "maximumSensitivityActionDurationMs": 200
+              }
+            },
+            "y": {
+              "invertable": false,
+              "speedControl": true,
+              "autoRepeat": false,
+              "actionDuration": {
+                "minimumSensitivityActionDurationMs": 200,
+                "maximumSensitivityActionDurationMs": 200
+              }
+            }
+          },
+          "readOnly": false,
+          "continuous": true,
+          "nestedCards": {
+            "click": {
+              "id": "inner_card_custom_click",
+              "name": "ASSIGNMENT_NAME_DONOTHING",
+              "attribute": "MACRO_PLAYBACK",
+              "readOnly": true,
+              "continuous": true,
+              "macro": {
+                "type": "DO_NOTHING",
+                "onboardable": false,
+                "actionName": "",
+                "icon": "",
+                "doNothing": {
+                  "action": "NONE"
+                }
+              },
+              "nestedCards": {},
+              "tags": [
+                "PRESET_TAG_MISC"
+              ]
+            },
+            "right": {
+              "id": "inner_card_custom_right",
+              "name": "ASSIGNMENT_NAME_DONOTHING",
+              "attribute": "MACRO_PLAYBACK",
+              "readOnly": true,
+              "continuous": true,
+              "macro": {
+                "type": "DO_NOTHING",
+                "onboardable": false,
+                "actionName": "",
+                "icon": "",
+                "doNothing": {
+                  "action": "NONE"
+                }
+              },
+              "nestedCards": {},
+              "tags": [
+                "PRESET_TAG_MISC"
+              ]
+            },
+            "left": {
+              "id": "inner_card_custom_left",
+              "name": "ASSIGNMENT_NAME_DONOTHING",
+              "attribute": "MACRO_PLAYBACK",
+              "readOnly": true,
+              "continuous": true,
+              "macro": {
+                "type": "DO_NOTHING",
+                "onboardable": false,
+                "actionName": "",
+                "icon": "",
+                "doNothing": {
+                  "action": "NONE"
+                }
+              },
+              "nestedCards": {},
+              "tags": [
+                "PRESET_TAG_MISC"
+              ]
+            },
+            "down": {
+              "id": "inner_card_custom_down",
+              "name": "ASSIGNMENT_NAME_DONOTHING",
+              "attribute": "MACRO_PLAYBACK",
+              "readOnly": true,
+              "continuous": true,
+              "macro": {
+                "type": "DO_NOTHING",
+                "onboardable": false,
+                "actionName": "",
+                "icon": "",
+                "doNothing": {
+                  "action": "NONE"
+                }
+              },
+              "nestedCards": {},
+              "tags": [
+                "PRESET_TAG_MISC"
+              ]
+            },
+            "up": {
+              "id": "inner_card_custom_up",
+              "name": "ASSIGNMENT_NAME_DONOTHING",
+              "attribute": "MACRO_PLAYBACK",
+              "readOnly": true,
+              "continuous": true,
+              "macro": {
+                "type": "DO_NOTHING",
+                "onboardable": false,
+                "actionName": "",
+                "icon": "",
+                "doNothing": {
+                  "action": "NONE"
+                }
+              },
+              "nestedCards": {},
+              "tags": [
+                "PRESET_TAG_MISC"
+              ]
+            }
+          },
+          "tags": [
+            "PRESET_TAG_BUTTON",
+            "PRESET_TAG_GESTURE",
+            "PRESET_TAG_CUSTOM_GESTURE"
+          ]
+        }
+      },
+      "tags": [
+        "PRESET_TAG_GESTURE",
+        "PRESET_MOUSE_FUNCTIONS"
+      ]
+    },
+    {
+      "id": "card_global_presets_do_nothing",
+      "name": "ASSIGNMENT_NAME_DONOTHING",
+      "attribute": "MACRO_PLAYBACK",
+      "readOnly": true,
+      "continuous": false,
+      "macro": {
+        "type": "DO_NOTHING",
+        "onboardable": false,
+        "actionName": "",
+        "icon": "",
+        "doNothing": {
+          "action": "NONE"
+        }
+      },
+      "nestedCards": {},
+      "tags": [
+        "PRESET_TAG_MISC",
+        "PRESET_TAG_PRESENTER_BUTTON",
+        "PRESET_MOUSE_FUNCTIONS",
+        "PRESET_KEYBOARD_FUNCTIONS"
+      ]
+    },
+    {
+      "id": "card_global_presets_media_play_pause",
+      "name": "ASSIGNMENT_NAME_PLAY_PAUSE",
+      "category": "ASSIGNMENT_CATEGORY_MEDIA_AUDIO",
+      "attribute": "MACRO_PLAYBACK",
+      "readOnly": true,
+      "continuous": false,
+      "macro": {
+        "type": "MEDIA",
+        "media": {
+          "usage": "PLAY_PAUSE"
+        },
+        "onboardable": false,
+        "actionName": "",
+        "icon": ""
+      },
+      "nestedCards": {},
+      "tags": [
+        "PRESET_TAG_KEY_OR_BUTTON",
+        "PRESET_COMPUTER_FUNCTIONS"
+      ]
+    },
+    {
+      "id": "card_global_presets_media_previous_track",
+      "name": "ASSIGNMENT_NAME_PREVIOUS_TRACK",
+      "category": "ASSIGNMENT_CATEGORY_NAVIGATE_COMPUTER",
+      "attribute": "MACRO_PLAYBACK",
+      "readOnly": true,
+      "continuous": false,
+      "macro": {
+        "type": "MEDIA",
+        "media": {
+          "usage": "PREVIOUS_TRACK"
+        },
+        "onboardable": false,
+        "actionName": "",
+        "icon": ""
+      },
+      "nestedCards": {},
+      "tags": [
+        "PRESET_TAG_KEY_OR_BUTTON",
+        "PRESET_COMPUTER_FUNCTIONS"
+      ]
+    },
+    {
+      "id": "card_global_presets_media_next_track",
+      "name": "ASSIGNMENT_NAME_NEXT_TRACK",
+      "category": "ASSIGNMENT_CATEGORY_NAVIGATE_COMPUTER",
+      "attribute": "MACRO_PLAYBACK",
+      "readOnly": true,
+      "continuous": false,
+      "macro": {
+        "type": "MEDIA",
+        "media": {
+          "usage": "NEXT_TRACK"
+        },
+        "onboardable": false,
+        "actionName": "",
+        "icon": ""
+      },
+      "nestedCards": {},
+      "tags": [
+        "PRESET_TAG_KEY_OR_BUTTON",
+        "PRESET_COMPUTER_FUNCTIONS"
+      ]
+    },
+    {
+      "id": "card_global_presets_volume_up",
+      "name": "ASSIGNMENT_NAME_VOLUME_UP",
+      "category": "ASSIGNMENT_CATEGORY_MEDIA_AUDIO",
+      "attribute": "MACRO_PLAYBACK",
+      "readOnly": true,
+      "continuous": true,
+      "macro": {
+        "type": "MEDIA",
+        "media": {
+          "usage": "VOLUME_UP"
+        },
+        "onboardable": false,
+        "actionName": "",
+        "icon": "",
+        "init_period": 300,
+        "repeat_period": 25
+      },
+      "gestureInfo": {
+        "customGestureActionDuration": 10
+      },
+      "nestedCards": {},
+      "tags": [
+        "PRESET_TAG_KEY_OR_BUTTON",
+        "PRESET_COMPUTER_FUNCTIONS"
+      ]
+    },
+    {
+      "id": "card_global_presets_volume_down",
+      "name": "ASSIGNMENT_NAME_VOLUME_DOWN",
+      "category": "ASSIGNMENT_CATEGORY_MEDIA_AUDIO",
+      "attribute": "MACRO_PLAYBACK",
+      "readOnly": true,
+      "continuous": true,
+      "macro": {
+        "type": "MEDIA",
+        "media": {
+          "usage": "VOLUME_DOWN"
+        },
+        "onboardable": false,
+        "actionName": "",
+        "icon": "",
+        "init_period": 300,
+        "repeat_period": 25
+      },
+      "gestureInfo": {
+        "customGestureActionDuration": 10
+      },
+      "nestedCards": {},
+      "tags": [
+        "PRESET_TAG_KEY_OR_BUTTON",
+        "PRESET_COMPUTER_FUNCTIONS"
+      ]
+    },
+    {
+      "id": "card_global_presets_volume_mute",
+      "name": "ASSIGNMENT_NAME_VOLUME_MUTE",
+      "category": "ASSIGNMENT_CATEGORY_MEDIA_AUDIO",
+      "attribute": "MACRO_PLAYBACK",
+      "readOnly": true,
+      "continuous": false,
+      "macro": {
+        "type": "MEDIA",
+        "media": {
+          "usage": "MUTE"
+        },
+        "onboardable": false,
+        "actionName": "",
+        "icon": ""
+      },
+      "nestedCards": {},
+      "tags": [
+        "PRESET_TAG_KEY_OR_BUTTON",
+        "PRESET_COMPUTER_FUNCTIONS"
+      ]
+    },
+    {
+      "id": "card_global_presets_win_copy",
+      "name": "ASSIGNMENT_NAME_COPY",
+      "category": "ASSIGNMENT_CATEGORY_EDIT_FILES_FOLDERS",
+      "attribute": "MACRO_PLAYBACK",
+      "readOnly": true,
+      "continuous": false,
+      "macro": {
+        "type": "KEYSTROKE",
+        "keystroke": {
+          "code": 6,
+          "modifiers": [
+            224
+          ],
+          "displayCharacter": ""
+        },
+        "onboardable": false,
+        "actionName": "Ctrl + C",
+        "icon": ""
+      },
+      "nestedCards": {},
+      "tags": [
+        "PRESET_TAG_KEY_OR_BUTTON",
+        "PRESET_COMPUTER_FUNCTIONS"
+      ]
+    },
+    {
+      "id": "card_global_presets_win_paste",
+      "name": "ASSIGNMENT_NAME_PASTE",
+      "category": "ASSIGNMENT_CATEGORY_EDIT_FILES_FOLDERS",
+      "attribute": "MACRO_PLAYBACK",
+      "readOnly": true,
+      "continuous": false,
+      "macro": {
+        "type": "KEYSTROKE",
+        "keystroke": {
+          "code": 25,
+          "modifiers": [
+            224
+          ],
+          "displayCharacter": ""
+        },
+        "onboardable": false,
+        "actionName": "Ctrl + V",
+        "icon": ""
+      },
+      "nestedCards": {},
+      "tags": [
+        "PRESET_TAG_KEY_OR_BUTTON",
+        "PRESET_COMPUTER_FUNCTIONS"
+      ]
+    },
+    {
+      "id": "card_global_presets_win_undo",
+      "name": "ASSIGNMENT_NAME_UNDO",
+      "category": "ASSIGNMENT_CATEGORY_EDIT_FILES_FOLDERS",
+      "attribute": "MACRO_PLAYBACK",
+      "readOnly": true,
+      "continuous": false,
+      "macro": {
+        "type": "KEYSTROKE",
+        "keystroke": {
+          "code": 29,
+          "modifiers": [
+            224
+          ],
+          "displayCharacter": "",
+          "virtualKeyId": "VK_Z"
+        },
+        "onboardable": false,
+        "actionName": "Ctrl + Z",
+        "icon": ""
+      },
+      "nestedCards": {},
+      "tags": [
+        "PRESET_TAG_BUTTON",
+        "PRESET_COMPUTER_FUNCTIONS"
+      ]
+    },
+    {
+      "id": "card_global_presets_win_redo",
+      "name": "ASSIGNMENT_NAME_REDO",
+      "category": "ASSIGNMENT_CATEGORY_EDIT_FILES_FOLDERS",
+      "attribute": "MACRO_PLAYBACK",
+      "readOnly": true,
+      "continuous": false,
+      "macro": {
+        "type": "KEYSTROKE",
+        "keystroke": {
+          "code": 28,
+          "modifiers": [
+            224
+          ],
+          "displayCharacter": "",
+          "virtualKeyId": "VK_Y"
+        },
+        "onboardable": false,
+        "actionName": "Ctrl + Y",
+        "icon": ""
+      },
+      "nestedCards": {},
+      "tags": [
+        "PRESET_TAG_BUTTON",
+        "PRESET_COMPUTER_FUNCTIONS"
+      ]
+    },
+    {
+      "id": "card_global_presets_win_hide_show_desktop",
+      "name": "ASSIGNMENT_NAME_HIDE_SHOW_DESKTOP",
+      "category": "ASSIGNMENT_CATEGORY_NAVIGATE_COMPUTER",
+      "attribute": "MACRO_PLAYBACK",
+      "readOnly": true,
+      "continuous": false,
+      "macro": {
+        "type": "KEYSTROKE",
+        "keystroke": {
+          "code": 7,
+          "modifiers": [
+            227
+          ],
+          "displayCharacter": ""
+        },
+        "onboardable": false,
+        "actionName": "Left Windows + D",
+        "icon": ""
+      },
+      "nestedCards": {},
+      "tags": [
+        "PRESET_TAG_KEY_OR_BUTTON",
+        "PRESET_COMPUTER_FUNCTIONS"
+      ]
+    },
+    {
+      "id": "card_global_presets_desktop_left",
+      "name": "ASSIGNMENT_NAME_DESKTOP_LEFT",
+      "category": "ASSIGNMENT_CATEGORY_NAVIGATE_COMPUTER",
+      "attribute": "MACRO_PLAYBACK",
+      "readOnly": true,
+      "continuous": false,
+      "macro": {
+        "type": "KEYSTROKE",
+        "keystroke": {
+          "code": 80,
+          "modifiers": [
+            224,
+            227
+          ],
+          "displayCharacter": "Left"
+        },
+        "onboardable": false,
+        "actionName": "",
+        "icon": ""
+      },
+      "nestedCards": {},
+      "tags": [
+        "PRESET_TAG_KEY_OR_BUTTON",
+        "PRESET_COMPUTER_FUNCTIONS"
+      ]
+    },
+    {
+      "id": "card_global_presets_desktop_right",
+      "name": "ASSIGNMENT_NAME_DESKTOP_RIGHT",
+      "category": "ASSIGNMENT_CATEGORY_NAVIGATE_COMPUTER",
+      "attribute": "MACRO_PLAYBACK",
+      "readOnly": true,
+      "continuous": false,
+      "macro": {
+        "type": "KEYSTROKE",
+        "keystroke": {
+          "code": 79,
+          "modifiers": [
+            224,
+            227
+          ],
+          "displayCharacter": "Right"
+        },
+        "onboardable": false,
+        "actionName": "",
+        "icon": ""
+      },
+      "nestedCards": {},
+      "tags": [
+        "PRESET_TAG_KEY_OR_BUTTON",
+        "PRESET_COMPUTER_FUNCTIONS"
+      ]
+    },
+    {
+      "id": "card_global_presets_win_task_view",
+      "name": "ASSIGNMENT_NAME_TASK_VIEW",
+      "category": "ASSIGNMENT_CATEGORY_NAVIGATE_COMPUTER",
+      "attribute": "MACRO_PLAYBACK",
+      "readOnly": true,
+      "continuous": false,
+      "macro": {
+        "type": "SYSTEM",
+        "system": {
+          "action": "TASK_VIEW"
+        },
+        "onboardable": false,
+        "actionName": "",
+        "icon": ""
+      },
+      "nestedCards": {},
+      "tags": [
+        "PRESET_TAG_KEY_OR_BUTTON",
+        "PRESET_TAG_LPS_SUPPORTED",
+        "PRESET_COMPUTER_FUNCTIONS"
+      ]
+    },
+    {
+      "id": "card_global_presets_win_switch_applications",
+      "name": "ASSIGNMENT_NAME_SWITCH_APPLICATIONS",
+      "category": "ASSIGNMENT_CATEGORY_NAVIGATE_COMPUTER",
+      "attribute": "MACRO_PLAYBACK",
+      "readOnly": true,
+      "continuous": true,
+      "macro": {
+        "type": "SYSTEM",
+        "system": {
+          "action": "SWITCH_APPS"
+        },
+        "onboardable": false,
+        "actionName": "Alt + Tab",
+        "icon": ""
+      },
+      "nestedCards": {},
+      "tags": [
+        "PRESET_TAG_KEY_OR_BUTTON",
+        "PRESET_TAG_MACROS_UNSUPPORTED",
+        "PRESET_COMPUTER_FUNCTIONS"
+      ]
+    },
+    {
+      "id": "card_global_presets_close_window",
+      "name": "ASSIGNMENT_NAME_CLOSE",
+      "category": "ASSIGNMENT_CATEGORY_NAVIGATE_COMPUTER",
+      "attribute": "MACRO_PLAYBACK",
+      "readOnly": true,
+      "continuous": false,
+      "macro": {
+        "type": "SYSTEM",
+        "system": {
+          "action": "CLOSE"
+        },
+        "onboardable": false,
+        "actionName": "",
+        "icon": ""
+      },
+      "nestedCards": {},
+      "tags": [
+        "PRESET_TAG_KEY_OR_BUTTON",
+        "PRESET_COMPUTER_FUNCTIONS"
+      ]
+    },
+    {
+      "id": "card_global_presets_minimize_window",
+      "name": "ASSIGNMENT_NAME_MINIMIZE_WINDOW",
+      "category": "ASSIGNMENT_CATEGORY_NAVIGATE_COMPUTER",
+      "attribute": "MACRO_PLAYBACK",
+      "readOnly": true,
+      "continuous": false,
+      "macro": {
+        "type": "SYSTEM",
+        "system": {
+          "action": "MINIMIZE"
+        },
+        "onboardable": false,
+        "actionName": "",
+        "icon": ""
+      },
+      "nestedCards": {},
+      "tags": [
+        "PRESET_TAG_KEY_OR_BUTTON",
+        "PRESET_COMPUTER_FUNCTIONS"
+      ]
+    },
+    {
+      "id": "card_global_presets_maximize_window",
+      "name": "ASSIGNMENT_NAME_MAXIMIZE_WINDOW",
+      "category": "ASSIGNMENT_CATEGORY_NAVIGATE_COMPUTER",
+      "attribute": "MACRO_PLAYBACK",
+      "readOnly": true,
+      "continuous": false,
+      "macro": {
+        "type": "SYSTEM",
+        "system": {
+          "action": "MAXIMIZE"
+        },
+        "onboardable": false,
+        "actionName": "",
+        "icon": ""
+      },
+      "nestedCards": {},
+      "tags": [
+        "PRESET_TAG_KEY_OR_BUTTON",
+        "PRESET_COMPUTER_FUNCTIONS"
+      ]
+    },
+    {
+      "id": "card_global_presets_lock",
+      "name": "ASSIGNMENT_NAME_LOCK",
+      "category": "ASSIGNMENT_CATEGORY_NAVIGATE_COMPUTER",
+      "attribute": "MACRO_PLAYBACK",
+      "readOnly": true,
+      "continuous": false,
+      "macro": {
+        "type": "SYSTEM",
+        "system": {
+          "action": "LOCK"
+        },
+        "onboardable": false,
+        "actionName": "",
+        "icon": ""
+      },
+      "nestedCards": {},
+      "tags": [
+        "PRESET_TAG_KEY_OR_BUTTON",
+        "PRESET_COMPUTER_FUNCTIONS"
+      ]
+    },
+    {
+      "id": "card_global_presets_win_screen_capture",
+      "name": "ASSIGNMENT_NAME_SCREEN_CAPTURE",
+      "category": "ASSIGNMENT_CATEGORY_NAVIGATE_COMPUTER",
+      "attribute": "MACRO_PLAYBACK",
+      "readOnly": false,
+      "continuous": false,
+      "macro": {
+        "type": "SCREEN_CAPTURE",
+        "screenCapture": {
+          "areatocapture": "CAPTURE_SCREEN",
+          "destinationfolder": "CAPTURE_FILE"
+        },
+        "onboardable": false,
+        "actionName": "screencapture_default",
+        "icon": ""
+      },
+      "nestedCards": {},
+      "tags": [
+        "PRESET_TAG_KEY_OR_BUTTON",
+        "PRESET_COMPUTER_FUNCTIONS"
+      ]
+    },
+    {
+      "id": "card_global_presets_zoom_in",
+      "name": "ASSIGNMENT_NAME_ZOOM_IN",
+      "category": "ASSIGNMENT_CATEGORY_NAVIGATE_COMPUTER",
+      "attribute": "MACRO_PLAYBACK",
+      "readOnly": true,
+      "continuous": true,
+      "macro": {
+        "type": "SYSTEM",
+        "system": {
+          "action": "ZOOM_IN"
+        },
+        "onboardable": false,
+        "actionName": "",
+        "icon": "",
+        "init_period": 300,
+        "repeat_period": 200
+      },
+      "nestedCards": {},
+      "tags": [
+        "PRESET_TAG_KEY_OR_BUTTON",
+        "PRESET_TAG_MACROS_UNSUPPORTED",
+        "PRESET_TAG_LPS_SUPPORTED",
+        "PRESET_COMPUTER_FUNCTIONS"
+      ]
+    },
+    {
+      "id": "card_global_presets_zoom_out",
+      "name": "ASSIGNMENT_NAME_ZOOM_OUT",
+      "category": "ASSIGNMENT_CATEGORY_NAVIGATE_COMPUTER",
+      "attribute": "MACRO_PLAYBACK",
+      "readOnly": true,
+      "continuous": true,
+      "macro": {
+        "type": "SYSTEM",
+        "system": {
+          "action": "ZOOM_OUT"
+        },
+        "onboardable": false,
+        "actionName": "",
+        "icon": "",
+        "init_period": 300,
+        "repeat_period": 200
+      },
+      "nestedCards": {},
+      "tags": [
+        "PRESET_TAG_KEY_OR_BUTTON",
+        "PRESET_TAG_MACROS_UNSUPPORTED",
+        "PRESET_TAG_LPS_SUPPORTED",
+        "PRESET_COMPUTER_FUNCTIONS"
+      ]
+    }
+  ]
+}

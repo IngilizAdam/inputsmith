@@ -11,6 +11,7 @@ path = "src/main.rs"
 
 [dependencies]
 inputsmith-hidpp.workspace = true
+inputsmith-data.workspace = true
 inputsmith-ipc.workspace = true
 inputsmith-input.workspace = true
 log.workspace = true

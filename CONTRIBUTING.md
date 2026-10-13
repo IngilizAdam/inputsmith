@@ -39,8 +39,11 @@ you can, run `inputsmith sniff` while you change a setting in Options+ and attac
 
 Inputsmith must stay free of Logitech's intellectual property:
 
-- **Do not contribute** Logitech code, decompiled or disassembled code, files or data extracted from
-  Logitech software or firmware, or Logitech artwork.
+- **Do not contribute** Logitech code, decompiled or disassembled code, files copied or extracted from
+  Logitech software or firmware, Logitech text (UI strings, descriptions) or Logitech artwork.
+- **Compatibility values are fine** when written into Inputsmith's own files: identifiers and defaults
+  that settings depend on (model ids, slot prefixes, card ids and action definitions, default scroll
+  settings), as described in [crates/data](crates/data/README.md).
 - **Do** describe and implement behaviour you observed from the outside: what a device sends and
   receives, what input Options+ produces, what files it writes to disk, and public HID++ knowledge.
 - How you investigate is up to you, but only your own original code and observations belong in a pull

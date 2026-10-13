@@ -18,7 +18,8 @@ Verified on an MX Anywhere 3 (Unifying receiver), behaviour measured against Opt
 - [x] SmartShift: on/off, sensitivity, scrolling force
 - [x] Scroll direction, smooth scrolling, horizontal scrolling with side buttons
 - [x] Swap left/right buttons
-- [x] Button re-assignment with the Options+ action catalog, per-application profiles
+- [x] Button re-assignment, per-application profiles
+- [x] Self-contained: own device descriptions, device art (from Piper) and action list; no Options+ needed
 - [x] Gesture button with speed-dependent steps and action timing matching Options+
 - [x] Per-model defaults
 - [x] Settings window and tray icon in the style of Options+
@@ -30,6 +31,8 @@ Verified on an MX Anywhere 3 (Unifying receiver), behaviour measured against Opt
 
 - [ ] Action editors in the GUI: keyboard shortcut recorder, application picker, file/folder and web page
       inputs, text block
+- [ ] Full action catalog: the built-in list (`crates/data/actions.json`) has the common actions; add the
+      rest of what Options+ offers
 - [ ] Remaining system actions (brightness, sleep/shutdown with confirmation, more window actions)
 - [ ] Verify the remaining gesture presets against Options+ (virtual desktops, window management, arrange
       windows; zoom/rotate and pan scaling)
@@ -48,8 +51,6 @@ Verified on an MX Anywhere 3 (Unifying receiver), behaviour measured against Opt
 - [ ] Input injection through uinput (keys, buttons, wheel, media, text)
 - [ ] Foreground application detection (X11; Wayland per compositor)
 - [ ] Agent as a systemd user service; tray icon via StatusNotifierItem
-- [ ] Device art and action catalog without an Options+ installation (own art, larger built-in catalog,
-      or a one-time import from a Windows installation)
 - [ ] Packages (`.deb`, `.rpm`, possibly AppImage) built and released by the CI (`build.yml`)
 
 ## Milestone 4 — More devices

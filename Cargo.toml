@@ -12,6 +12,7 @@ rust-version = "1.85"
 [workspace.dependencies]
 inputsmith-hid = { path = "crates/hid" }
 inputsmith-hidpp = { path = "crates/hidpp" }
+inputsmith-data = { path = "crates/data" }
 inputsmith-ipc = { path = "crates/ipc" }
 inputsmith-input = { path = "crates/input" }
 thiserror = "2"

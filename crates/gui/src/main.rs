@@ -3,12 +3,12 @@
 #![cfg_attr(all(windows, not(debug_assertions)), windows_subsystem = "windows")]
 
 mod app;
+mod catalog;
 mod client;
 mod desktop;
 mod model;
 mod theme;
 mod tray;
-mod vendor;
 
 use app::App;
 

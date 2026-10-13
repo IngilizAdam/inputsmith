@@ -5,7 +5,7 @@ use inputsmith_ipc::model::{
     SmartShiftSettings, StateChange, VirtualThumbwheelKey, WheelDirection,
 };
 
-use crate::vendor::Vendor;
+use crate::catalog;
 
 pub const DEFAULT_PROFILE_NAME: &str = "PROFILE_NAME_DEFAULT";
 
@@ -36,16 +36,15 @@ pub fn overrides(profiles: &[Profile], app_profile: Option<&str>, slot: &str) ->
 
 /// Human-readable name of a card, following `ONE_OF` selections.
 pub fn card_title(card: &Card) -> String {
-    let v = Vendor::get();
     if card.attribute == Attribute::OneOf {
         if let Some(n) = card.nested_cards.get(&card.selected_nested_card) {
-            return format!("{}: {}", v.text(&card.name), v.text(&n.name));
+            return format!("{}: {}", catalog::text(&card.name), catalog::text(&n.name));
         }
     }
     if card.name.is_empty() {
         return card.id.clone();
     }
-    v.text(&card.name)
+    catalog::text(&card.name)
 }
 
 pub fn application_name(apps: &[Application], profile: &Profile) -> String {

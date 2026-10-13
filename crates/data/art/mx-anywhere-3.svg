@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Logitech MX Anywhere 3, top view.
+  From Piper (https://github.com/libratbag/piper), data/svgs/logitech-mx-anywhere3.svg,
+  by the Piper contributors (erdincay, christiangnrd), licensed GPL-2.0-or-later.
+  Modified for Inputsmith: only the device layer is kept (no button leaders), cropped to the device,
+  editor metadata removed. See crates/data/README.md.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="266" height="422" viewBox="84 16 266 422">
+  <g
+     id="Device"
+     style="display:inline"
+     transform="translate(0,321.03999)">
+    <path
+       style="opacity:1;vector-effect:none;fill:#d3d3ce;fill-opacity:1;fill-rule:evenodd;stroke:#babdb6;stroke-width:3.41371px;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 283.45521,-284.94224 c 23.75737,6.5434 31.02802,14.25907 34.7046,33.79655 0,0 17.92699,77.49361 12.51689,143.30021 13.91194,75.097485 15.57709,143.523013 -34.77678,188.049421 C 255.69522,115.75575 172.07069,114.33045 134.92869,76.826071 109.72014,54.683009 103.04046,35.854875 96.929779,7.4222988 90.508055,-22.457521 96.301125,-55.872859 98.754704,-87.659823 97.478467,-162.6321 106.69422,-222.05467 113.17895,-250.35293 c 3.99526,-15.72475 6.18755,-25.18018 29.27115,-33.85056 49.76783,-13.61746 90.16125,-13.67396 141.00511,-0.73875 z"
+       id="path958" />
+    <path
+       style="display:inline;opacity:1;vector-effect:none;fill:#eeeeec;fill-opacity:1;fill-rule:evenodd;stroke:#babdb6;stroke-width:2.04823;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 285.96058,-277.83 c 10.27506,3.52994 21.46559,10.80207 23.58072,20.74338 34.47843,139.54316 -9.91647,325.551372 -26.38672,338.975779 -6.78755,4.228174 -11.20743,6.780113 -21.60607,10.98769 -19.67006,8.516471 -56.2555,9.578451 -89.88263,-1.728888 C 161.11493,86.798536 153.12507,79.558674 151.41342,77.097563 108.17234,14.923128 94.780079,-185.47392 121.85456,-257.43555 c 8.70203,-17.01433 15.85555,-19.49345 27.12696,-22.48722 48.17099,-12.76931 106.5965,-10.67308 136.97906,2.09277 z"
+       id="path970" />
+        <path
+       style="display:inline;opacity:1;vector-effect:none;fill:#eeeeec;fill-opacity:1;fill-rule:evenodd;stroke:#babdb6;stroke-width:2.04823;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 136.63058,68.128957 C 114.20911,19.974451 107.69292,-40.267897 102.04775,-71.278623 92.230276,-7.830751 103.22322,43.063473 136.63058,68.128957 Z"
+       id="path974" />
+    <path
+       style="display:inline;opacity:1;fill:#eeeeec;fill-opacity:1;fill-rule:evenodd;stroke:#babdb6;stroke-width:2.048;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 297.82227,70.056854 C 340.23664,33.936409 336.82034,-55.657168 328.68824,-89.928643 324.17407,-16.874058 306.98633,34.009118 297.82227,70.056854 Z"
+       id="path974-5" />
+    <path
+       style="display:inline;opacity:1;vector-effect:none;fill:#eeeeec;fill-opacity:1;fill-rule:evenodd;stroke:#babdb6;stroke-width:3.41371px;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 101.7889,-134.74676 c -3.361731,2.60582 -4.603332,8.39169 -4.603332,8.39169 0.473845,10.13934 1.066824,31.502402 0.955472,37.673512 l 4.57588,0.0035 c -0.31049,-16.987492 -0.0137,-10.783349 -0.92802,-46.068682 z"
+       id="button4" />
+    <path
+       style="display:inline;opacity:1;vector-effect:none;fill:#eeeeec;fill-opacity:1;fill-rule:evenodd;stroke:#babdb6;stroke-width:3.41371px;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 98.836168,-82.200661 c 0.841506,14.715931 0.09993,25.911891 8.512692,45.366392 l -4.15322,-45.614814 z"
+       id="button3" />
+    <path
+       style="opacity:1;fill:#eeeeec;fill-opacity:1;fill-rule:evenodd;stroke:#babdb6;stroke-width:2.27;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 216.70443,-287.78301 -0.0806,16.93263"
+       id="path1908" />
+    <rect
+       style="display:inline;opacity:1;vector-effect:none;fill:#d9dad7;fill-opacity:1;stroke:#babdb6;stroke-width:1.50166;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
+       id="rect972"
+       width="5.5562944"
+       height="9.0419521"
+       x="213.72035"
+       y="-122.94032"
+       ry="2.2361817" />
+    <rect
+       style="display:inline;opacity:1;vector-effect:none;fill:#d9dad7;fill-opacity:1;stroke:#babdb6;stroke-width:3.65283;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
+       id="button5"
+       width="16.282358"
+       height="41.114998"
+       x="208.51932"
+       y="-174.77988"
+       ry="8.3229322" />
+    <rect
+       style="display:inline;opacity:1;fill:#d9dad7;fill-opacity:1;stroke:#babdb6;stroke-width:3.038;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
+       id="button2"
+       width="28.824314"
+       height="62.129688"
+       x="202.65523"
+       y="-253.04852"
+       ry="4.4855194" />
+    <path
+       style="opacity:1;vector-effect:none;fill:#efefec;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2.04823;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 120.73491,-251.04149 c -5.3081,16.05965 -11.09575,34.81252 -11.85375,99.99765 l 82.10986,0.002 0.10187,-70.99182 0.13692,-23.64835 c 0.0224,-3.87029 1.23367,-8.23585 2.69418,-11.47098 3.67017,-8.1297 11.08398,-13.84044 21.58134,-14.76551 0,0 0.10444,-12.71473 0.0694,-15.62031 -8.63123,0.18438 -18.12865,0.69266 -28.00204,1.67231 -9.58215,0.95075 -19.00106,2.57853 -27.40328,4.31785 -10.79216,2.23405 -19.82955,4.80797 -24.56032,8.01969 -5.21927,3.21643 -9.70044,10.16328 -12.48013,15.84401 -1.17088,2.39288 -1.85436,4.81934 -2.39405,6.64346 z"
+       id="button0" />
+    <path
+       style="display:inline;opacity:1;vector-effect:none;fill:#eeeeec;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2.04823;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 294.15753,-273.08562 c 5.62995,3.06868 9.46173,6.5343 11.77261,10.02344 3.65648,5.52082 5.66496,21.51835 7.10232,26.89201 3.47663,18.81935 5.46378,33.8214 6.73121,52.84197 0.62977,9.45117 0.89123,19.92917 1.44714,32.29201 l -79.01513,0.004 -0.13895,-95.46498 c -0.16952,-4.35128 -1.63179,-9.01722 -3.34294,-12.3327 -4.63472,-7.98721 -11.89415,-12.16437 -20.94633,-13.02185 l 0.0387,-15.64995 c 32.40296,0.18356 56.01582,4.25154 76.35137,14.41609 z"
+       id="button1" />
+    <ellipse
+       style="opacity:0.430292;stroke-width:2.27;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path12914"
+       cx="233.65762"
+       cy="-253.63913"
+       rx="0.063097544"
+       ry="0.28458631" />
+    <path
+       style="opacity:1;fill:none;stroke:#babdb6;stroke-width:2.27;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+       d="m 192.28516,-245.88374 c 2.60621,-33.84827 46.86909,-32.17354 48.64868,-0.34228 l 0.2411,179.348009 c -1.2392,35.385425 -49.7059,36.536461 -49.14582,-3.186073 z"
+       id="path14443" />
+  </g>
+</svg>

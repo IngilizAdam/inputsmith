@@ -1,0 +1,129 @@
+{
+  "controls": {
+    "82": {
+      "recommended": [
+        "card_global_presets_middle_button",
+        "card_global_presets_show_radial_menu",
+        "card_global_presets_mode_shift",
+        "card_global_presets_win_task_view",
+        "card_global_presets_win_hide_show_desktop",
+        "card_global_presets_one_of_gesture_button",
+        "card_global_presets_keyboard_shortcut",
+        "card_global_presets_spotlight_effects"
+      ],
+      "allowedTags": [
+        "PRESET_TAG_MOUSE",
+        "PRESET_TAG_BUTTON",
+        "PRESET_TAG_KEY_OR_BUTTON",
+        "PRESET_TAG_KEY_OR_BUTTON_ADVANCED_CLICK",
+        "PRESET_TAG_MISC",
+        "PRESET_TAG_GESTURE",
+        "PRESET_TAG_BRIGHTNESS",
+        "PRESET_TAG_SPOTLIGHT_EFFECTS",
+        "PRESET_CURATED_WEBCAM_FUNCTIONS",
+        "PRESET_WEBCAM_FUNCTIONS",
+        "PRESET_CUSTOM_WEBCAM_FUNCTIONS"
+      ]
+    },
+    "83": {
+      "recommended": [
+        "card_global_presets_win_back",
+        "card_global_presets_show_radial_menu",
+        "card_global_presets_win_copy",
+        "card_global_presets_volume_down",
+        "card_global_presets_win_undo",
+        "card_global_presets_keyboard_shortcut",
+        "card_global_presets_spotlight_effects"
+      ],
+      "allowedTags": [
+        "PRESET_TAG_MOUSE",
+        "PRESET_TAG_BUTTON",
+        "PRESET_TAG_KEY_OR_BUTTON",
+        "PRESET_TAG_KEY_OR_BUTTON_ADVANCED_CLICK",
+        "PRESET_TAG_MISC",
+        "PRESET_TAG_GESTURE",
+        "PRESET_TAG_BRIGHTNESS",
+        "PRESET_TAG_SPOTLIGHT_EFFECTS",
+        "PRESET_CURATED_WEBCAM_FUNCTIONS",
+        "PRESET_WEBCAM_FUNCTIONS",
+        "PRESET_CUSTOM_WEBCAM_FUNCTIONS"
+      ]
+    },
+    "86": {
+      "recommended": [
+        "card_global_presets_win_forward",
+        "card_global_presets_show_radial_menu",
+        "card_global_presets_win_paste",
+        "card_global_presets_volume_up",
+        "card_global_presets_win_redo",
+        "card_global_presets_keyboard_shortcut",
+        "card_global_presets_spotlight_effects"
+      ],
+      "allowedTags": [
+        "PRESET_TAG_MOUSE",
+        "PRESET_TAG_BUTTON",
+        "PRESET_TAG_KEY_OR_BUTTON",
+        "PRESET_TAG_KEY_OR_BUTTON_ADVANCED_CLICK",
+        "PRESET_TAG_MISC",
+        "PRESET_TAG_GESTURE",
+        "PRESET_TAG_BRIGHTNESS",
+        "PRESET_TAG_SPOTLIGHT_EFFECTS",
+        "PRESET_CURATED_WEBCAM_FUNCTIONS",
+        "PRESET_WEBCAM_FUNCTIONS",
+        "PRESET_CUSTOM_WEBCAM_FUNCTIONS"
+      ]
+    },
+    "195": {
+      "recommended": [
+        "card_global_presets_one_of_gesture_button",
+        "card_global_presets_win_task_view",
+        "card_global_presets_win_hide_show_desktop",
+        "card_global_presets_win_screen_capture",
+        "card_global_presets_win_print_screen",
+        "card_global_presets_win_switch_applications",
+        "card_global_presets_keyboard_shortcut",
+        "card_global_presets_spotlight_effects"
+      ],
+      "allowedTags": [
+        "PRESET_TAG_MOUSE",
+        "PRESET_TAG_MOUSE_SMARTSHIFT",
+        "PRESET_TAG_BUTTON",
+        "PRESET_TAG_KEY_OR_BUTTON",
+        "PRESET_TAG_KEY_OR_BUTTON_ADVANCED_CLICK",
+        "PRESET_TAG_MISC",
+        "PRESET_TAG_GESTURE",
+        "PRESET_TAG_BRIGHTNESS",
+        "PRESET_TAG_SPOTLIGHT_EFFECTS",
+        "PRESET_CURATED_WEBCAM_FUNCTIONS",
+        "PRESET_WEBCAM_FUNCTIONS",
+        "PRESET_CUSTOM_WEBCAM_FUNCTIONS"
+      ]
+    },
+    "196": {
+      "recommended": [
+        "card_global_presets_mode_shift",
+        "card_global_presets_win_task_view",
+        "card_global_presets_middle_button",
+        "card_global_presets_one_of_gesture_button",
+        "card_global_presets_win_screen_capture",
+        "card_global_presets_win_print_screen",
+        "card_global_presets_keyboard_shortcut",
+        "card_global_presets_spotlight_effects"
+      ],
+      "allowedTags": [
+        "PRESET_TAG_MOUSE",
+        "PRESET_TAG_MOUSE_SMARTSHIFT",
+        "PRESET_TAG_BUTTON",
+        "PRESET_TAG_KEY_OR_BUTTON",
+        "PRESET_TAG_KEY_OR_BUTTON_ADVANCED_CLICK",
+        "PRESET_TAG_MISC",
+        "PRESET_TAG_GESTURE",
+        "PRESET_TAG_BRIGHTNESS",
+        "PRESET_TAG_SPOTLIGHT_EFFECTS",
+        "PRESET_CURATED_WEBCAM_FUNCTIONS",
+        "PRESET_WEBCAM_FUNCTIONS",
+        "PRESET_CUSTOM_WEBCAM_FUNCTIONS"
+      ]
+    }
+  }
+}

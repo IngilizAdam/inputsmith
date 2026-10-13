@@ -47,7 +47,7 @@ injected into the system) rather than guessed. Details are in
 | Smooth scrolling | ✅ | Same input as Options+ (one 120-unit event per wheel report). |
 | Horizontal scrolling with side buttons (hold + wheel) | ✅ | |
 | Swap left/right buttons | ✅ | System setting, applies to every mouse (as in Options+). |
-| Per-model defaults | ✅ | Read from a local Options+ installation's device database when present. |
+| Per-model defaults | ✅ | From the built-in device description (same values as Options+). |
 | Scroll speed | ❌ | |
 | Thumbwheel (MX Master etc.) | ❌ | Feature access exists; settings and actions not wired up. |
 | Report rate, onboard profiles (gaming mice) | ❌ | |
@@ -56,7 +56,7 @@ injected into the system) rather than guessed. Details are in
 
 | Feature | Status | Notes |
 |---|---|---|
-| Re-assign buttons (middle, back, forward, top / mode-shift, gesture button) | ✅ | Left and right click are never taken over. |
+| Re-assign buttons (middle, back, forward, top / mode-shift, gesture button) | ✅ | Left and right click are never taken over. The picker offers the common actions (28, incl. gestures); the rest of Options+'s list is still to come. |
 | Per-application profiles | 🔬 | Switches with the foreground application; covered by unit tests, not yet verified end-to-end. |
 | Keyboard shortcut | 🟡 | Runs; the GUI offers presets only — a shortcut recorder is missing. |
 | Mouse actions (click, back/forward, wheel, middle) | ✅ | Back/forward verified; the others use the same path. |
@@ -126,6 +126,6 @@ These Options+ features are left out on purpose:
 
 - **Do not run Logi Options+ at the same time** — both would configure the devices. Quit it (including
   its background agent) before starting Inputsmith.
-- A local Options+ installation is **optional**. When present, Inputsmith reads device pictures, product
-  names, the action catalog and per-model defaults from it at runtime (nothing is copied into this
-  repository). Without it, devices are shown with generic art and a smaller built-in action list.
+- **Options+ is not needed.** Device pictures, names, defaults and the action list are built in. Devices
+  without a built-in description still work, with names from firmware and a plain list instead of a
+  picture. Options+ files are only read by the optional settings import.

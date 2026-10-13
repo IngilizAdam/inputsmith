@@ -18,7 +18,7 @@ This is an independent project, not affiliated with or endorsed by Logitech.
 
 - Pointer speed, SmartShift (sensitivity and scrolling force), scroll direction, smooth scrolling,
   horizontal scrolling with the side buttons, left/right button swap
-- Button re-assignment with the Options+ action catalog, per-application profiles
+- Button re-assignment (the commonly used actions so far), per-application profiles
 - Gesture button presets (app navigation, media controls, virtual desktops, …); step distances and timing
   measured against Options+
 - Settings re-applied automatically when a device wakes up or is switched back on; switched-off devices
@@ -56,9 +56,8 @@ anyway"). To build it yourself, see [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).
    existing button assignments, scrolling settings and application profiles.
 3. Optionally turn on **Start at login**.
 
-If Options+ is still installed, Inputsmith uses its device pictures, product names and action catalog
-(read at runtime; nothing is copied). Without it, devices are shown with generic art and a smaller set of
-built-in actions.
+Inputsmith does not need Options+: device pictures, names and the action list are built in. Options+ is
+only read when you choose to import its settings.
 
 ## Command-line tools
 
@@ -99,8 +98,9 @@ the HID++ protocol. It is not affiliated with, sponsored or endorsed by Logitech
 Logi Options+ and Logitech product names are trademarks of Logitech; they are used here only to describe
 what Inputsmith is compatible with.
 
-The repository contains no Logitech code, binaries, artwork or device databases. Where such data is
-useful (device pictures, product names, the action catalog), it is read at runtime from a local Logi
-Options+ installation, if one is present.
+The repository contains no Logitech code, binaries or artwork. Device drawings come from the
+[Piper](https://github.com/libratbag/piper) project (GPL-2.0-or-later); device descriptions, the action list
+and all UI text are written for Inputsmith, using the same identifiers and default values as Options+ so
+settings stay compatible (see [crates/data](crates/data/README.md)).
 
 Inputsmith is free software, licensed under the [GNU General Public License v3.0 or later](LICENSE).

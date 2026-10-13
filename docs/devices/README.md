@@ -8,7 +8,15 @@
 
 Other Logitech mice that speak HID++ 2.0 (most devices supported by Options+) should already get the
 common features — pointer speed, SmartShift, button re-assignment, gestures — but have not been tested.
-Keyboards and other device types are not supported yet; see the [feature matrix](../FEATURES.md).
+Without a built-in description they are shown with their firmware name and a plain list of buttons
+instead of a picture. Keyboards and other device types are not supported yet; see the
+[feature matrix](../FEATURES.md).
+
+## Adding a device
+
+A device gets its picture, name, defaults and hotspots from a file in
+[`crates/data/devices`](../../crates/data/README.md) plus a drawing in `crates/data/art`. Add a notes file
+here as well once the device has been tested.
 
 ## Reporting a device
 

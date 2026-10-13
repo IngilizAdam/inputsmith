@@ -50,7 +50,7 @@ controls have it, and only they are offered horizontal scrolling).
   device already matches** (no 0x2111 writes seen in a sniff session).
 - Pointer speed is applied as sensor DPI (not Windows mouse speed).
 - Gesture behaviour: see [Measured behaviour](../BEHAVIOR.md#gestures).
-- Defaults (`devices.json` `mouseScrollWheelOverride`): standard direction, smooth off, SmartShift on,
+- Defaults (Options+'s `mouseScrollWheelOverride`, mirrored in [`crates/data/devices/mx-anywhere-3.json`](../../crates/data/devices/mx-anywhere-3.json)): standard direction, smooth off, SmartShift on,
   sensitivity 83, scroll force 50, **horizontal scrolling enabled on Back and Forward** (hold + wheel).
 - Smooth scrolling diverts the wheel (`setWheelMode 0x01`); smooth off uses the native wheel
   (`0x00`, or `0x04` for inverted). Hi-res mode is never used. Details: [Measured behaviour](../BEHAVIOR.md#scroll-wheel).

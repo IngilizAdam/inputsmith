@@ -12,8 +12,10 @@
   protocol. Never contribute Logitech code, decompiled or disassembled code, or files extracted from
   Logitech software, and do not describe vendor internals in the repository. Describe what you observed
   (device traffic, injected input, files Options+ writes to disk) instead.
-- **No vendor files in the repository.** Logitech artwork and device databases are only read at runtime
-  from a local Options+ installation, when present.
+- **No vendor files in the repository, no Options+ needed.** Device art comes from Piper or is drawn for
+  Inputsmith; device descriptions, actions and UI text are written by hand in [`crates/data`](../crates/data/README.md),
+  with identifiers and default values matching Options+ so settings stay compatible. Options+ files are
+  read only by the optional settings import.
 - **Clean behaviour.** Only what users want is reproduced: no telemetry, no network access, no tracking
   (Inputsmith switches off the per-click analytics reporting Options+ enables on devices).
 - **Never rely on device persistence.** Devices lose most settings on power-off and deep sleep; the agent
@@ -26,6 +28,7 @@
 |---|---|---|
 | `inputsmith-hid` | | HID transport: Windows HID API (overlapped I/O), Linux hidraw (untested). |
 | `inputsmith-hidpp` | | HID++ 1.0/2.0: channels and request matching, receivers (Unifying, Bolt), feature tables, typed features (device info, battery, DPI, SmartShift, hi-res wheel, thumbwheel, special keys, config cookie, change host, Fn inversion). |
+| `inputsmith-data` | | Built-in data: device descriptions, device art (SVG), action catalog, per-control picker data, UI text. |
 | `inputsmith-ipc` | | Settings model (`model`), agent API (`api`), local IPC transport (named pipe / Unix socket, length-prefixed JSON). |
 | `inputsmith-input` | | Input injection (Windows `SendInput`), foreground application, launching, button swap. |
 | `inputsmith-agent` | `inputsmith-agent` | Background service: device runtime, settings, actions, gestures, per-app profiles, backups, Options+ import (with a read-only SQLite reader), IPC server. |
