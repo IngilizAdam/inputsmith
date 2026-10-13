@@ -6,8 +6,7 @@
   Installs to %LOCALAPPDATA%\Programs\inputsmith, no administrator rights needed. Settings in
   %APPDATA%\inputsmith are never touched.
 -->
-<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
-     xmlns:util="http://wixtoolset.org/schemas/v4/wxs/util">
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
   <Package Name="Inputsmith"
            Manufacturer="Inputsmith contributors"
            Version="$(Version)"
@@ -66,12 +65,13 @@
       <ComponentRef Id="Logs" />
     </Feature>
 
-    <!-- Running copies keep the files locked (scheduled at the start, see InstallExecuteSequence). The GUI
-         restarts the agent, so it goes first. -->
-    <util:CloseApplication Id="CloseGui" Target="inputsmith-gui.exe" TerminateProcess="1" RebootPrompt="no"
-                           Sequence="1" />
-    <util:CloseApplication Id="CloseAgent" Target="inputsmith-agent.exe" TerminateProcess="1" RebootPrompt="no"
-                           Sequence="2" />
+    <!-- Running copies keep the files and folders locked. End them before Windows Installer checks for
+         files in use (it would ask the user to close them) and before an old version is removed. The
+         GUI restarts the agent, so it goes first; /T also ends the agent it started. -->
+    <SetProperty Id="WixQuietExecCmdLine" Sequence="execute" Before="CloseRunningApp"
+                 Value="&quot;[System64Folder]taskkill.exe&quot; /F /T /IM inputsmith-gui.exe /IM inputsmith-agent.exe" />
+    <CustomAction Id="CloseRunningApp" BinaryRef="Wix4UtilCA_$(sys.BUILDARCHSHORT)" DllEntry="WixQuietExec"
+                  Execute="immediate" Return="ignore" />
 
     <!-- "Start at login" is a switch in the app (HKCU Run value "inputsmith"); drop it on uninstall. -->
     <SetProperty Id="RemoveAutostart" Sequence="execute" Before="RemoveAutostart"
@@ -87,10 +87,7 @@
                   Return="asyncNoWait" />
 
     <InstallExecuteSequence>
-      <!-- Close running copies at the start of the install script: by default this happens after the
-           files and folders are removed, and the running app keeps its folders from being deleted.
-           (An old version is removed before this script runs, with its own close step.) -->
-      <Custom Action="override Wix4CloseApplications_$(sys.BUILDARCHSHORT)" After="InstallInitialize" />
+      <Custom Action="CloseRunningApp" Before="InstallValidate" />
       <Custom Action="RemoveAutostart" Before="RemoveFiles"
               Condition="REMOVE~=&quot;ALL&quot; AND NOT UPGRADINGPRODUCTCODE" />
       <Custom Action="LaunchAppFirstInstall" After="InstallFinalize"

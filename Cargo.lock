@@ -1881,7 +1881,7 @@ dependencies = [
 
 [[package]]
 name = "inputsmith-agent"
-version = "0.1.2-rc.1"
+version = "0.1.2-rc.2"
 dependencies = [
  "ctrlc",
  "env_logger",
@@ -1897,7 +1897,7 @@ dependencies = [
 
 [[package]]
 name = "inputsmith-cli"
-version = "0.1.2-rc.1"
+version = "0.1.2-rc.2"
 dependencies = [
  "inputsmith-hid",
  "inputsmith-hidpp",
@@ -1908,7 +1908,7 @@ dependencies = [
 
 [[package]]
 name = "inputsmith-data"
-version = "0.1.2-rc.1"
+version = "0.1.2-rc.2"
 dependencies = [
  "inputsmith-ipc",
  "log",
@@ -1918,7 +1918,7 @@ dependencies = [
 
 [[package]]
 name = "inputsmith-gui"
-version = "0.1.2-rc.1"
+version = "0.1.2-rc.2"
 dependencies = [
  "env_logger",
  "futures",
@@ -1935,7 +1935,7 @@ dependencies = [
 
 [[package]]
 name = "inputsmith-hid"
-version = "0.1.2-rc.1"
+version = "0.1.2-rc.2"
 dependencies = [
  "libc",
  "log",
@@ -1945,7 +1945,7 @@ dependencies = [
 
 [[package]]
 name = "inputsmith-hidpp"
-version = "0.1.2-rc.1"
+version = "0.1.2-rc.2"
 dependencies = [
  "inputsmith-hid",
  "log",
@@ -1954,7 +1954,7 @@ dependencies = [
 
 [[package]]
 name = "inputsmith-input"
-version = "0.1.2-rc.1"
+version = "0.1.2-rc.2"
 dependencies = [
  "log",
  "thiserror 2.0.21",
@@ -1963,7 +1963,7 @@ dependencies = [
 
 [[package]]
 name = "inputsmith-ipc"
-version = "0.1.2-rc.1"
+version = "0.1.2-rc.2"
 dependencies = [
  "serde",
  "serde_json",
