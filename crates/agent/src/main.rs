@@ -11,6 +11,7 @@ use std::time::{Duration, SystemTime};
 use inputsmith_agent::actions::Executor;
 use inputsmith_agent::devicedb::DeviceDb;
 use inputsmith_agent::devices::{Shared, run_channel};
+use inputsmith_agent::logfile::RotatingLog;
 use inputsmith_agent::store::{Settings, Store};
 
 const USAGE: &str = "usage: inputsmith-agent [command]
@@ -25,20 +26,15 @@ commands:
   restore <file>           restore a backup (current settings are backed up first)
   path                     print the settings directory";
 
-/// Keeps one previous log next to the current one.
-const LOG_ROTATE_BYTES: u64 = 5 * 1024 * 1024;
+/// Size of the log file before it is rotated; one previous log is kept, so at
+/// most about twice this on disk.
+const LOG_ROTATE_BYTES: u64 = 1024 * 1024;
 
 fn init_logging(log_file: Option<&str>) {
     let mut b = env_logger::Builder::from_env(env_logger::Env::default().default_filter_or("info"));
     if let Some(path) = log_file {
         let path = PathBuf::from(path);
-        if std::fs::metadata(&path).is_ok_and(|m| m.len() > LOG_ROTATE_BYTES) {
-            let _ = std::fs::rename(&path, path.with_extension("old.log"));
-        }
-        if let Some(dir) = path.parent() {
-            let _ = std::fs::create_dir_all(dir);
-        }
-        match std::fs::OpenOptions::new().create(true).append(true).open(&path) {
+        match RotatingLog::open(&path, LOG_ROTATE_BYTES) {
             Ok(f) => {
                 b.target(env_logger::Target::Pipe(Box::new(f)));
             }

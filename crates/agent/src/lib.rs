@@ -6,6 +6,7 @@ pub mod devicedb;
 pub mod devices;
 pub mod gesture;
 pub mod ipc;
+pub mod logfile;
 pub mod mapping;
 pub mod sqlite;
 pub mod store;

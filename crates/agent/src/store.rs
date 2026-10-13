@@ -14,6 +14,9 @@ use serde::{Deserialize, Serialize};
 
 pub const SCHEMA_VERSION: u32 = 1;
 pub const DEFAULT_PROFILE_NAME: &str = "PROFILE_NAME_DEFAULT";
+/// Label prefix of the backups made automatically before imports and restores.
+const AUTO_BACKUP_PREFIX: &str = "before-";
+const AUTO_BACKUPS_KEPT: usize = 10;
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize, PartialEq)]
 pub struct Settings {
@@ -228,7 +231,25 @@ impl Store {
             .collect();
         let path = self.backups_dir().join(format!("{ts}-{label}.json"));
         write_atomic(&path, s)?;
+        if label.starts_with(AUTO_BACKUP_PREFIX) {
+            self.prune_auto_backups()?;
+        }
         Ok(path)
+    }
+
+    /// Deletes all but the newest [`AUTO_BACKUPS_KEPT`] automatic ("before-…")
+    /// backups. Backups the user made are never deleted.
+    fn prune_auto_backups(&self) -> Result<(), StoreError> {
+        let auto = self.list_backups()?.into_iter().filter(|p| {
+            p.file_stem()
+                .and_then(|s| s.to_str())
+                .and_then(|s| s.split_once('-'))
+                .is_some_and(|(_, label)| label.starts_with(AUTO_BACKUP_PREFIX))
+        });
+        for old in auto.skip(AUTO_BACKUPS_KEPT) {
+            fs::remove_file(old)?;
+        }
+        Ok(())
     }
 
     fn known_devices_path(&self) -> PathBuf {
@@ -386,6 +407,25 @@ mod tests {
         assert_eq!(restored, s);
         assert_eq!(store.load().unwrap(), s);
         assert_eq!(store.list_backups().unwrap().len(), 2); // test + before-restore
+        let _ = fs::remove_dir_all(dir);
+    }
+
+    #[test]
+    fn automatic_backups_are_pruned() {
+        let dir = std::env::temp_dir().join(format!("inputsmith-test-{}", new_id()));
+        let store = Store::new(&dir);
+        fs::create_dir_all(store.backups_dir()).unwrap();
+        for ts in 1000..1020 {
+            fs::write(store.backups_dir().join(format!("{ts}-before-import.json")), "{}").unwrap();
+            fs::write(store.backups_dir().join(format!("{ts}-manual.json")), "{}").unwrap();
+        }
+        let newest = store.create_backup(&Settings::default(), Some("before-restore")).unwrap();
+        let left = store.list_backups().unwrap();
+        let auto: Vec<_> = left.iter().filter(|p| p.to_string_lossy().contains("-before-")).collect();
+        assert_eq!(auto.len(), AUTO_BACKUPS_KEPT);
+        assert_eq!(auto[0], &newest);
+        assert!(auto.last().unwrap().ends_with("1011-before-import.json"));
+        assert_eq!(left.len() - auto.len(), 20); // manual backups untouched
         let _ = fs::remove_dir_all(dir);
     }
 }
