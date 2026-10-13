@@ -24,7 +24,7 @@
       <Directory Id="ProgramsDir" Name="Programs">
         <Directory Id="INSTALLFOLDER" Name="inputsmith">
           <!-- Files in the user profile need an HKCU value as key path (ICE38). -->
-          <Component Id="Programs">
+          <Component Id="Programs" Guid="0347F20A-3B9B-4E37-9CB1-107418292D3D">
             <RegistryKey Root="HKCU" Key="Software\Inputsmith" ForceDeleteOnUninstall="yes">
               <RegistryValue Name="InstallDir" Type="string" Value="[INSTALLFOLDER]" KeyPath="yes" />
             </RegistryKey>
