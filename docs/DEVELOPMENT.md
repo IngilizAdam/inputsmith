@@ -92,6 +92,20 @@ pre-releases). To rebuild an existing tag, run the *Release* workflow by hand fr
 replaces the release's files. A new platform (e.g. Linux `.deb`/`.rpm`) only needs a job in `build.yml`
 that uploads its packages as an artifact.
 
+When the installer changed, release a candidate first (`0.2.0-rc.1`, tag `v0.2.0-rc.1`) and test it on a
+machine with the previous release installed and running: upgrade by double-clicking the MSI, then
+uninstall from *Settings → Apps*, then install again. The final release upgrades the candidate in place
+(the MSI version has no `-rc` part, and same-version upgrades are allowed).
+
+Installer notes:
+- The app is closed at the start of both install sequences, before Windows Installer starts tracking files
+  in use. With the full UI (double-click, Settings → Apps) there is no "close applications" prompt; with
+  `msiexec /qb` the prompt can still appear with a stale entry, because the execute sequence opens its
+  Restart Manager session before any custom action runs.
+- Testing from inside a packaged (MSIX) app — such as some IDE or assistant shells — redirects writes to
+  `%APPDATA%` into the package's private folder. Apps the installer starts see the real folder, so test
+  installs from a normal shell or Explorer.
+
 ## Observing Options+
 
 1. Run Options+ and stop `inputsmith-agent`.
