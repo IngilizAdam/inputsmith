@@ -65,11 +65,11 @@
       <ComponentRef Id="Logs" />
     </Feature>
 
-    <!-- Running copies keep the files and folders locked. End them before Windows Installer checks for
-         files in use (it would ask the user to close them) and before an old version is removed. The
-         GUI restarts the agent, so it goes first. Each is waited for: a process that is still exiting
-         would show up in the files-in-use check. -->
-    <SetProperty Id="WixQuietExecCmdLine" Sequence="execute" Before="CloseRunningApp"
+    <!-- Running copies keep the files and folders locked. End them first thing, before Windows Installer
+         starts tracking files in use (at CostInitialize; it would ask the user to close them) and before
+         an old version is removed. The GUI restarts the agent, so it goes first. Each is waited for: a
+         process that is still exiting would show up in the files-in-use check. -->
+    <SetProperty Id="WixQuietExecCmdLine" Sequence="both" Before="CloseRunningApp"
                  Value="&quot;[System64Folder]WindowsPowerShell\v1.0\powershell.exe&quot; -NoProfile -NonInteractive -Command &quot;Get-Process inputsmith-gui -ErrorAction SilentlyContinue | Stop-Process -Force -PassThru | Wait-Process -Timeout 10 -ErrorAction SilentlyContinue; Get-Process inputsmith-agent -ErrorAction SilentlyContinue | Stop-Process -Force -PassThru | Wait-Process -Timeout 10 -ErrorAction SilentlyContinue&quot;" />
     <CustomAction Id="CloseRunningApp" BinaryRef="Wix4UtilCA_$(sys.BUILDARCHSHORT)" DllEntry="WixQuietExec"
                   Execute="immediate" Return="ignore" />
@@ -88,7 +88,7 @@
                   Return="asyncNoWait" />
 
     <InstallExecuteSequence>
-      <Custom Action="CloseRunningApp" Before="InstallValidate" />
+      <Custom Action="CloseRunningApp" Before="CostInitialize" />
       <Custom Action="RemoveAutostart" Before="RemoveFiles"
               Condition="REMOVE~=&quot;ALL&quot; AND NOT UPGRADINGPRODUCTCODE" />
       <Custom Action="LaunchAppFirstInstall" After="InstallFinalize"
@@ -96,5 +96,9 @@
       <Custom Action="LaunchApp" After="LaunchAppFirstInstall"
               Condition="NOT Installed AND NOT REMOVE AND WIX_UPGRADE_DETECTED AND UILevel &lt;&gt; 2" />
     </InstallExecuteSequence>
+    <!-- With the full UI (double-clicking the MSI) costing runs in this sequence first. -->
+    <InstallUISequence>
+      <Custom Action="CloseRunningApp" Before="CostInitialize" />
+    </InstallUISequence>
   </Package>
 </Wix>
