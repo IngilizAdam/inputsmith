@@ -89,7 +89,7 @@
     <InstallExecuteSequence>
       <!-- Close running copies first: by default this happens after the files and folders are removed,
            and the running app keeps its folders from being deleted. -->
-      <Custom Action="Wix4CloseApplications_$(sys.BUILDARCHSHORT)" Before="RemoveExistingProducts" />
+      <Custom Action="override Wix4CloseApplications_$(sys.BUILDARCHSHORT)" Before="RemoveExistingProducts" />
       <Custom Action="RemoveAutostart" Before="RemoveFiles"
               Condition="REMOVE~=&quot;ALL&quot; AND NOT UPGRADINGPRODUCTCODE" />
       <Custom Action="LaunchAppFirstInstall" After="InstallFinalize"
