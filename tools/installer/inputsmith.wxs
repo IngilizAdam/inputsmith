@@ -14,8 +14,8 @@
            UpgradeCode="D2EF50AA-DDB3-4847-B8F8-5ECE9BD813EB"
            Scope="perUser"
            Compressed="yes">
-    <!-- The old version is removed inside the install script, after the running app is closed. -->
-    <MajorUpgrade Schedule="afterInstallInitialize"
+    <!-- Same-version upgrades let a release replace its release candidate (both are MSI version x.y.z). -->
+    <MajorUpgrade AllowSameVersionUpgrades="yes"
                   DowngradeErrorMessage="A newer version of Inputsmith is already installed." />
     <MediaTemplate EmbedCab="yes" />
 
@@ -87,9 +87,10 @@
                   Return="asyncNoWait" />
 
     <InstallExecuteSequence>
-      <!-- Close running copies first: by default this happens after the files and folders are removed,
-           and the running app keeps its folders from being deleted. -->
-      <Custom Action="override Wix4CloseApplications_$(sys.BUILDARCHSHORT)" Before="RemoveExistingProducts" />
+      <!-- Close running copies at the start of the install script: by default this happens after the
+           files and folders are removed, and the running app keeps its folders from being deleted.
+           (An old version is removed before this script runs, with its own close step.) -->
+      <Custom Action="override Wix4CloseApplications_$(sys.BUILDARCHSHORT)" After="InstallInitialize" />
       <Custom Action="RemoveAutostart" Before="RemoveFiles"
               Condition="REMOVE~=&quot;ALL&quot; AND NOT UPGRADINGPRODUCTCODE" />
       <Custom Action="LaunchAppFirstInstall" After="InstallFinalize"
